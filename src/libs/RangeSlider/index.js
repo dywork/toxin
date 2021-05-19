@@ -92,4 +92,4 @@ class RangeSlider {
   }
 }
 
-RangeSlider.init();
+export default RangeSlider;
