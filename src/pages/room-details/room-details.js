@@ -1,6 +1,6 @@
 import '../../style/main.scss';
 import './room-details.scss';
-import '../../components/pie-chart/PieChart';
+import '../../components/pie-chart/pie-chart';
 import '../../components/main-menu/MainMenuInit';
 import DatePicker from '../../components/date-picker/DatePicker';
 import DropDownCounter from '../../components/drop-down-counter/DropDownCounter';

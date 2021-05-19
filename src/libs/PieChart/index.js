@@ -58,4 +58,4 @@ class PieChart {
   }
 }
 
-PieChart.init();
+export default PieChart;
