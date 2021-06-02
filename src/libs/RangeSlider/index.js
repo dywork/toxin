@@ -26,7 +26,7 @@ class RangeSlider {
         horizontal: 'horizontal',
         vertical: 'vertical',
         background: 'background',
-        connect: 'connect  range-slider__connect',
+        connect: 'connect range-slider__connect',
         connects: 'connects',
         ltr: 'ltr',
         rtl: 'rtl',
