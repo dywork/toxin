@@ -21,6 +21,10 @@
     }
   }
 
+  &__container {
+    @include container;
+  }
+
   &__wrap {
     padding: 173px 0 174px;
     display: flex;

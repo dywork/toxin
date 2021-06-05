@@ -11,6 +11,10 @@
 @import '../../components/typography/typography.scss';
 
 .not-found-page {
+  &__container {
+    @include container;
+  }
+
   &__wrap {
     padding: 120px 0;
     text-align: center;

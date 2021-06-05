@@ -20,6 +20,10 @@
 @import '../../components/typography/typography.scss';
 
 .room-details {
+  &__container {
+    @include container;
+  }
+
   &__picture {
     margin: auto;
     display: flex;

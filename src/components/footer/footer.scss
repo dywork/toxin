@@ -32,6 +32,10 @@
     bottom: 70px;
   }
 
+  &__container {
+    @include container;
+  }
+
   &__wrap {
     &_short {
       padding: 120px 0;

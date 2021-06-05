@@ -1,4 +1,5 @@
 @import '../../style/utils/variables.scss';
+@import '../../style/utils/mixin.scss';
 @import './sections/inputs/inputs.scss';
 @import './sections/controls/controls.scss';
 @import './sections/buttons/buttons.scss';
@@ -23,6 +24,10 @@
 @import '../../components/comment/comment.scss';
 
 .form-elements {
+  &__container {
+    @include container;
+  }
+
   &__wrap {
     padding-top: 62px;
     padding-bottom: 100px;

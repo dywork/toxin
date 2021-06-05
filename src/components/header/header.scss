@@ -3,6 +3,10 @@
   background-color: white;
   box-shadow: 0 10px 20px rgba(31, 32, 65, .05);
 
+  &__container {
+    @include container;
+  }
+
   &__wrap {
     position: relative;
     padding: 13px 0;

@@ -14,6 +14,10 @@
 @import '../../components/typography/typography.scss';
 
 .registration-page {
+  &__container {
+    @include container;
+  }
+
   &__main {
     background: url('room-interior.jpg') no-repeat;
     background-position: center -70px;

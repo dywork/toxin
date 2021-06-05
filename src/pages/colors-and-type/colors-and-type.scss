@@ -1,8 +1,13 @@
 @import '../../style/utils/variables.scss';
+@import '../../style/utils/mixin.scss';
 @import '../../components/typography/typography.scss';
 @import '../../components/color-palette/color-palette.scss';
 
 .colors-and-type {
+  &__container {
+    @include container;
+  }
+
   &__wrap {
     padding-top: 67px;
     display: flex;
