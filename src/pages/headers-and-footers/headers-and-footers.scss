@@ -13,6 +13,11 @@
 .headers-and-footers {
   background: #f4f4f6;
 
+  &__logo-wrap {
+    padding-top: 30px;
+    padding-left: 30px;
+  }
+
   &__wrap {
     margin-top: 63px;
   }

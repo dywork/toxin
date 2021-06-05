@@ -5,6 +5,7 @@ include ./sections/buttons/buttons
 include ./sections/drop-with-expandable/drop-with-expandable
 include ./sections/drop-with-rich/drop-with-rich
 include ./sections/drop-with-bullet/drop-with-bullet
+include ../../components/ui-kit-logo/ui-kit-logo
 include ../../components/features/features
 include ../../components/comment/comment
 
@@ -16,6 +17,8 @@ block variables
     const pageClass = "form-elements";
 
 block content
+  .form-elements__logo-wrap
+    +uiKitLogo()
   .form-elements__container
     .form-elements__wrap
       .form-elements__row

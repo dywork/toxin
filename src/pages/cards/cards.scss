@@ -17,6 +17,11 @@
 .cards-page {
   background: #f4f4f6;
 
+  &__logo-wrap {
+    padding-top: 30px;
+    padding-left: 30px;
+  }
+
   &__container {
     @include container;
   }

@@ -1,4 +1,5 @@
 extends ../../layout/ui-kit.pug
+include ../../components/ui-kit-logo/ui-kit-logo
 include ../../components/header/header
 include ../../components/footer/footer
 
@@ -34,6 +35,8 @@ block variables
     ];
   
 block content
+  .headers-and-footers__logo-wrap
+    +uiKitLogo()
   .headers-and-footers__wrap
     .headers-and-footers__item
       +header({ customMenuItems: menuItems })

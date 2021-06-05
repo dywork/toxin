@@ -24,6 +24,11 @@
 @import '../../components/comment/comment.scss';
 
 .form-elements {
+  &__logo-wrap {
+    padding-top: 30px;
+    padding-left: 30px;
+  }
+
   &__container {
     @include container;
   }
