@@ -48,6 +48,7 @@
     "stylelint-declaration-block-no-ignored-properties": "^2.3.0",
     "stylelint-media-use-custom-media": "^1.0.0",
     "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.19.0",
     "stylelint-value-no-unknown-custom-properties": "^2.0.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",

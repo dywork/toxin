@@ -3,6 +3,7 @@
     "stylelint-config-recommended",
   ],
   "plugins": [
+    "stylelint-scss",
     "stylelint-value-no-unknown-custom-properties",
     "stylelint-at-rule-no-children",
     "stylelint-declaration-block-no-ignored-properties",
@@ -11,6 +12,8 @@
   ],
   "defaultSeverity": "error",
   "rules": {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
     "aditayvm/at-rule-no-children": true,
     "plugin/declaration-block-no-ignored-properties": true,
     "csstools/media-use-custom-media": [
