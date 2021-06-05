@@ -1,0 +1,18 @@
+@mixin container() {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 10px;
+  width: 80.5556%;
+  min-width: 320px;
+  max-width: 1920px;
+
+  @media (max-width: 1300px) {
+    width: 90.5556%;
+  }
+
+  @media (max-width: 425px) {
+    margin: 0;
+    padding: 0;
+    width: auto;
+  }
+}
