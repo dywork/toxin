@@ -151,7 +151,7 @@
 
   &__text {
     margin: 0;
-    font-family: Montserrat, Arial, sans-serif;
+    font-family: $font-family;
     font-size: 12px;
     color: transparentize($contentColor, .5);
 
@@ -161,7 +161,7 @@
     /* stylelint-disable */
     b {
       /* stylelint-enable */
-      font-family: Montserrat, Arial, sans-serif;
+      font-family: $font-family;
       font-size: 14px;
     }
   }
