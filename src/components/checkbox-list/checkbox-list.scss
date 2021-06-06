@@ -10,7 +10,7 @@
   &__title {
     margin: 0;
     padding-left: 30px;
-    font-family: Montserrat, Arial, sans-serif;
+    font-family: $font-family;
     font-size: 14px;
     line-height: 24px;
     font-weight: bold;
@@ -91,14 +91,3 @@
     }
   }
 }
-
-// .checkbox-list__input[type='checkbox']:checked {
-//   & + .checkbox-list__label-span::after {
-//     visibility: visible;
-//     opacity: 1;
-//   }
-
-//   & + .checkbox-list__label-span::before {
-//     border-color: $accentColor;
-//   }
-// }
