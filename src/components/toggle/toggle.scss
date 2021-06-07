@@ -41,7 +41,7 @@
 
     &:checked {
       & + .toggle__label-span::after {
-        background: linear-gradient(180deg, $accentColor 0%, $accentGradColor 100%);
+        background: $accentGradient;
         transform: translateX(20px);
       }
 

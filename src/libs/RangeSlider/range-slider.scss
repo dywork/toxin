@@ -1,8 +1,5 @@
 @import '../../../node_modules/nouislider/distribute/nouislider.min.css';
 
-$accentSecondColor: #6fcf97;
-$accentSecondGradColor: #66d2ea;
-
 .range-slider {
   &__view {
     margin-bottom: 22px;
@@ -20,7 +17,7 @@ $accentSecondGradColor: #66d2ea;
       right: -8px;
       width: 14px;
       height: 14px;
-      background: linear-gradient(180deg, $accentSecondColor 0%, $accentSecondGradColor 100%);
+      background: $accentSecondGradient;
       border: 2px solid white;
       border-radius: 50%;
       box-shadow: none;
@@ -36,7 +33,7 @@ $accentSecondGradColor: #66d2ea;
 
   &__connect {
     height: 6px;
-    background: linear-gradient(180deg, $accentSecondColor 0%, $accentSecondGradColor 100%);
+    background: $accentSecondGradient;
   }
 
   &__cost {

@@ -17,7 +17,7 @@
         line-height: 15px;
         font-weight: bold;
         color: $mainColor;
-        background: linear-gradient(180deg, $accentColor 0%, $accentGradColor 100%);
+        background: $accentGradient;
         border-radius: 50%;
       }
     }
@@ -31,7 +31,7 @@
         font-size: 0;
         font-weight: bold;
         color: $mainColor;
-        background: linear-gradient(180deg, $accentSecondСolor 0%, $accentGradSecondСolor 100%);
+        background: $accentSecondGradient;
         border-radius: 50%;
 
         &::after {

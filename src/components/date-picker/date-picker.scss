@@ -117,13 +117,13 @@
     .date-picker__day_current {
       font-weight: bold;
       color: $mainColor;
-      background: linear-gradient(180deg, $accentSecondСolor, $accentGradSecondСolor);
+      background: $accentSecondGradient;
     }
 
     .date-picker__day_selected {
       font-weight: bold;
       color: $mainColor;
-      background: linear-gradient(180deg, $accentColor, $accentGradColor);
+      background: $accentGradient;
     }
 
     .date-picker__day_with-error {
@@ -156,7 +156,7 @@
     &:hover {
       font-weight: bold;
       color: $mainColor;
-      background: linear-gradient(180deg, $accentColor, $accentGradColor);
+      background: $accentGradient;
     }
 
     &_selected-space {
