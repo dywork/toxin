@@ -1,16 +1,6 @@
 include ../like-btn/like-btn
 
-mixin comment(options)
-  -
-    const {
-      avatarSrc,
-      authorName,
-      likeCount,
-      isLikeActive,
-      datePost,
-      text,
-    } = options;
-
+mixin comment({avatarSrc,authorName,likeCount,isLikeActive,datePost,text})
   article.comment
     .comment__wrap
       .comment__column

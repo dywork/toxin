@@ -1,7 +1,5 @@
 include ../rate-btn/rate-btn
-mixin hotelCard(options)
-  - const { images, numberHotel, starCount, reviewCount, dayCost, isLux } = options;
-
+mixin hotelCard({images,numberHotel,starCount,reviewCount,dayCost,isLux})
   section.hotel-card
     div(class="hotel-card__wrap glide js-hotel-card-glide")
       div(class="hotel-card__slider glide__track" data-glide-el="track")

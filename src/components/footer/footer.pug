@@ -5,7 +5,7 @@ include ../copyright/copyright
 include ../social-buttons/social-buttons
 include ../typography/typography
 
-mixin footer(options)
+mixin footer({ isShort, copyrightYear })
   -
     const navMenuItems = [
       {
@@ -35,8 +35,6 @@ mixin footer(options)
         ]
       }
     ];
-
-    const { isShort, copyrightYear } = options;
 
     let footerClass = "page-footer";
 

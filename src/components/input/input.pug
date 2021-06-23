@@ -1,15 +1,5 @@
-mixin input(options)
+mixin input({type,name,placeholder,value,isFocused,withButton,classForJs})
   -
-    const {
-      type,
-      name,
-      placeholder,
-      value,
-      isFocused,
-      withButton,
-      classForJs,
-    } = options;
-
     let inputBaseClass = "input__base";
 
     if (isFocused) {

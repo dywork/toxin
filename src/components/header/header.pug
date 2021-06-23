@@ -2,13 +2,8 @@ include ../logo/logo
 include ../button/button
 include ../main-menu/main-menu
 
-mixin header(options)
+mixin header({ customMenuItems, userName })
   -
-    const {
-      customMenuItems,
-      userName,
-    } = options;
-
     let authClass = "page-header__auth";
 
     if (userName) {
