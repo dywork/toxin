@@ -13,11 +13,11 @@
     &::before {
       position: absolute;
       top: 3px;
-      right: 16px;
+      right: 13px;
       width: 12px;
       height: 8px;
       content: '';
-      background: url('./expand-more.png') no-repeat;
+      background: url('./expand-more.svg') no-repeat;
       transition: transform .2s ease;
     }
 

@@ -9,7 +9,7 @@
     display: block;
     width: 20px;
     height: 20px;
-    background: url('../../components/rate-btn/star.png') no-repeat;
+    background: url('../../components/rate-btn/star.svg') no-repeat;
     cursor: pointer;
 
     &:last-child {
@@ -17,7 +17,7 @@
     }
 
     &_active {
-      background: url('../../components/rate-btn/star-active.png') no-repeat;
+      background: url('../../components/rate-btn/star-active.svg') no-repeat;
     }
   }
 }
