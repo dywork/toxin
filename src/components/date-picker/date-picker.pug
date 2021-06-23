@@ -1,61 +1,35 @@
-mixin datePicker()
+mixin datePicker({ month, year, calendar })
+  -
+    const daysWeekNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+
   div(class="date-picker date-picker_opened date-picker_static")
     .date-picker__wrap
       .date-picker__control
         button(class="date-picker__slider-btn date-picker__slider-btn_prev" type="button")
-        h2(class="date-picker__title") Август 2019
+        h2(class="date-picker__title")= `${month} ${year}`
         button(class="date-picker__slider-btn date-picker__slider-btn_next" type="button")
       table.date-picker__calendar
         thead
           tr
-            th.date-picker__th Пн
-            th.date-picker__th Вт
-            th.date-picker__th Ср
-            th.date-picker__th Чт
-            th.date-picker__th Пт
-            th.date-picker__th Сб
-            th.date-picker__th Вс
+            each dayName in daysWeekNames
+              th.date-picker__th= dayName
         tbody
-          tr
-            td(class="date-picker__day date-picker__day_not-current") 29
-            td(class="date-picker__day date-picker__day_not-current") 30
-            td(class="date-picker__day date-picker__day_not-current") 31
-            td(class="date-picker__day") 1
-            td(class="date-picker__day") 2
-            td(class="date-picker__day") 3
-            td(class="date-picker__day") 4
-          tr
-            td(class="date-picker__day") 5
-            td(class="date-picker__day") 6
-            td(class="date-picker__day") 7
-            td(class="date-picker__day date-picker__day_current") 8
-            td(class="date-picker__day") 9
-            td(class="date-picker__day") 10
-            td(class="date-picker__day") 11
-          tr
-            td(class="date-picker__day") 12
-            td(class="date-picker__day") 13
-            td(class="date-picker__day") 14
-            td(class="date-picker__day") 15
-            td(class="date-picker__day") 16
-            td(class="date-picker__day") 17
-            td(class="date-picker__day") 18
-          tr
-            td(class="date-picker__day date-picker__day_selected-start date-picker__day_selected") 19
-            td(class="date-picker__day date-picker__day_selected-space") 20
-            td(class="date-picker__day date-picker__day_selected-space") 21
-            td(class="date-picker__day date-picker__day_selected-space") 22
-            td(class="date-picker__day date-picker__day_selected-end date-picker__day_selected") 23
-            td(class="date-picker__day") 24
-            td(class="date-picker__day") 25
-          tr
-            td(class="date-picker__day") 26
-            td(class="date-picker__day") 27
-            td(class="date-picker__day") 28
-            td(class="date-picker__day") 29
-            td(class="date-picker__day") 30
-            td(class="date-picker__day") 31
-            td(class="date-picker__day date-picker__day_not-current") 1
+          each week in calendar
+            tr
+              each day in week
+                -
+                  const { name, isCurrent, isOutRange } = day;
+                  let cellClass = 'date-picker__day';
+
+                  if (isCurrent) {
+                    cellClass += ' date-picker__day_current';
+                  }
+
+                  if (isOutRange) {
+                    cellClass += ' date-picker__day_not-current';
+                  }
+
+                td(class=cellClass)= name
       .date-picker__control
         button(class="date-picker__button" type="button") Очистить
         button(class="date-picker__button date-picker__button_accentuating" type="button") Применить
