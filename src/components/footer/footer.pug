@@ -5,7 +5,7 @@ include ../copyright/copyright
 include ../social-buttons/social-buttons
 include ../typography/typography
 
-mixin footer(options = {})
+mixin footer(options)
   -
     const navMenuItems = [
       {
@@ -41,24 +41,24 @@ mixin footer(options = {})
     let footerClass = "page-footer";
 
     if (isShort) {
-      footerClass += "  page-footer_short";
+      footerClass += " page-footer_short";
     }
 
   footer(class=footerClass)
     .page-footer__container
       if(isShort)
-        div(class="page-footer__wrap  page-footer__wrap_short")
-          div(class="page-footer__logo-wrap  page-footer__logo-wrap_short")
-            +logo({ id: logoId })
-          div(class="page-footer__copyright-wrap  page-footer__copyright-wrap_short")  
+        div(class="page-footer__wrap page-footer__wrap_short")
+          div(class="page-footer__logo-wrap page-footer__logo-wrap_short")
+            +logo()
+          div(class="page-footer__copyright-wrap page-footer__copyright-wrap_short")  
             +copyright(copyrightYear)
           +socialButtons()
       else
         .page-footer__wrap
           .page-footer__content
-            div(class="page-footer__col  page-footer__col_large")
+            div(class="page-footer__col page-footer__col_large")
               .page-footer__logo-wrap
-                +logo({ id: logoId })
+                +logo()
               .page-footer__text-content-wrap
                 +typography({ variant: "body", text: "Бронирование номеров в лучшем отеле 2019 года по версии ассоциации «Отельные взгляды»" })
             .page-footer__col-group

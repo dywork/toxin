@@ -2,33 +2,10 @@ include ../logo/logo
 include ../button/button
 include ../main-menu/main-menu
 
-mixin header(options = {})
+mixin header(options)
   -
-    const defaultMenuItems = [
-      { title: "О нас", path: "not-found-page.html" },
-      { 
-        title: "Услуги",
-        path: "not-found-page.html",
-        subMenu: [
-          { title: "Подбор отелей", path: "not-found-page.html" },
-          { title: "Заказать трансфер", path: "not-found-page.html" },
-          { title: "Рейтинг отелей", path: "not-found-page.html" }
-        ]
-      },
-      { title: "Вакансии", path: "not-found-page.html" },
-      { title: "Новости", path: "not-found-page.html" },
-      {
-        title: "Соглашения",
-        path: "not-found-page.html",
-        subMenu: [
-          { title: "Пользовательские", path: "not-found-page.html" },
-          { title: "Международные", path: "not-found-page.html" }
-        ]
-      }
-    ];
-
     const {
-      customMenuItems = defaultMenuItems,
+      customMenuItems,
       userName,
     } = options;
 

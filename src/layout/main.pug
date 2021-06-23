@@ -1,5 +1,28 @@
 include ../components/header/header
 include ../components/footer/footer
+-
+  const menuItems = [
+    { title: "О нас", path: "not-found-page.html" },
+    { 
+      title: "Услуги",
+      path: "not-found-page.html",
+      subMenu: [
+        { title: "Подбор отелей", path: "not-found-page.html" },
+        { title: "Заказать трансфер", path: "not-found-page.html" },
+        { title: "Рейтинг отелей", path: "not-found-page.html" }
+      ]
+    },
+    { title: "Вакансии", path: "not-found-page.html" },
+    { title: "Новости", path: "not-found-page.html" },
+    {
+      title: "Соглашения",
+      path: "not-found-page.html",
+      subMenu: [
+        { title: "Пользовательские", path: "not-found-page.html" },
+        { title: "Международные", path: "not-found-page.html" }
+      ]
+    }
+  ];
 block variables
 
 doctype html
@@ -21,7 +44,7 @@ html(lang="ru")
   body(class=pageClass)
     .wrapper
       .content
-        +header()
+        +header({ customMenuItems: menuItems })
         main(class=mainClass)
           block content
-      +footer()
+      +footer({ copyrightYear: 2018 })
