@@ -2,41 +2,20 @@ include ../../../../components/typography/typography
 include ../../../../components/drop-down-input/drop-down-input
 include ../../../../components/expandable-checkbox/expandable-checkbox
 
-mixin dropWithExpandable()
+mixin dropWithExpandable
   .drop-with-expandable
     .drop-with-expandable__input
       .drop-with-expandable__title-wrap
-        +typography({ text: "Dropdown", variant: "h3", hasUpper: true })
+        +typography({ text: 'Dropdown', variant: 'h3', hasUpper: true })
         p.drop-with-expandable__title-alt Default
-      +dropDownInput({ text: "2 спальни, 2 кровати..." })
-    div(class="drop-with-expandable__input drop-with-expandable__input_bottom-gap")
+      +dropDownInput({ text: '2 спальни, 2 кровати...' })
+    .drop-with-expandable__input.drop-with-expandable__input_bottom-gap
       .drop-with-expandable__title-wrap
-        +typography({ text: "Dropdown", variant: "h3", hasUpper: true })
+        +typography({ text: 'Dropdown', variant: 'h3', hasUpper: true })
         p.drop-with-expandable__title-alt Expanded
-      +dropDownInput({ text: "2 спальни, 2 кровати...", classForJs: "js-input-drop-down" })
-      div(class="drop-down-counter-container js-drop-down-counter-container")
+      +dropDownInput({ text: '2 спальни, 2 кровати...', classForJs: 'js-input-drop-down' })
+      .drop-down-counter-container.js-drop-down-counter-container
     .drop-with-expandable__checkbox-list
-      +expandableCheckbox({
-        summary: "Expandable checkbox list",
-        items: [
-          { label: "Завтрак" },
-          { label: "Письменный стол", isChecked: true },
-          { label: "Стул для кормления", isChecked: true },
-          { label: "Кроватка", isChecked: true },
-          { label: "Телевизор" },
-          { label: "Шампунь" },
-        ],
-      })
+      +expandableCheckbox({ summary: 'Expandable checkbox list', items: [ { label: 'Завтрак' }, { label: 'Письменный стол', isChecked: true }, { label: 'Стул для кормления', isChecked: true }, { label: 'Кроватка', isChecked: true }, { label: 'Телевизор' }, { label: 'Шампунь' }, ], })
     .drop-with-expandable__checkbox-list
-      +expandableCheckbox({
-        summary: "Expandable checkbox list",
-        isOpened: true,
-        items: [
-          { label: "Завтрак" },
-          { label: "Письменный стол", isChecked: true },
-          { label: "Стул для кормления", isChecked: true },
-          { label: "Кроватка", isChecked: true },
-          { label: "Телевизор" },
-          { label: "Шампунь" },
-        ],
-      })
+      +expandableCheckbox({ summary: 'Expandable checkbox list', isOpened: true, items: [ { label: 'Завтрак' }, { label: 'Письменный стол', isChecked: true }, { label: 'Стул для кормления', isChecked: true }, { label: 'Кроватка', isChecked: true }, { label: 'Телевизор' }, { label: 'Шампунь' }, ], })

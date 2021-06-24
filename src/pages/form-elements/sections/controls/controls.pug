@@ -5,44 +5,33 @@ include ../../../../components/toggle/toggle
 include ../../../../components/like-btn/like-btn
 include ../../../../components/rate-btn/rate-btn
 
-mixin controls()
+mixin controls
   .controls
     .controls__control
       .controls__title-wrap
-        +typography({ text: "Checkbox Buttons", variant: "h3", hasUpper: true })
-      +checkboxList({
-        items: [
-          { label: "Можно курить" },
-          { label: "Можно с питомцами", isChecked: true },
-          { label: "Можно пригласить гостей (до 10 человек)", isChecked: true }
-        ]
-      })
+        +typography({ text: 'Checkbox Buttons', variant: 'h3', hasUpper: true })
+      +checkboxList({ items: [ { label: 'Можно курить' }, { label: 'Можно с питомцами', isChecked: true }, { label: 'Можно пригласить гостей (до 10 человек)', isChecked: true } ] })
     .controls__control
       .controls__title-wrap
-        +typography({ text: "Radio Buttons", variant: "h3", hasUpper: true })
-      +radioBtn({
-        items: [
-          { groupName: "gender", label: "Мужчина", isChecked: true },
-          { groupName: "gender", label: "Женщина" }
-        ]
-      })
+        +typography({ text: 'Radio Buttons', variant: 'h3', hasUpper: true })
+      +radioBtn({ items: [ { groupName: 'gender', label: 'Мужчина', isChecked: true }, { groupName: 'gender', label: 'Женщина' } ] })
     .controls__control
       .controls__title-wrap
-        +typography({ text: "Toggle", variant: "h3", hasUpper: true })
+        +typography({ text: 'Toggle', variant: 'h3', hasUpper: true })
       .controls__toggle
-        +toggle({ text: "Получать спецпредложения", isChecked: true })
-      +toggle({ text: "Получать спецпредложения" })
+        +toggle({ text: 'Получать спецпредложения', isChecked: true })
+      +toggle({ text: 'Получать спецпредложения' })
     .controls__control
       .controls__title-wrap
-        +typography({ text: "Like Button", variant: "h3", hasUpper: true })
+        +typography({ text: 'Like Button', variant: 'h3', hasUpper: true })
       .controls__like-wrap
         .controls__like-btn
           +likeBtn({ count: 2 })
         +likeBtn({ count: 12, isActive: true })
     .controls__control
       .controls__title-wrap
-        +typography({ text: "Rate button", variant: "h3", hasUpper: true })
+        +typography({ text: 'Rate button', variant: 'h3', hasUpper: true })
       .controls__rate-btn-wrap
         .controls__rate-btn
           +rateBtn({ currentRating: 5, ratingLength: 5 })
-        +rateBtn({ currentRating: 4, ratingLength: 5 })  
+        +rateBtn({ currentRating: 4, ratingLength: 5 }) 

@@ -1,27 +1,36 @@
 include ../rate-btn/rate-btn
 mixin hotelCard({images,numberHotel,starCount,reviewCount,dayCost,isLux})
   section.hotel-card
-    div(class="hotel-card__wrap glide js-hotel-card-glide")
-      div(class="hotel-card__slider glide__track" data-glide-el="track")
-        ul(class="hotel-card__slides glide__slides")
+    .hotel-card__wrap.glide.js-hotel-card-glide
+      .hotel-card__slider.glide__track(data-glide-el='track')
+        ul.hotel-card__slides.glide__slides
           each image in images
-            - const { src, alt } = image;
-            li(class="hotel-card__slide  glide__slide") #[img(src=src, alt=alt)]
-        div(class="glide__arrows  hotel-card__arrows" data-glide-el="controls")
-          button(class="glide__arrow glide__arrow_left hotel-card__slider-btn" data-glide-dir="<" type="button") Назад
-          button(class="glide__arrow glide__arrow_right hotel-card__slider-btn hotel-card__slider-btn_next" data-glide-dir=">" type="button") Вперед
-        div(class="hotel-card__bullets glide__bullets" data-glide-el="controls[nav]")
+            - const {src, alt} = image;
+            li.hotel-card__slide.glide__slide #[img(src=src, alt=alt)]
+        .glide__arrows.hotel-card__arrows(data-glide-el='controls')
+          button.glide__arrow.glide__arrow_left.hotel-card__slider-btn(
+            data-glide-dir='<',
+            type='button'
+          ) Назад
+          button.glide__arrow.glide__arrow_right.hotel-card__slider-btn.hotel-card__slider-btn_next(
+            data-glide-dir='>',
+            type='button'
+          ) Вперед
+        .hotel-card__bullets.glide__bullets(data-glide-el='controls[nav]')
           each image, index in images
-            button(class="hotel-card__bullet glide__bullet" data-glide-dir=`=${index}` type="button")
+            button.hotel-card__bullet.glide__bullet(
+              data-glide-dir=`=${index}`,
+              type='button'
+            )
       .hotel-card__info
         .hotel-card__info-item
           if (isLux)
             h2.hotel-card__title 
-              a(class="hotel-card__title-link" href="room-details.html") № #[span= numberHotel] #[b люкс]
-          else 
+              a.hotel-card__title-link(href='room-details.html') № #[span= numberHotel] #[b люкс]
+          else
             h2.hotel-card__title
-              a(class="hotel-card__title-link" href="room-details.html") № #[span= numberHotel]
-          p.hotel-card__text #[b= dayCost + "₽"] в сутки
+              a.hotel-card__title-link(href='room-details.html') № #[span= numberHotel]
+          p.hotel-card__text #[b= dayCost + '₽'] в сутки
         .hotel-card__info-item
           +rateBtn({ currentRating: starCount, ratingLength: 5 })
-          p(class="hotel-card__text hotel-card__text_large") #[b= reviewCount] Отзывов
+          p.hotel-card__text.hotel-card__text_large #[b= reviewCount] Отзывов

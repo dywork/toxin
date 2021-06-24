@@ -2,20 +2,14 @@ include ../../../../components/typography/typography
 include ../../../../components/drop-down-input/drop-down-input
 include ../../../../components/bulleted-list/bulleted-list
 
-mixin dropWithBullet()
+mixin dropWithBullet
   .drop-with-bullet__row-wrap
-    div(class="drop-with-bullet__input drop-with-bullet__input_bottom-gap")
+    .drop-with-bullet__input.drop-with-bullet__input_bottom-gap
       .drop-with-bullet__title-wrap
-        +typography({ text: "Dropdown", variant: "h3", hasUpper: true })
-      +dropDownInput({ text: "Сколько гостей", classForJs: "js-input-drop-down-filled" })
-      div(class="drop-down-counter-container  js-drop-down-counter-container-filled")
+        +typography({ text: 'Dropdown', variant: 'h3', hasUpper: true })
+      +dropDownInput({ text: 'Сколько гостей', classForJs: 'js-input-drop-down-filled' })
+      .drop-down-counter-container.js-drop-down-counter-container-filled
     .drop-with-bullet__list
-      div(class="drop-with-bullet__title-wrap drop-with-bullet__title-wrap_bottom-gap")
-        +typography({ text: "Bullet list", variant: "h3", hasUpper: true })
-      +bulletedList({
-        items: [
-          { text: "Нельзя с питомцами" },
-          { text: "Без вечеринок и мероприятий" },
-          { text: "Время прибытия — после 13:00, а выезд до 12:00" }
-        ]
-      })
+      .drop-with-bullet__title-wrap.drop-with-bullet__title-wrap_bottom-gap
+        +typography({ text: 'Bullet list', variant: 'h3', hasUpper: true })
+      +bulletedList({ items: [ { text: 'Нельзя с питомцами' }, { text: 'Без вечеринок и мероприятий' }, { text: 'Время прибытия — после 13:00, а выезд до 12:00' } ] })

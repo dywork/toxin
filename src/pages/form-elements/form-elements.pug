@@ -11,56 +11,34 @@ include ../../components/comment/comment
 
 block variables
   -
-    const title = "Toxin - элементы форм";
-    const description = "Toxin description";
-    const keywords = "Toxin keywords";
-    const pageClass = "form-elements";
+    const title = 'Toxin - элементы форм';
+    const description = 'Toxin description';
+    const keywords = 'Toxin keywords';
+    const pageClass = 'form-elements';
 
 block content
   .form-elements__logo-wrap
-    +uiKitLogo()
+    +uiKitLogo
   .form-elements__container
     .form-elements__wrap
       .form-elements__row
         .form-elements__inputs
-          +inputs()
+          +inputs
         .form-elements__controls
-          +controls()
+          +controls
         .form-elements__buttons
-          +buttons()
+          +buttons
       .form-elements__row
         .form-elements__row-wrap
-          +dropWithExpandable()
+          +dropWithExpandable
         .form-elements__row-wrap
-          +dropWithRich()
+          +dropWithRich
         .form-elements__row-wrap
-          +dropWithBullet()
+          +dropWithBullet
       .form-elements__row
         .form-elements__row-wrap
           .form-elements__features
-            +features({
-              items: [
-                {
-                  title: "Комфорт",
-                  description: "Шумопоглощающие стены",
-                  icon: "emoticon"
-                },
-                {
-                  title: "Удобство",
-                  description: "Окно в каждой из спален",
-                  icon: "city"
-                }
-              ]
-            })
-        div(class="form-elements__row-wrap form-elements__row-wrap_size_large")
+            +features({ items: [ { title: 'Комфорт', description: 'Шумопоглощающие стены', icon: 'emoticon' }, { title: 'Удобство', description: 'Окно в каждой из спален', icon: 'city' } ] })
+        .form-elements__row-wrap.form-elements__row-wrap_size_large
           .form-elements__comment
-            +comment({
-              authorName: "Мурад Сарафанов",
-              datePost: "5 дней назад",
-              likeCount: 12,
-              isLikeActive: true,
-              avatarSrc: "img/avatars/murad.jpg",
-              text:
-                "Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий. И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей."
-            })
-        
+            +comment({ authorName: 'Мурад Сарафанов', datePost: '5 дней назад', likeCount: 12, isLikeActive: true, avatarSrc: 'img/avatars/murad.jpg', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий. И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.' })

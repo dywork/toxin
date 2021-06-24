@@ -1,17 +1,17 @@
 include ../input/input
 include ../button/button
 
-mixin authCard()
+mixin authCard
   .auth-card
     .auth-card__wrap
-      form(action="not-found-page.html")
+      form(action='not-found-page.html')
         h2.auth-card__title Войти
         fieldset.auth-card__fieldset
           .auth-card__input-wrap
-            +input({ name: "email", placeholder: "Email",  type: "email", })
-          +input({ name: "pass", placeholder: "Пароль",  type: "password", })
-        +button({ title: "Войти", withIcon: true, buttonType: "submit" })
+            +input({ name: 'email', placeholder: 'Email', type: 'email', })
+          +input({ name: 'pass', placeholder: 'Пароль', type: 'password', })
+        +button({ title: 'Войти', withIcon: true, buttonType: 'submit' })
       .auth-card__account-enter
         p Нет аккаунта на Toxin?
         .auth-card__registration-btn-wrap
-          +button({ path: "registration.html", title: "Создать",  variant: "outlined", size: "medium" })
+          +button({ path: 'registration.html', title: 'Создать', variant: 'outlined', size: 'medium' })

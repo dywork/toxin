@@ -5,44 +5,44 @@ include ../../components/footer/footer
 
 block variables
   -
-    const title = "Toxin - шапки и подвалы!";
-    const description = "Toxin description";
-    const keywords = "Toxin keywords";
-    const pageClass = "headers-and-footers";
+    const title = 'Toxin - шапки и подвалы!';
+    const description = 'Toxin description';
+    const keywords = 'Toxin keywords';
+    const pageClass = 'headers-and-footers';
 
   -
     const menuItems = [
-      { title: "О нас", path: "not-found-page.html", isActive: true },
+      { title: 'О нас', path: 'not-found-page.html', isActive: true },
       { 
-        title: "Услуги",
-        path: "not-found-page.html",
+        title: 'Услуги',
+        path: 'not-found-page.html',
         subMenu: [
-          { title: "Подбор отелей", path: "not-found-page.html" },
-          { title: "Заказать трансфер", path: "not-found-page.html" },
-          { title: "Рейтинг отелей", path: "not-found-page.html" }
+          { title: 'Подбор отелей', path: 'not-found-page.html' },
+          { title: 'Заказать трансфер', path: 'not-found-page.html' },
+          { title: 'Рейтинг отелей', path: 'not-found-page.html' }
         ]
       },
-      { title: "Вакансии", path: "not-found-page.html" },
-      { title: "Новости", path: "not-found-page.html" },
+      { title: 'Вакансии', path: 'not-found-page.html' },
+      { title: 'Новости', path: 'not-found-page.html' },
       {
-        title: "Соглашения",
-        path: "not-found-page.html",
+        title: 'Соглашения',
+        path: 'not-found-page.html',
         subMenu: [
-          { title: "Пользовательские", path: "not-found-page.html" },
-          { title: "Международные", path: "not-found-page.html" }
+          { title: 'Пользовательские', path: 'not-found-page.html' },
+          { title: 'Международные', path: 'not-found-page.html' }
         ]
       }
     ];
-  
+
 block content
   .headers-and-footers__logo-wrap
-    +uiKitLogo()
+    +uiKitLogo
   .headers-and-footers__wrap
     .headers-and-footers__item
       +header({ customMenuItems: menuItems })
-    div(class="headers-and-footers__item headers-and-footers__item_authorized")
-      +header({ customMenuItems: menuItems, userName: "Юлий Цезарь" })
+    .headers-and-footers__item.headers-and-footers__item_authorized
+      +header({ customMenuItems: menuItems, userName: 'Юлий Цезарь' })
     .headers-and-footers__item
       +footer({ copyrightYear: 2018 })
-    div(class="headers-and-footers__item headers-and-footers__item_short")
+    .headers-and-footers__item.headers-and-footers__item_short
       +footer({ copyrightYear: 2018, isShort: true })

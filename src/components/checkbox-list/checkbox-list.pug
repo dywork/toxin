@@ -4,12 +4,12 @@ mixin checkboxList({ items })
       -
         const { label, title, isChecked } = item;
         const labelSpanClass = title
-          ? "checkbox-list__label-span checkbox-list__label-span_with-title"
-          : "checkbox-list__label-span";
+          ? 'checkbox-list__label-span checkbox-list__label-span_with-title'
+          : 'checkbox-list__label-span';
 
       li.checkbox-list__item
-        label(class="checkbox-list__label")
+        label.checkbox-list__label
           if title
             p.checkbox-list__title= title
-          input(class="checkbox-list__input"  type="checkbox" checked=isChecked)
+          input.checkbox-list__input(type='checkbox', checked=isChecked)
           span(class=labelSpanClass)= label

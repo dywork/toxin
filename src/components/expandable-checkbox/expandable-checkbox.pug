@@ -2,6 +2,6 @@ include ../checkbox-list/checkbox-list
 include ../typography/typography
 
 mixin expandableCheckbox({ summary, items, isOpened })
-  details(class="expandable-checkbox" open= isOpened)
+  details.expandable-checkbox(open=isOpened)
     summary.expandable-checkbox__summary= summary
     +checkboxList({ items })

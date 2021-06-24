@@ -1,10 +1,10 @@
 extends ../../layout/main.pug
 block variables
   -
-    const title = "Toxin - страница не найдена!";
-    const description = "page not found";
-    const keywords = "Toxin keywords";
-    const pageClass = "not-found-page";
+    const title = 'Toxin - страница не найдена!';
+    const description = 'page not found';
+    const keywords = 'Toxin keywords';
+    const pageClass = 'not-found-page';
 
 block content
   section.not-found
@@ -14,12 +14,12 @@ block content
         p.not-found-page__description Похоже, мы не можем найти нужную вам страницу.
         p.not-found-page__status Код ошибки: 404
         ul.not-found-page__help-links
-          li(class="not-found-page__help-item") Вот несколько полезных ссылок:
-          li(class="not-found-page__help-item")
-            a(class="not-found-page__link" href="index.html") Главная
-          li(class="not-found-page__help-item")
-            a(class="not-found-page__link" href="rooms.html") Поиск отелей
-          li(class="not-found-page__help-item")
-            a(class="not-found-page__link" href="registration.html") Регистрация
-          li(class="not-found-page__help-item")
-            a(class="not-found-page__link" href="auth.html") Авторизация
+          li.not-found-page__help-item Вот несколько полезных ссылок:
+          li.not-found-page__help-item
+            a.not-found-page__link(href='index.html') Главная
+          li.not-found-page__help-item
+            a.not-found-page__link(href='rooms.html') Поиск отелей
+          li.not-found-page__help-item
+            a.not-found-page__link(href='registration.html') Регистрация
+          li.not-found-page__help-item
+            a.not-found-page__link(href='auth.html') Авторизация

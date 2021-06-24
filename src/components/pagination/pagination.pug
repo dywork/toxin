@@ -5,17 +5,17 @@ mixin pagination(pages)
         each page in pages
           -
             const { path, title, isActive, isNext } = page;
-            let pageClass = "pagination__page-item";
+            let pageClass = 'pagination__page-item';
 
             if (isActive) {
-              pageClass += " pagination__page-item_active";
+              pageClass += ' pagination__page-item_active';
             }
 
             if (isNext) {
-              pageClass += " pagination__page-item_next";
+              pageClass += ' pagination__page-item_next';
             }
 
           li(class=pageClass)
-            a(class="pagination__page-link" href=path)= title
+            a.pagination__page-link(href=path)= title
       .pagination__overview
         p 1 – 12 из 100+ вариантов аренды

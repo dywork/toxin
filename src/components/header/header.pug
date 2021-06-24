@@ -4,28 +4,28 @@ include ../main-menu/main-menu
 
 mixin header({ customMenuItems, userName })
   -
-    let authClass = "page-header__auth";
+    let authClass = 'page-header__auth';
 
     if (userName) {
-      authClass += " page-header__auth_authenticated";
+      authClass += ' page-header__auth_authenticated';
     }
 
   header.page-header
     .page-header__container
       .page-header__wrap
-        +logo()
+        +logo
         +mainMenu(customMenuItems)
         section(class=authClass)
           if userName
             p.page-header__user-name= userName
           else
             .page-header__auth-btn-wrap
-              +button({ title: "Войти", path: "auth.html", variant: "outlined" })
+              +button({ title: 'Войти', path: 'auth.html', variant: 'outlined' })
             .page-header__registration-btn-wrap
-              +button({ title: "Зарегистрироваться", path: "registration.html" })
-            ul(class="page-header__auth-list js-auth-list")
+              +button({ title: 'Зарегистрироваться', path: 'registration.html' })
+            ul.page-header__auth-list.js-auth-list
               li.page-header__auth-item
-                a(class="page-header__auth-item-link" href="auth.html")= "Войти"
+                a.page-header__auth-item-link(href='auth.html')= 'Войти'
               li.page-header__auth-item
-                a(class="page-header__auth-item-link" href="registration.html")= "Зарегистрироваться"
-            button(class="page-header__auth-profile js-profile-btn" type="button")
+                a.page-header__auth-item-link(href='registration.html')= 'Зарегистрироваться'
+            button.page-header__auth-profile.js-profile-btn(type='button')

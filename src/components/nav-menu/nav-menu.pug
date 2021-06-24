@@ -2,6 +2,6 @@ mixin navMenu({ list })
   .nav-menu
     ul.nav-menu__list
       each item in list 
-        - const { label, path } = item;
+        - const {label, path} = item;
         li.nav-menu__item
-          a(class="nav-menu__link" href=path)= label
+          a.nav-menu__link(href=path)= label

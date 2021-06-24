@@ -4,14 +4,14 @@ include ./sections/hotel-rooms/hotel-rooms
 
 block variables
   -
-    const title = "Toxin - подбери свой отель!";
-    const description = "Toxin description";
-    const keywords = "Toxin keywords";
-    const pageClass = "rooms-page";
+    const title = 'Toxin - подбери свой отель!';
+    const description = 'Toxin description';
+    const keywords = 'Toxin keywords';
+    const pageClass = 'rooms-page';
 
 block content
   .rooms-page__border
     .rooms-page__container
       .rooms-page__wrap
-        +filter()
-        +hotelRooms()
+        +filter
+        +hotelRooms

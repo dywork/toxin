@@ -3,8 +3,8 @@ mixin features({ items })
   each item in items
     -
       const { title, description, icon } = item;
-      let pictClass = "features__pict";
-      iconModifiers = ["emoticon", "city", "whats"];
+      let pictClass = 'features__pict';
+      iconModifiers = ['emoticon', 'city', 'whats'];
 
       if (iconModifiers.includes(icon)) {
         pictClass += ` features__pict_${icon}`;

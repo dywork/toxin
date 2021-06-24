@@ -1,13 +1,17 @@
 mixin datePicker({ month, year, calendar })
   -
-    const daysWeekNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+    const daysWeekNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
-  div(class="date-picker date-picker_opened date-picker_static")
+  .date-picker.date-picker_opened.date-picker_static
     .date-picker__wrap
       .date-picker__control
-        button(class="date-picker__slider-btn date-picker__slider-btn_prev" type="button")
-        h2(class="date-picker__title")= `${month} ${year}`
-        button(class="date-picker__slider-btn date-picker__slider-btn_next" type="button")
+        button.date-picker__slider-btn.date-picker__slider-btn_prev(
+          type='button'
+        )
+        h2.date-picker__title= `${month} ${year}`
+        button.date-picker__slider-btn.date-picker__slider-btn_next(
+          type='button'
+        )
       table.date-picker__calendar
         thead
           tr
@@ -31,5 +35,7 @@ mixin datePicker({ month, year, calendar })
 
                 td(class=cellClass)= name
       .date-picker__control
-        button(class="date-picker__button" type="button") Очистить
-        button(class="date-picker__button date-picker__button_accentuating" type="button") Применить
+        button.date-picker__button(type='button') Очистить
+        button.date-picker__button.date-picker__button_accentuating(
+          type='button'
+        ) Применить

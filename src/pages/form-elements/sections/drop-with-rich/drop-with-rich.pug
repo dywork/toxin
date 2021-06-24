@@ -2,19 +2,14 @@ include ../../../../components/typography/typography
 include ../../../../components/drop-down-input/drop-down-input
 include ../../../../components/checkbox-list/checkbox-list
 
-mixin dropWithRich()
+mixin dropWithRich
   .drop-with-rich__row-wrap
-    div(class="drop-with-rich__input drop-with-rich__input_bottom-gap")
+    .drop-with-rich__input.drop-with-rich__input_bottom-gap
       .drop-with-rich__title-wrap
-        +typography({ text: "Dropdown", variant: "h3", hasUpper: true })
-      +dropDownInput({ text: "Сколько гостей", classForJs: "js-input-drop-down-clear" })
-      div(class="drop-down-counter-container  js-drop-down-counter-container-clear")
+        +typography({ text: 'Dropdown', variant: 'h3', hasUpper: true })
+      +dropDownInput({ text: 'Сколько гостей', classForJs: 'js-input-drop-down-clear' })
+      .drop-down-counter-container.js-drop-down-counter-container-clear
     .drop-with-rich__list
-      div(class="drop-with-rich__title-wrap drop-with-rich__title-wrap_bottom-gap")
-        +typography({ text: "Rich Checkbox Buttons", variant: "h3", hasUpper: true })
-      +checkboxList({
-        items: [
-          { title: "Широкий коридор", label: "Ширина коридоров в номере не менее 91 см." },
-          { title: "Помощник для инвалидов", label: "На 1 этаже вас встретит специалист  и проводит до номера."}
-        ]
-      })
+      .drop-with-rich__title-wrap.drop-with-rich__title-wrap_bottom-gap
+        +typography({ text: 'Rich Checkbox Buttons', variant: 'h3', hasUpper: true })
+      +checkboxList({ items: [ { title: 'Широкий коридор', label: 'Ширина коридоров в номере не менее 91 см.' }, { title: 'Помощник для инвалидов', label: 'На 1 этаже вас встретит специалист и проводит до номера.'} ] })

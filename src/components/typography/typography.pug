@@ -1,21 +1,21 @@
 mixin typography({ text, variant, hasUpper })
   -
-    let typographyClass = "typography";
-    const variants = ["h1", "h2", "h3", "body"];
-    
+    let typographyClass = 'typography';
+    const variants = ['h1', 'h2', 'h3', 'body'];
+
     if (variants.includes(variant)) {
       typographyClass += ` typography_variant_${variant}`;
     }
 
     if (hasUpper) {
-      typographyClass += " typography_upper";
+      typographyClass += ' typography_upper';
     }
 
     const variantTag = {
-      "h1": "h1",
-      "h2": "h2",
-      "h3": "h3",
-      "body": "p"
+      'h1': 'h1',
+      'h2': 'h2',
+      'h3': 'h3',
+      'body': 'p'
     }
-    
+
   #{variantTag[variant]}(class=typographyClass)= text

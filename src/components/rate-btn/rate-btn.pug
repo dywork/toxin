@@ -4,11 +4,11 @@ mixin rateBtn({ currentRating, ratingLength })
       - for (let i = 0; i < ratingLength; ++i) {
         -
           const isActive = i < currentRating;
-          let starClass = "rate-btn__star";
+          let starClass = 'rate-btn__star';
 
           if (isActive) {
-            starClass += " rate-btn__star_active"
+            starClass += ' rate-btn__star_active'
           }
-        
+
         div(class=starClass)
       - }

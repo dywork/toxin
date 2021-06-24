@@ -1,11 +1,11 @@
 mixin likeBtn({ count, isActive })
   -
-    let likeBtnClass = "like-btn__button";
+    let likeBtnClass = 'like-btn__button';
 
     if (isActive) {
-      likeBtnClass += " like-btn__button_active";
+      likeBtnClass += ' like-btn__button_active';
     }
 
   .like-btn
     .like-btn__wrap
-      button(class=likeBtnClass type="button")= count
+      button(class=likeBtnClass, type='button')= count
