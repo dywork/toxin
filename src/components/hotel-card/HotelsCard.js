@@ -7,7 +7,10 @@ class HotelsCard {
   }
 
   static _createSlider(item) {
-    new Glide(item, {type: 'carousel', classes: {activeNav: 'hotel-card__bullet-active'}}).mount()
+    new Glide(item, {
+      type: 'carousel',
+      classes: {activeNav: 'hotel-card__bullet-active'},
+    }).mount();
   }
 
   static _getElements() {

@@ -27,7 +27,10 @@
     height: 100%;
     opacity: 0;
     content: '';
-    background: linear-gradient(darken($accentColor, 10%), darken($accentGradColor, 10%));
+    background: linear-gradient(
+      darken($accentColor, 10%),
+      darken($accentGradColor, 10%)
+    );
     border-radius: inherit;
     transition: opacity .4s ease;
   }

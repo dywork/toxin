@@ -20,7 +20,9 @@ function getRandomNumber(min, max) {
 function declOfNum(number, titles) {
   const cases = [2, 0, 1, 1, 1, 2];
   return titles[
-    number % 100 > 4 && number % 100 < 20 ? 2 : cases[number % 10 < 5 ? number % 10 : 5]
+    number % 100 > 4 && number % 100 < 20
+      ? 2
+      : cases[number % 10 < 5 ? number % 10 : 5]
   ];
 }
 
@@ -31,11 +33,15 @@ class DropDownCounter {
       const dropDownParent = getHtmlElement('section', 'drop-down-counter');
       this.dropDownParent = dropDownParent;
     } else {
-      console.error('Expected container(node) inside constructor object but not received');
+      console.error(
+        'Expected container(node) inside constructor object but not received'
+      );
     }
 
     if (options.input) {
-      const placeholder = options.placeholder ? options.placeholder : 'Выберите элемент';
+      const placeholder = options.placeholder
+        ? options.placeholder
+        : 'Выберите элемент';
       this.placeholder = placeholder;
       this.input = options.input;
       const isHaveStartValue = this._hasHaveStartValue(options.countElements);
@@ -51,20 +57,26 @@ class DropDownCounter {
         this._show();
       }
     } else {
-      console.error('Expected input(node) inside constructor object but not received');
+      console.error(
+        'Expected input(node) inside constructor object but not received'
+      );
     }
 
     if (options.countElements) {
       this.countElements = options.countElements;
       this.inputViews = [];
     } else {
-      console.error('Expected countElements(Array) inside constructor object but not received');
+      console.error(
+        'Expected countElements(Array) inside constructor object but not received'
+      );
     }
 
     if (options.countGroupView) {
       this.countGroupView = options.countGroupView;
     } else {
-      console.error('Expected countGroupView(Array) inside constructor object but not received');
+      console.error(
+        'Expected countGroupView(Array) inside constructor object but not received'
+      );
     }
 
     if (options.isHideControl) {
@@ -75,18 +87,26 @@ class DropDownCounter {
       this.isPinShow = options.isPinShow;
     }
   }
-  
+
   init = () => {
     const modifiedCountElements = this._getModifiedCountElements();
     this.countElements = modifiedCountElements;
     const dropDownParentWrap = getHtmlElement('div', 'drop-down-counter__wrap');
     const countList = getHtmlElement('ul', 'drop-down-counter__count-list');
     const dropDownControl = getHtmlElement('div', 'drop-down-counter__control');
-    const clearBtn = getHtmlElement('button', 'drop-down-counter__button', 'Очистить');
+    const clearBtn = getHtmlElement(
+      'button',
+      'drop-down-counter__button',
+      'Очистить'
+    );
     this.clearBtn = clearBtn;
     clearBtn.type = 'button';
     clearBtn.addEventListener('click', this._onClickClear);
-    const acceptBtn = getHtmlElement('button', 'drop-down-counter__button', 'Применить');
+    const acceptBtn = getHtmlElement(
+      'button',
+      'drop-down-counter__button',
+      'Применить'
+    );
     acceptBtn.type = 'button';
     acceptBtn.classList.add('drop-down-counter__button_accentuating');
     acceptBtn.addEventListener('click', this._hide);
@@ -111,7 +131,9 @@ class DropDownCounter {
     this.dropDownParent.appendChild(dropDownParentWrap);
     this.container.appendChild(this.dropDownParent);
 
-    const isAllCounterZero = this.countElements.every(item => item.counter === 0);
+    const isAllCounterZero = this.countElements.every(
+      item => item.counter === 0
+    );
 
     if (isAllCounterZero) this._hideClearBtn();
   };
@@ -138,7 +160,9 @@ class DropDownCounter {
   };
 
   _show = () => {
-    const isHaveClass = this.dropDownParent.classList.contains('drop-down-counter_opened');
+    const isHaveClass = this.dropDownParent.classList.contains(
+      'drop-down-counter_opened'
+    );
     if (!isHaveClass) {
       this.dropDownParent.classList.add('drop-down-counter_opened');
       this.input.classList.add('drop-down-input__body_active');
@@ -152,7 +176,9 @@ class DropDownCounter {
       return;
     }
 
-    const isHaveClass = this.dropDownParent.classList.contains('drop-down-counter_opened');
+    const isHaveClass = this.dropDownParent.classList.contains(
+      'drop-down-counter_opened'
+    );
     if (isHaveClass) {
       this.dropDownParent.classList.remove('drop-down-counter_opened');
       this.input.classList.remove('drop-down-input__body_active');
@@ -217,7 +243,10 @@ class DropDownCounter {
       if (this.countGroupView[item].counter > 0) {
         const currentCounterGroup = this.countGroupView[item];
         const currentCounter = currentCounterGroup.counter;
-        const currentWord = declOfNum(currentCounter, currentCounterGroup.views);
+        const currentWord = declOfNum(
+          currentCounter,
+          currentCounterGroup.views
+        );
         if (index > 0 && wordOfNum.length > 1) {
           wordOfNum += ', ';
         }
@@ -239,7 +268,10 @@ class DropDownCounter {
       if (item.startValue > 0) {
         const currentCounterGroup = options.countGroupView[item.countGroupName];
         const currentCounter = currentCounterGroup.counter;
-        const currentWord = declOfNum(currentCounter, currentCounterGroup.views);
+        const currentWord = declOfNum(
+          currentCounter,
+          currentCounterGroup.views
+        );
         if (index > 0 && wordOfNum.length > 1) {
           wordOfNum += ', ';
         }
@@ -263,9 +295,19 @@ class DropDownCounter {
 
   _getCountItem = element => {
     const countItem = getHtmlElement('li', 'drop-down-counter__count-item');
-    const countItemName = getHtmlElement('p', 'drop-down-counter__count-item-name', element.name);
-    const counterMenu = getHtmlElement('div', 'drop-down-counter__counter-menu');
-    const countItemMinus = getHtmlElement('button', 'drop-down-counter__counter-btn');
+    const countItemName = getHtmlElement(
+      'p',
+      'drop-down-counter__count-item-name',
+      element.name
+    );
+    const counterMenu = getHtmlElement(
+      'div',
+      'drop-down-counter__counter-menu'
+    );
+    const countItemMinus = getHtmlElement(
+      'button',
+      'drop-down-counter__counter-btn'
+    );
     countItemMinus.classList.add('drop-down-counter__counter-btn_minus');
     if (element.startValue) {
       if (element.startValue === element.minValue) {
@@ -280,7 +322,10 @@ class DropDownCounter {
     const countItemView = getHtmlElement('p', 'drop-down-counter__select-view');
     countItemView.textContent = element.counter;
     countItemView.id = `view-${element.id}`;
-    const countItemPlus = getHtmlElement('button', 'drop-down-counter__counter-btn');
+    const countItemPlus = getHtmlElement(
+      'button',
+      'drop-down-counter__counter-btn'
+    );
     countItemPlus.classList.add('drop-down-counter__counter-btn_plus');
     countItemPlus.type = 'button';
 
@@ -294,7 +339,9 @@ class DropDownCounter {
         'drop-down-counter__counter-btn_disabled'
       );
       if (isMinusDisabled) {
-        countItemMinus.classList.remove('drop-down-counter__counter-btn_disabled');
+        countItemMinus.classList.remove(
+          'drop-down-counter__counter-btn_disabled'
+        );
         countItemMinus.removeAttribute('disabled');
       }
 
@@ -318,9 +365,11 @@ class DropDownCounter {
       }
       this._renderViewCount();
       if (groupView.counter === 0) {
-        const isCounterGroupClear = Object.keys(this.countGroupView).every(item => {
-          return this.countGroupView[item].counter === 0;
-        });
+        const isCounterGroupClear = Object.keys(this.countGroupView).every(
+          item => {
+            return this.countGroupView[item].counter === 0;
+          }
+        );
         if (isCounterGroupClear) {
           this.input.textContent = this.placeholder;
           this._hideClearBtn();

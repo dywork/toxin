@@ -4,9 +4,13 @@ import '../../components/range-slider/range-slider';
 import DropDownCounter from '../../components/drop-down-counter/DropDownCounter';
 import Inputmask from 'inputmask';
 
-Inputmask({mask: '99.99.9999', placeholder: 'ДД.ММ.ГГГГ'}).mask('.js-masked-input');
+Inputmask({mask: '99.99.9999', placeholder: 'ДД.ММ.ГГГГ'}).mask(
+  '.js-masked-input'
+);
 
-const dropDownContainer = document.querySelector('.js-drop-down-counter-container');
+const dropDownContainer = document.querySelector(
+  '.js-drop-down-counter-container'
+);
 const inputDropDown = document.querySelector('.js-input-drop-down');
 
 const dropDownOptions = {
@@ -33,7 +37,9 @@ const dropDownOptions = {
 const dropDown = new DropDownCounter(dropDownOptions);
 dropDown.init();
 
-const dropDownGuestContainer = document.querySelector('.js-drop-down-counter-container-clear');
+const dropDownGuestContainer = document.querySelector(
+  '.js-drop-down-counter-container-clear'
+);
 const inputDropDownGuest = document.querySelector('.js-input-drop-down-clear');
 
 const dropDownGuestOptions = {
@@ -55,7 +61,9 @@ const dropDownGuestOptions = {
 const dropDownGuest = new DropDownCounter(dropDownGuestOptions);
 dropDownGuest.init();
 
-const dropDownQuestContainer = document.querySelector('.js-drop-down-counter-container-filled');
+const dropDownQuestContainer = document.querySelector(
+  '.js-drop-down-counter-container-filled'
+);
 const inputDropDownQuest = document.querySelector('.js-input-drop-down-filled');
 
 const dropDownQuestOptions = {

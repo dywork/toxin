@@ -10,7 +10,9 @@ const datePickerDomInfo = {
 const datePicker = new DatePicker(datePickerDomInfo);
 datePicker.renderCalendar();
 
-const dropDownContainer = document.querySelector('.js-drop-down-counter-container');
+const dropDownContainer = document.querySelector(
+  '.js-drop-down-counter-container'
+);
 const inputDropDown = document.querySelector('.js-input-drop-down');
 
 const dropDownOptions = {
@@ -35,7 +37,9 @@ const dropDownOptions = {
 const dropDown = new DropDownCounter(dropDownOptions);
 dropDown.init();
 
-const dropDownGuestContainer = document.querySelector('.js-drop-down-counter-container-guest');
+const dropDownGuestContainer = document.querySelector(
+  '.js-drop-down-counter-container-guest'
+);
 const inputDropDownGuest = document.querySelector('.js-input-drop-down-guest');
 
 const dropDownGuestOptions = {

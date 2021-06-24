@@ -4,7 +4,9 @@ class PieChart {
   static init(domInfo) {
     const {root, diagram} = domInfo;
     const elements = this._getElements(root);
-    elements.forEach(canvas => this._createPie(canvas, this._getPieData(diagram), root));
+    elements.forEach(canvas =>
+      this._createPie(canvas, this._getPieData(diagram), root)
+    );
   }
 
   static _createPie(item, pieData, root) {

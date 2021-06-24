@@ -2,18 +2,22 @@ class MainMenu {
   constructor(parentDom) {
     this.parentDom = parentDom;
   }
-  
+
   init() {
     this._setSubMenuListener();
     this._setBurgerListener();
-    this.isAuthorized = !this.parentDom.parentNode.querySelector('.js-profile-btn');
+    this.isAuthorized = !this.parentDom.parentNode.querySelector(
+      '.js-profile-btn'
+    );
     if (!this.isAuthorized) {
       this._setAuthListener();
     }
   }
 
   _setSubMenuListener() {
-    const subMenuItems = this.parentDom.querySelectorAll('.js-main-menu-item-sub-menu');
+    const subMenuItems = this.parentDom.querySelectorAll(
+      '.js-main-menu-item-sub-menu'
+    );
     subMenuItems.forEach(this._addSubMenuItemListener);
   }
 
@@ -28,7 +32,9 @@ class MainMenu {
     if (!this.isAuthorized) {
       this._toggleAuthBtnClass();
       const authList = this.parentDom.parentNode.querySelector('.js-auth-list');
-      const isAuthListActive = authList.classList.contains('page-header__auth-list_active');
+      const isAuthListActive = authList.classList.contains(
+        'page-header__auth-list_active'
+      );
 
       if (!isAuthListActive) {
         this._toggleMainMenuClass();
@@ -51,13 +57,17 @@ class MainMenu {
     this._toggleBurgerBtnClass();
     this._toggleAuthBtnClass();
     this._toggleAuthListClass();
-  }
+  };
 
   _addSubMenuItemListener = subMenuItem => {
     const subMenuLink = subMenuItem.firstChild;
     const subMenu = subMenuLink.nextSibling;
-    subMenuItem.addEventListener('mouseover', () => this._addSubMenuClass(subMenu));
-    subMenuItem.addEventListener('mouseleave', () => this._removeSubMenuClass(subMenu));
+    subMenuItem.addEventListener('mouseover', () =>
+      this._addSubMenuClass(subMenu)
+    );
+    subMenuItem.addEventListener('mouseleave', () =>
+      this._removeSubMenuClass(subMenu)
+    );
   };
 
   _addSubMenuClass(subMenu) {

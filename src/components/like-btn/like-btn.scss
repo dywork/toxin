@@ -34,7 +34,8 @@
       border-color: $accentColor;
 
       &::after {
-        background: url('../../components/like-btn/img/like-active.svg') no-repeat;
+        background: url('../../components/like-btn/img/like-active.svg')
+          no-repeat;
       }
     }
   }

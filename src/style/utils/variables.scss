@@ -7,8 +7,16 @@ $accentSecondGradColor: #66d2ea;
 $contentColor: #1f2041;
 
 // Gradients
-$accentGradient: linear-gradient(180deg, $accentColor 0%, $accentGradColor 100%);
-$accentSecondGradient: linear-gradient(180deg, $accentSecondColor 0%, $accentSecondGradColor 100%);
+$accentGradient: linear-gradient(
+  180deg,
+  $accentColor 0%,
+  $accentGradColor 100%
+);
+$accentSecondGradient: linear-gradient(
+  180deg,
+  $accentSecondColor 0%,
+  $accentSecondGradColor 100%
+);
 
 // font-family
 $font-family: Montserrat, Arial, sans-serif;
