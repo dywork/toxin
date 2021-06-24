@@ -32,12 +32,11 @@
     text-align: center;
     text-transform: uppercase;
     color: $accentColor;
-    /* stylelint-disable */
-    b {
-      /* stylelint-enable */
-      font-size: 24px;
-      line-height: 30px;
-    }
+  }
+
+  &__vote-count {
+    font-size: 24px;
+    line-height: 30px;
   }
 
   &__label-list {

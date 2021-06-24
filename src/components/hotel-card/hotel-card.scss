@@ -17,12 +17,8 @@
     margin: 0;
   }
 
-  &__slide {
-    /* stylelint-disable */
-    img {
-      /* stylelint-enable */
-      border-radius: 4px 4px 0 0;
-    }
+  &__picture {
+    border-radius: 4px 4px 0 0;
   }
 
   &__arrows {
@@ -134,19 +130,17 @@
         color: transparentize($contentColor, .5);
       }
     }
-    /* stylelint-disable */
-    b {
-      /* stylelint-enable */
-      font-size: 12px;
-      text-transform: uppercase;
-      color: $accentColor;
-    }
-    /* stylelint-disable */
-    span {
-      /* stylelint-enable */
-      font-size: 20px;
-      font-weight: bold;
-    }
+  }
+
+  &__title-text {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &__title-extra-text {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: $accentColor;
   }
 
   &__text {
@@ -158,11 +152,10 @@
     &_large {
       font-size: 14px;
     }
-    /* stylelint-disable */
-    b {
-      /* stylelint-enable */
-      font-family: $font-family;
-      font-size: 14px;
-    }
+  }
+
+  &__review-count {
+    font-family: $font-family;
+    font-size: 14px;
   }
 }

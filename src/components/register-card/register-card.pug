@@ -26,6 +26,6 @@ mixin registerCard
           +toggle({ text: 'Получать спецпредложения' })
         +button({ title: 'Перейти к оплате', withIcon: true, buttonType: 'submit' })
       .register-card__account-enter
-        p Уже есть аккаунт на Toxin
+        p.register-card__account-enter-text Уже есть аккаунт на Toxin
         .register-card__auth-btn-wrap
           +button({ path: 'auth.html', title: 'Войти', variant: 'outlined', size: 'large' })

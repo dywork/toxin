@@ -36,19 +36,17 @@
     font-size: 13px;
     white-space: nowrap;
     text-overflow: ellipsis;
-    /* stylelint-disable */
-    b {
-      /* stylelint-enable */
-      font-size: 12px;
-      text-transform: uppercase;
-      color: $accentColor;
-    }
-    /* stylelint-disable */
-    span {
-      /* stylelint-enable */
-      font-size: 25px;
-      font-weight: bold;
-    }
+  }
+
+  &__title-text {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  &__title-extra-text {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: $accentColor;
   }
 
   &__per-day {
@@ -56,12 +54,11 @@
     padding-top: 5px;
     font-size: 12px;
     color: transparentize($contentColor, .5);
-    /* stylelint-disable */
-    b {
-      font-family: $font-family;
-      font-size: 14px;
-    }
-    /* stylelint-enable */
+  }
+
+  &__cost-text {
+    font-family: $font-family;
+    font-size: 14px;
   }
 
   &__date-inputs {

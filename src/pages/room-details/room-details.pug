@@ -16,11 +16,11 @@ block variables
 
 block content
   .room-details__picture 
-    .room-details__picture-big
-      img(src='img/room-details/room-details-1.jpg', alt='Детали комнаты')
-    .room-details__picture-miniature
-      img(src='img/room-details/room-details-2.jpg', alt='Детали комнаты')
-      img(src='img/room-details/room-details-3.jpg', alt='Детали комнаты')
+    .room-details__picture-big-wrap
+      img.room-details__picture-big(src='img/room-details/room-details-1.jpg', alt='Детали комнаты')
+    .room-details__picture-miniature-wrap
+      img.room-details__picture-miniature(src='img/room-details/room-details-2.jpg', alt='Детали комнаты')
+      img.room-details__picture-miniature(src='img/room-details/room-details-3.jpg', alt='Детали комнаты')
   .room-details__border
     .room-details__container
       .room-details__wrap
@@ -49,6 +49,6 @@ block content
                 +bulletedList({ items: [ { text: 'Нельзя с питомцами' }, { text: 'Без вечеринок и мероприятий' }, { text: 'Время прибытия — после 13:00, а выезд до 12:00' } ] })
               section.room-details__info
                 h2.room-details__title Отмена
-                p Бесплатная отмена в течение 48 ч. После этого при отмене не позднее чем за 5 дн. до прибытия вы получите полный возврат за вычетом сбора за услуги.
+                p.room-details__info-text Бесплатная отмена в течение 48 ч. После этого при отмене не позднее чем за 5 дн. до прибытия вы получите полный возврат за вычетом сбора за услуги.
         .room-details__total-card-wrap
           +totalCard({ numberHotel: 888, dayCost: 9990, amountDay: 4, discount: 2179, additionalService: 300, isLux: true, })

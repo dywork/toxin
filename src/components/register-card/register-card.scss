@@ -61,10 +61,9 @@
     display: flex;
     align-items: center;
     font-family: $font-family;
-    /* stylelint-disable */
-    p {
-      /* stylelint-enable */
-      margin-right: auto;
-    }
+  }
+
+  &__account-enter-text {
+    margin-right: auto;
   }
 }
