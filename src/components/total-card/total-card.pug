@@ -1,4 +1,4 @@
-include ../drop-down-input/drop-down-input
+include ../date-input/date-input
 
 mixin totalCard(options)
   -
@@ -36,14 +36,10 @@ mixin totalCard(options)
             h2.total-card__title № #[span= numberHotel]
           p.total-card__per-day #[b= getNumStringWithSpaces(dayCost) + "₽ в сутки"]
         .total-card__date-inputs
-          .total-card__date-input-wrap
-            .total-card__title-wrap
-              +typography({ text: "Прибытие", variant: "h3", hasUpper: true })
-            +dropDownInput({ text: "ДД.ММ.ГГГГ", classForJs: "js-arrival-input" })
-          .total-card__date-input-wrap
-            .total-card__title-wrap
-              +typography({ text: "Выезд", variant: "h3", hasUpper: true })
-            +dropDownInput({ text: "ДД.ММ.ГГГГ", classForJs: "js-departure-input" })
+          +dateInput([
+            { title: 'Прибытие', value: 'ДД.ММ.ГГГГ', classForJs: 'js-arrival-input' },
+            { title: 'Выезд', value: 'ДД.ММ.ГГГГ', classForJs: 'js-departure-input' },
+          ])
           div(class="date-picker-container js-date-picker-container total-card__date-picker-container")
         .total-card__title-wrap
           +typography({ text: "Гости", variant: "h3", hasUpper: true })  

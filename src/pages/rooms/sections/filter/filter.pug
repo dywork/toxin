@@ -1,5 +1,6 @@
 include ../../../../components/typography/typography
 include ../../../../components/drop-down-input/drop-down-input
+include ../../../../components/date-input/date-input
 include ../../../../components/range-slider/range-slider
 include ../../../../components/checkbox-list/checkbox-list
 include ../../../../components/expandable-checkbox/expandable-checkbox
@@ -8,9 +9,9 @@ mixin filter()
   .filter
     .filter__wrap
       div(class="filter__item filter__item_mbs")
-        .filter__title-wrap
-          +typography({ text: "Даты пребывания в отеле", variant: "h3", hasUpper: true })
-        +dropDownInput({ text: "19 авг - 23 авг", classForJs: "js-drop-down-input" })
+        +dateInput([
+          { title: "Даты пребывания в отеле", value: "19 авг - 23 авг", classForJs: "js-drop-down-input" },
+        ])
         div(class="date-picker-container js-date-picker-container rooms-page__date-picker-container")
       .filter__item
         .filter__title-wrap

@@ -1,0 +1,11 @@
+include ../drop-down-input/drop-down-input
+include ../typography/typography
+
+mixin dateInput(inputs)
+  .date-input
+    each input in inputs
+      - const { title, value, classForJs } = input;
+      .date-input__wrap
+        .date-input__title-wrap
+          +typography({ text: title, variant: "h3", hasUpper: true })
+        +dropDownInput({ text: value, classForJs })

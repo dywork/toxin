@@ -1,0 +1,32 @@
+.date-input {
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+  @media (max-width: 380px) {
+    flex-direction: column;
+  }
+
+  &__wrap {
+    margin-right: 20px;
+    flex-grow: 1;
+
+    @media (max-width: 380px) {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+
+    &:last-child {
+      margin-right: 0;
+
+      @media (max-width: 380px) {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__title-wrap {
+    margin-bottom: 5px;
+  }
+}

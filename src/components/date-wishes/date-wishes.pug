@@ -1,6 +1,6 @@
-include ../drop-down-input/drop-down-input
 include ../typography/typography
 include ../button/button
+include ../date-input/date-input
 
 mixin dateWishes()
   section.date-wishes
@@ -9,14 +9,10 @@ mixin dateWishes()
         fieldset.date-wishes__fieldset
           legend.date-wishes__title Найдём номера под ваши пожелания
           .date-wishes__group
-            .date-wishes__input-wrap
-              .date-wishes__title-wrap
-                +typography({ text: "Прибытие", variant: "h3", hasUpper: true })
-              +dropDownInput({ text: "ДД.ММ.ГГГГ", classForJs: "js-arrival-input" })
-            .date-wishes__input-wrap
-              .date-wishes__title-wrap
-                +typography({ text: "Выезд", variant: "h3", hasUpper: true })
-              +dropDownInput({ text: "ДД.ММ.ГГГГ", classForJs: "js-departure-input" })
+            +dateInput([
+              { title: 'Прибытие', value: 'ДД.ММ.ГГГГ', classForJs: 'js-arrival-input' },
+              { title: 'Выезд', value: 'ДД.ММ.ГГГГ', classForJs: 'js-departure-input' },
+            ])
             div(class="date-picker-container js-date-picker-container date-wishes__date-picker-container")
           .date-wishes__title-wrap
             +typography({ text: "Гости", variant: "h3", hasUpper: true })  
