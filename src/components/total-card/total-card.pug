@@ -47,7 +47,7 @@ mixin totalCard(options)
             p.total-card__calc-text= `${getNumStringWithSpaces(dayCost)}₽ х ${amountDay} суток`
             p.total-card__calc-text.total-card__calc-text_informational= `Сбор за услуги: скидка ${getNumStringWithSpaces(discount)}₽`
             p.total-card__calc-text.total-card__calc-text_informational Сбор за дополнительные услуги
-          .total-card__calc-row.total-card__calc-row_low.total-card__calc-row_tar
+          .total-card__calc-row.total-card__calc-row_low.total-card__calc-row_with-right-aligned
             p.total-card__calc-text= `${getNumStringWithSpaces(costPerDays)}₽`
             p.total-card__calc-text 0₽
             p.total-card__calc-text= `${additionalService}₽`
