@@ -34,7 +34,7 @@
   border: 1px solid rgba(31, 32, 65, .25);
   border-radius: 4px;
   box-shadow: 0 10px 20px rgba(31, 32, 65, .05);
-  transition: all .1s ease-in;
+  transition: transform .1s ease-in-out;
   transform: translateY(-10px);
 
   &_opened {

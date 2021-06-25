@@ -33,7 +33,7 @@
       width: 100vw;
       opacity: 0;
       background: $mainColor;
-      transition: all .3s ease-in-out;
+      transition: transform .3s ease-in-out;
       transform: translate(-50%, -10px);
     }
   }
@@ -111,7 +111,7 @@
     background-color: $mainColor;
     border-radius: 5px;
     box-shadow: 0 10px 20px rgba(31, 32, 65, .05);
-    transition: all .4s ease;
+    transition: transform .4s ease;
     transform: translate(-50%, 10px);
 
     &_opened {
