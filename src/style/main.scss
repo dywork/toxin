@@ -15,13 +15,3 @@ html {
   background-color: #ffffff;
 }
 /* stylelint-enable */
-
-.wrapper {
-  display: flex;
-  min-height: 100%;
-  flex-direction: column;
-}
-
-.content {
-  flex-grow: 1;
-}

@@ -1,5 +1,5 @@
-include ../components/header/header
-include ../components/footer/footer
+include ../../components/header/header
+include ../../components/footer/footer
 -
   const menuItems = [
     { title: 'О нас', path: 'not-found-page.html' },
@@ -60,8 +60,8 @@ html(lang='ru')
     )
     title #{title}
   body(class=pageClass)
-    .wrapper
-      .content
+    .main-layout__wrapper
+      .main-layout__content
         +header({ customMenuItems: menuItems })
         main(class=mainClass)
           block content
