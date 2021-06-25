@@ -30,18 +30,18 @@
     display: none;
 
     &:checked {
-      & + .checkbox-list__label-span::after {
+      & + .checkbox-list__label-text::after {
         visibility: visible;
         opacity: 1;
       }
 
-      & + .checkbox-list__label-span::before {
+      & + .checkbox-list__label-text::before {
         border-color: $accentColor;
       }
     }
   }
 
-  &__label-span {
+  &__label-text {
     position: relative;
     padding-left: 30px;
     display: block;

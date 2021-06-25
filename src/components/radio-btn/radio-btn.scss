@@ -21,18 +21,18 @@
     display: none;
 
     &:checked {
-      & + .radio-btn__label-span::after {
+      & + .radio-btn__label-text::after {
         visibility: visible;
         opacity: 1;
       }
 
-      & + .radio-btn__label-span::before {
+      & + .radio-btn__label-text::before {
         border-color: $accentColor;
       }
     }
   }
 
-  &__label-span {
+  &__label-text {
     position: relative;
     padding-left: 30px;
     display: block;

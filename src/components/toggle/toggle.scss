@@ -1,5 +1,5 @@
 .toggle {
-  &__label-span {
+  &__label-text {
     position: relative;
     padding-left: 50px;
     display: block;
@@ -40,12 +40,12 @@
     display: none;
 
     &:checked {
-      & + .toggle__label-span::after {
+      & + .toggle__label-text::after {
         background: $accentGradient;
         transform: translateX(20px);
       }
 
-      & + .toggle__label-span::before {
+      & + .toggle__label-text::before {
         border-color: $accentColor;
       }
     }
