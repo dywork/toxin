@@ -16,7 +16,7 @@ mixin registerCard
           +radioBtn({ items: [ { groupName: 'gender', label: 'Мужчина', isChecked: true }, { groupName: 'gender', label: 'Женщина' } ] })
         fieldset.register-card__fieldset
           legend.register-card__legend Дата рождения
-          +input({ type: 'text', name: 'date-of-birth', placeholder: 'ДД.ММ.ГГГГ' })
+          +input({ type: 'text', name: 'date-of-birth', placeholder: 'ДД.ММ.ГГГГ', classForJs: 'js-date-birth' })
         fieldset.register-card__fieldset
           legend.register-card__legend Данные для входа в сервис
           .register-card__input-wrap
