@@ -62,6 +62,15 @@ class DropDownCounter {
       );
     }
 
+    if (options.inputSplitBtn) {
+      this.inputSplitBtn = options.inputSplitBtn;
+      this.inputSplitBtn.addEventListener('click', this._show);
+    } else {
+      console.error(
+        'Expected inputSplitBtn(node) inside constructor object but not received'
+      );
+    }
+
     if (options.countElements) {
       this.countElements = options.countElements;
       this.inputViews = [];

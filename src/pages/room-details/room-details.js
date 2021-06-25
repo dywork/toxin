@@ -20,10 +20,14 @@ const dropDownContainer = document.querySelector(
   '.js-drop-down-counter-container'
 );
 const inputDropDown = document.querySelector('.js-input-drop-down');
+const inputSplitBtn = document.querySelector(
+  '.js-input-drop-down-split-btn'
+);
 
 const dropDownOptions = {
   container: dropDownContainer,
   input: inputDropDown,
+  inputSplitBtn,
   countElements: [
     {name: 'Взрослые', countGroupName: 'guest'},
     {name: 'Дети', countGroupName: 'guest'},

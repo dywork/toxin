@@ -106,6 +106,14 @@ class DatePicker {
       );
     }
 
+    if (domInfo.datePickerSplitBtn) {
+      this.datePickerSplitBtn = domInfo.datePickerSplitBtn;
+      this.datePickerSplitBtn.addEventListener(
+        'click',
+        this._showCalendar
+      );
+    }
+
     if (domInfo.departureSplitBtn) {
       this.departureSplitBtn = domInfo.departureSplitBtn;
       this.departureSplitBtn.addEventListener(

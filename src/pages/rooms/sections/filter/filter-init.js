@@ -4,20 +4,50 @@ import DropDownCounter from '../../../../components/drop-down-counter/DropDownCo
 const datePickerDomInfo = {
   parentNode: document.querySelector('.js-date-picker-container'),
   datePickerInput: document.querySelector('.js-drop-down-input'),
+  datePickerSplitBtn: document.querySelector('.js-drop-down-input-split-btn'),
   isCellLower: true,
 };
 
 const datePicker = new DatePicker(datePickerDomInfo);
 datePicker.renderCalendar();
 
+const dropDownGuestContainer = document.querySelector(
+  '.js-drop-down-counter-container-guest'
+);
+const inputDropDownGuest = document.querySelector('.js-input-drop-down-guest');
+const inputSplitBtnGuest = document.querySelector(
+  '.js-input-drop-down-guest-split-btn'
+);
+
+const dropDownGuestOptions = {
+  container: dropDownGuestContainer,
+  input: inputDropDownGuest,
+  inputSplitBtn: inputSplitBtnGuest,
+  countElements: [
+    {name: 'Взрослые', countGroupName: 'guest', startValue: 3},
+    {name: 'Дети', countGroupName: 'guest', startValue: 0},
+    {name: 'Младенцы', countGroupName: 'child', startValue: 1},
+  ],
+  countGroupView: {
+    guest: {counter: 3, views: ['гость', 'гостя', 'гостей']},
+    child: {counter: 1, views: ['младенец', 'младенца', 'младенцев']},
+  },
+  placeholder: 'Cколько гостей',
+};
+
+const dropDownGuest = new DropDownCounter(dropDownGuestOptions);
+dropDownGuest.init();
+
 const dropDownContainer = document.querySelector(
   '.js-drop-down-counter-container'
 );
 const inputDropDown = document.querySelector('.js-input-drop-down');
+const inputSplitBtn = document.querySelector('.js-input-drop-down-split-btn');
 
 const dropDownOptions = {
   container: dropDownContainer,
   input: inputDropDown,
+  inputSplitBtn,
   countElements: [
     {name: 'Спальни', countGroupName: 'bedrooms', startValue: 2},
     {name: 'Кровати', countGroupName: 'bed', startValue: 2},
@@ -36,26 +66,3 @@ const dropDownOptions = {
 
 const dropDown = new DropDownCounter(dropDownOptions);
 dropDown.init();
-
-const dropDownGuestContainer = document.querySelector(
-  '.js-drop-down-counter-container-guest'
-);
-const inputDropDownGuest = document.querySelector('.js-input-drop-down-guest');
-
-const dropDownGuestOptions = {
-  container: dropDownGuestContainer,
-  input: inputDropDownGuest,
-  countElements: [
-    {name: 'Взрослые', countGroupName: 'guest', startValue: 3},
-    {name: 'Дети', countGroupName: 'guest', startValue: 0},
-    {name: 'Младенцы', countGroupName: 'child', startValue: 1},
-  ],
-  countGroupView: {
-    guest: {counter: 3, views: ['гость', 'гостя', 'гостей']},
-    child: {counter: 1, views: ['младенец', 'младенца', 'младенцев']},
-  },
-  placeholder: 'Cколько гостей',
-};
-
-const dropDownGuest = new DropDownCounter(dropDownGuestOptions);
-dropDownGuest.init();
