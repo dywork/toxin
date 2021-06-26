@@ -10,8 +10,7 @@
     "deploy": "gh-pages -d dist",
     "lint:css": "stylelint \"src/**/*.scss\" --config ./.stylelintrc",
     "format:css": "prettier --write \"src/**/*.scss\" && stylelint \"src/**/*.scss\" --fix --config ./.stylelintrc",
-    "format:js": "prettier --write \"src/**/*.js\"",
-    "format:pug": "prettier --write \"src/**/*.pug\""
+    "format:js": "prettier --write \"src/**/*.js\""
   },
   "author": "https://github.com/dywork",
   "license": "ISC",
