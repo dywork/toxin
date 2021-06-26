@@ -3,4 +3,4 @@ mixin toggle({ text, isChecked })
     .toggle__wrap
       label.toggle__label
         input.toggle__input(type='checkbox', checked=isChecked)
-        span.toggle__label-text= text
+        span.toggle__label-text(tabindex='0')= text
