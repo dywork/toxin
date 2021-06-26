@@ -13,7 +13,13 @@ mixin inputs
       .inputs__title-wrap
         +typography({ text: 'Text Field', variant: 'h3', hasUpper: true })
         p.inputs__title-alt Hover / Focus
-      +input({ type: 'text', name: 'text', placeholder: 'placeholder', value: 'This is pretty awesome', isFocused: true, })
+      +input({
+        type: 'text',
+        name: 'text',
+        placeholder: 'placeholder',
+        value: 'This is pretty awesome',
+        isFocused: true,
+      })
     .inputs__input
       .inputs__title-wrap
         +typography({ text: 'Dropdown', variant: 'h3', hasUpper: true })
@@ -21,7 +27,12 @@ mixin inputs
     .inputs__input
       .inputs__title-wrap
         +typography({ text: 'Masked text field', variant: 'h3', hasUpper: true })
-      +input({ type: 'text', name: 'date', classForJs: 'js-masked-input', placeholder: 'ДД.ММ.ГГГГ' })
+      +input({
+        type: 'text',
+        name: 'date',
+        classForJs: 'js-masked-input',
+        placeholder: 'ДД.ММ.ГГГГ',
+      })
     .inputs__date-inputs
       .inputs__date-input
         .inputs__title-wrap

@@ -12,4 +12,10 @@ mixin dropWithBullet
     .drop-with-bullet__list
       .drop-with-bullet__title-wrap.drop-with-bullet__title-wrap_bottom-gap
         +typography({ text: 'Bullet list', variant: 'h3', hasUpper: true })
-      +bulletedList({ items: [ { text: 'Нельзя с питомцами' }, { text: 'Без вечеринок и мероприятий' }, { text: 'Время прибытия — после 13:00, а выезд до 12:00' } ] })
+      +bulletedList({
+        items: [
+          { text: 'Нельзя с питомцами' },
+          { text: 'Без вечеринок и мероприятий' },
+          { text: 'Время прибытия — после 13:00, а выезд до 12:00' },
+        ],
+      })

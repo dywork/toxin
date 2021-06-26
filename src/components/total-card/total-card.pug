@@ -36,7 +36,10 @@ mixin totalCard(options)
             h2.total-card__title № #[span.total-card__title-text= numberHotel]
           p.total-card__per-day #[b.total-card__cost-text= getNumStringWithSpaces(dayCost) + '₽ в сутки']
         .total-card__date-inputs
-          +dateInput([ { title: 'Прибытие', value: 'ДД.ММ.ГГГГ', classForJs: 'js-arrival-input' }, { title: 'Выезд', value: 'ДД.ММ.ГГГГ', classForJs: 'js-departure-input' }, ])
+          +dateInput([
+            { title: 'Прибытие', value: 'ДД.ММ.ГГГГ', classForJs: 'js-arrival-input' },
+            { title: 'Выезд', value: 'ДД.ММ.ГГГГ', classForJs: 'js-departure-input' },
+          ])
           .date-picker-container.js-date-picker-container.total-card__date-picker-container
         .total-card__title-wrap
           +typography({ text: 'Гости', variant: 'h3', hasUpper: true }) 

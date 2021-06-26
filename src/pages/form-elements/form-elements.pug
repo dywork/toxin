@@ -38,7 +38,23 @@ block content
       .form-elements__row
         .form-elements__row-wrap
           .form-elements__features
-            +features({ items: [ { title: 'Комфорт', description: 'Шумопоглощающие стены', icon: 'emoticon' }, { title: 'Удобство', description: 'Окно в каждой из спален', icon: 'city' } ] })
+            +features({
+              items: [
+                {
+                  title: 'Комфорт',
+                  description: 'Шумопоглощающие стены',
+                  icon: 'emoticon',
+                },
+                { title: 'Удобство', description: 'Окно в каждой из спален', icon: 'city' },
+              ],
+            })
         .form-elements__row-wrap.form-elements__row-wrap_size_large
           .form-elements__comment
-            +comment({ authorName: 'Мурад Сарафанов', datePost: '5 дней назад', likeCount: 12, isLikeActive: true, avatarSrc: 'img/avatars/murad.jpg', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий. И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.' })
+            +comment({
+              authorName: 'Мурад Сарафанов',
+              datePost: '5 дней назад',
+              likeCount: 12,
+              isLikeActive: true,
+              avatarSrc: 'img/avatars/murad.jpg',
+              text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий. И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.',
+            })

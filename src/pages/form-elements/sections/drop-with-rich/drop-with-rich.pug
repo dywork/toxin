@@ -12,4 +12,15 @@ mixin dropWithRich
     .drop-with-rich__list
       .drop-with-rich__title-wrap.drop-with-rich__title-wrap_bottom-gap
         +typography({ text: 'Rich Checkbox Buttons', variant: 'h3', hasUpper: true })
-      +checkboxList({ items: [ { title: 'Широкий коридор', label: 'Ширина коридоров в номере не менее 91 см.' }, { title: 'Помощник для инвалидов', label: 'На 1 этаже вас встретит специалист и проводит до номера.'} ] })
+      +checkboxList({
+        items: [
+          {
+            title: 'Широкий коридор',
+            label: 'Ширина коридоров в номере не менее 91 см.',
+          },
+          {
+            title: 'Помощник для инвалидов',
+            label: 'На 1 этаже вас встретит специалист и проводит до номера.',
+          },
+        ],
+      })

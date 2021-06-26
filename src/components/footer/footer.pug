@@ -58,7 +58,10 @@ mixin footer({ isShort, copyrightYear })
               .page-footer__logo-wrap
                 +logo
               .page-footer__text-content-wrap
-                +typography({ variant: 'body', text: 'Бронирование номеров в лучшем отеле 2019 года по версии ассоциации «Отельные взгляды»' })
+                +typography({
+                  variant: 'body',
+                  text: 'Бронирование номеров в лучшем отеле 2019 года по версии ассоциации «Отельные взгляды»',
+                })
             .page-footer__col-group
               .page-footer__col
                 .page-footer__title-nav-wrap
@@ -76,7 +79,10 @@ mixin footer({ isShort, copyrightYear })
                 .page-footer__title-wrap
                   +typography({ variant: 'h3', text: 'Подписка', hasUpper: true })
                 .page-footer__text-content-wrap
-                  +typography({ variant: 'body', text: 'Получайте специальные предложения и новости сервиса' })
+                  +typography({
+                    variant: 'body',
+                    text: 'Получайте специальные предложения и новости сервиса',
+                  })
                 form(action='not-found-page.html')
                   +input({ type: 'text', name: 'date', placeholder: 'Email', withButton: true })
           .page-footer__side-info

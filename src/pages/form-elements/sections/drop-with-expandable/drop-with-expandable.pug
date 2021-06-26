@@ -16,6 +16,27 @@ mixin dropWithExpandable
       +dropDownInput({ text: '2 спальни, 2 кровати...', classForJs: 'js-input-drop-down' })
       .drop-down-counter-container.js-drop-down-counter-container
     .drop-with-expandable__checkbox-list
-      +expandableCheckbox({ summary: 'Expandable checkbox list', items: [ { label: 'Завтрак' }, { label: 'Письменный стол', isChecked: true }, { label: 'Стул для кормления', isChecked: true }, { label: 'Кроватка', isChecked: true }, { label: 'Телевизор' }, { label: 'Шампунь' }, ], })
+      +expandableCheckbox({
+        summary: 'Expandable checkbox list',
+        items: [
+          { label: 'Завтрак' },
+          { label: 'Письменный стол', isChecked: true },
+          { label: 'Стул для кормления', isChecked: true },
+          { label: 'Кроватка', isChecked: true },
+          { label: 'Телевизор' },
+          { label: 'Шампунь' },
+        ],
+      })
     .drop-with-expandable__checkbox-list
-      +expandableCheckbox({ summary: 'Expandable checkbox list', isOpened: true, items: [ { label: 'Завтрак' }, { label: 'Письменный стол', isChecked: true }, { label: 'Стул для кормления', isChecked: true }, { label: 'Кроватка', isChecked: true }, { label: 'Телевизор' }, { label: 'Шампунь' }, ], })
+      +expandableCheckbox({
+        summary: 'Expandable checkbox list',
+        isOpened: true,
+        items: [
+          { label: 'Завтрак' },
+          { label: 'Письменный стол', isChecked: true },
+          { label: 'Стул для кормления', isChecked: true },
+          { label: 'Кроватка', isChecked: true },
+          { label: 'Телевизор' },
+          { label: 'Шампунь' },
+        ],
+      })
