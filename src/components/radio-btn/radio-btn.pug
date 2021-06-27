@@ -3,13 +3,22 @@ mixin radioBtn({ items })
     .radio-btn__wrap
       ul.radio-btn__list
         each item in items
-          - const {label, groupName, isChecked} = item;
+          -
+            const {label, groupName, isChecked, classForJs} = item;
+            let labelClass = 'radio-btn__label-text';
+            let inputClass = 'radio-btn__input';
+
+            if (classForJs) {
+              labelClass += ` ${classForJs}`;
+              inputClass += ` ${classForJs}-input`;
+            }            
 
           li.radio-btn__item
             label.radio-btn__label
-              input.radio-btn__input(
+              input(
+                class=inputClass,
                 name=groupName,
                 type='radio',
                 checked=isChecked
               )
-              span.radio-btn__label-text(tabindex='0')= label
+              span(class=labelClass tabindex='0')= label

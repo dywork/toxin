@@ -15,8 +15,8 @@ mixin registerCard
             +input({ type: 'text', name: 'surname', placeholder: 'Фамилия' })
           +radioBtn({
             items: [
-              { groupName: 'gender', label: 'Мужчина', isChecked: true },
-              { groupName: 'gender', label: 'Женщина' },
+              { groupName: 'gender', label: 'Мужчина', isChecked: true, classForJs: 'js-gender-man' },
+              { groupName: 'gender', label: 'Женщина', classForJs: 'js-gender-female' },
             ],
           })
         fieldset.register-card__fieldset
@@ -33,7 +33,7 @@ mixin registerCard
             +input({ type: 'email', name: 'email', placeholder: 'Email' })
           .register-card__input-wrap 
             +input({ type: 'password', name: 'pass', placeholder: 'Пароль' })
-          +toggle({ text: 'Получать спецпредложения' })
+          +toggle({ text: 'Получать спецпредложения', classForJs: 'js-special-offer' })
         +button({ title: 'Перейти к оплате', withIcon: true, buttonType: 'submit' })
       .register-card__account-enter
         p.register-card__account-enter-text Уже есть аккаунт на Toxin
