@@ -24,7 +24,8 @@ mixin totalCard(options)
     }
 
     const costPerDays = dayCost * amountDay;
-    const totalPrice = costPerDays - discount + additionalService;
+    const totalPrice =
+      amountDay === 0 ? 0 : costPerDays - discount + additionalService;
 
   section.total-card
     .total-card__wrap
@@ -47,15 +48,15 @@ mixin totalCard(options)
         .drop-down-counter-container.js-drop-down-counter-container
         .total-card__calc
           .total-card__calc-row
-            p.total-card__calc-text= `${getNumStringWithSpaces(dayCost)}₽ х ${amountDay} суток`
+            p.total-card__calc-text #[span.total-card__day-cost= getNumStringWithSpaces(dayCost)] ₽ х #[span.total-card__amount-day.js-amount-day=amountDay] суток
             p.total-card__calc-text.total-card__calc-text_informational= `Сбор за услуги: скидка ${getNumStringWithSpaces(discount)}₽`
             p.total-card__calc-text.total-card__calc-text_informational Сбор за дополнительные услуги
           .total-card__calc-row.total-card__calc-row_low.total-card__calc-row_with-right-aligned
-            p.total-card__calc-text= `${getNumStringWithSpaces(costPerDays)}₽`
+            p.total-card__calc-text.js-cost-per-days= `${getNumStringWithSpaces(costPerDays)}₽`
             p.total-card__calc-text 0₽
             p.total-card__calc-text= `${additionalService}₽`
         .total-card__total
           p.total-card__total-text Итого
           .total-card__total-separator
-          p.total-card__total-price= `${getNumStringWithSpaces(totalPrice)}₽`
+          p.total-card__total-price.js-total-price= `${getNumStringWithSpaces(totalPrice)}₽`
         +button({ title: 'Забронировать', withIcon: true, buttonType: 'submit' })
