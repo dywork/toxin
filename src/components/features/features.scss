@@ -26,15 +26,15 @@
     align-items: center;
 
     &_emoticon {
-      background: url('./img/emoticon.svg') no-repeat;
+      background: url('./img/emoticon.svg') center center no-repeat;
     }
 
     &_city {
-      background: url('./img/city.svg') no-repeat;
+      background: url('./img/city.svg') center center no-repeat;
     }
 
     &_whats {
-      background: url('./img/whatshot.svg') no-repeat;
+      background: url('./img/whatshot.svg') center center no-repeat;
     }
   }
 

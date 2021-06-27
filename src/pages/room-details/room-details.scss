@@ -118,7 +118,7 @@
   }
 
   &__column {
-    margin-bottom: 35px;
+    margin-bottom: 33px;
     display: flex;
     justify-content: space-between;
 
@@ -139,9 +139,13 @@
   }
 
   &__title-wrap {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
+
+    &_larger-indentation {
+      margin-bottom: 22px;
+    }
 
     &_left-gap {
       padding-left: 20px;
@@ -149,7 +153,7 @@
   }
 
   &__title-alt {
-    padding-top: 2px;
+    padding-top: 6px;
     font-family: $font-family;
     font-size: 14px;
     font-weight: normal;
@@ -176,11 +180,11 @@
   }
 
   &__reviews {
-    margin-bottom: 39px;
+    margin-bottom: 35px;
   }
 
   &__review-wrap {
-    margin-bottom: 12px;
+    margin-bottom: 27px;
   }
 
   &__info {
