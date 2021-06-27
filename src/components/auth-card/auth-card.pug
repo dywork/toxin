@@ -12,7 +12,7 @@ mixin authCard
           +input({ name: 'pass', placeholder: 'Пароль', type: 'password', })
         +button({ title: 'Войти', withIcon: true, buttonType: 'submit' })
       .auth-card__account-enter
-        p Нет аккаунта на Toxin?
+        p.auth-card__account-enter-text Нет аккаунта на Toxin?
         .auth-card__registration-btn-wrap
           +button({
             path: 'registration.html',
