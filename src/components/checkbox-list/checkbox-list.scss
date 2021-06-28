@@ -28,14 +28,15 @@
 
   &__input[type='checkbox'] {
     display: none;
+    $list: 'checkbox-list';
 
     &:checked {
-      & + .checkbox-list__label-text::after {
+      & + .#{$list}__label-text::after {
         visibility: visible;
         opacity: 1;
       }
 
-      & + .checkbox-list__label-text::before {
+      & + .#{$list}__label-text::before {
         border-color: $accentColor;
       }
     }
