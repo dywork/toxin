@@ -178,14 +178,17 @@ class DatePicker {
   };
 
   _handleDatePickerInputClick = (evt) => {
+    evt.preventDefault();
     this._showCalendar();
   };
 
   _handleArrivalInputClick = (evt) => {
+    evt.preventDefault();
     this._showCalendar();
   };
 
   _handleDepartureInputClick = (evt) => {
+    evt.preventDefault();
     this._showCalendar();
   };
 
