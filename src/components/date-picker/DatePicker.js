@@ -1,743 +1,75 @@
-import isNumeric from 'validator/lib/isNumeric';
-
-const monthRusTranslate = {
-  0: 'Январь',
-  1: 'Февраль',
-  2: 'Март',
-  3: 'Апрель',
-  4: 'Май',
-  5: 'Июнь',
-  6: 'Июль',
-  7: 'Август',
-  8: 'Сентябрь',
-  9: 'Октябрь',
-  10: 'Ноябрь',
-  11: 'Декабрь',
-};
-
-const monthReduction = {
-  0: 'янв',
-  1: 'фев',
-  2: 'мар',
-  3: 'апр',
-  4: 'мая',
-  5: 'июн',
-  6: 'июл',
-  7: 'авг',
-  8: 'сен',
-  9: 'окт',
-  10: 'ноя',
-  11: 'дек',
-};
-
-function getHtmlElement(tagName, className, text) {
-  const element = document.createElement(tagName);
-
-  if (className) {
-    element.classList.add(className);
-  }
-
-  if (text) {
-    element.textContent = text;
-  }
-
-  return element;
-}
-
-function getTwoDigitNumberString(number) {
-  if (number < 10) {
-    return `0${number}`;
-  }
-
-  return number;
-}
+import calendarClassName from './utils/calendarClassName';
+import TopControlView from './components/TopControlView';
+import BotControlView from './components/BotControlView';
+import CalendarTableView from './components/CalendarTableView';
+import {getHtmlElement, getTwoDigitNumberString, compareDate} from './utils';
+import {monthRusTranslate, monthReduction, keyCodes} from './utils/constants';
 
 class DatePicker {
-  constructor(domInfo = {}) {
-    if (domInfo.parentNode) {
-      this.parentNode = domInfo.parentNode;
-    } else {
-      console.error(
-        'Expected parentNodeId inside constructor object but not received'
-      );
-    }
+  constructor({
+    parentNode,
+    arrivalInput,
+    arrivalSplitBtn,
+    departureInput,
+    departureSplitBtn,
+    datePickerInput,
+    datePickerSplitBtn,
+    inputPlaceholder = 'ДД.ММ.ГГГГ',
+    isCellLower = false,
+  }) {
+    this.domElements = {
+      parentNode,
+      arrivalInput,
+      arrivalSplitBtn,
+      departureInput,
+      departureSplitBtn,
+      datePickerInput,
+      datePickerSplitBtn,
+      arrivalCell: null,
+      departureCell: null,
+    };
 
-    if (domInfo.arrivalInput) {
-      this.arrivalInput = domInfo.arrivalInput;
-      this.arrivalInput.addEventListener('click', this._onFocusArrivalInput);
-      this.arrivalInput.addEventListener('keydown', evt => {
-        const isPressEnter = evt.keyCode === 13;
-        if (isPressEnter) {
-          evt.preventDefault();
-          this._showArrivalMonthCalendar();
-          const arrivalInputDate = this.arrivalInput.textContent;
-          if (this._hasDataFull(arrivalInputDate)) {
-            this.departureInput.focus();
-          }
-        }
-      });
-    }
+    this.dateInfo = {
+      currentDate: new Date(),
+      arrivalDate: null,
+      departureDate: null,
+    };
 
-    if (domInfo.departureInput) {
-      this.departureInput = domInfo.departureInput;
-      this.departureInput.addEventListener(
-        'click',
-        this._onFocusDepartureInput
-      );
-      this.departureInput.addEventListener('keydown', evt => {
-        const isPressEnter = evt.keyCode === 13;
-        if (isPressEnter) {
-          evt.preventDefault();
-          this._showDepartureMonthCalendar();
-        }
-      });
-    }
-
-    if (domInfo.datePickerInput) {
-      this.datePickerInput = domInfo.datePickerInput;
-      this.datePickerInput.addEventListener('click', this._showCalendar);
-    }
-
-    if (domInfo.arrivalSplitBtn) {
-      this.arrivalSplitBtn = domInfo.arrivalSplitBtn;
-      this.arrivalSplitBtn.addEventListener(
-        'click',
-        this._showArrivalMonthCalendar
-      );
-    }
-
-    if (domInfo.datePickerSplitBtn) {
-      this.datePickerSplitBtn = domInfo.datePickerSplitBtn;
-      this.datePickerSplitBtn.addEventListener(
-        'click',
-        this._showCalendar
-      );
-    }
-
-    if (domInfo.departureSplitBtn) {
-      this.departureSplitBtn = domInfo.departureSplitBtn;
-      this.departureSplitBtn.addEventListener(
-        'click',
-        this._showDepartureMonthCalendar
-      );
-    }
-
-    if (domInfo.inputPlaceholder) {
-      this.inputPlaceholder = domInfo.inputPlaceholder;
-    }
-
-    if (domInfo.isCellLower) {
-      this.isCellLower = domInfo.isCellLower;
-    }
-
-    this.currentDate = new Date();
-    this.arrivalDate = null;
-    this.departureDate = null;
-    this.arrivalCell = null;
-    this.departureCell = null;
-    this.isStartSelect = false;
-    this.isEndSelect = false;
+    this.settings = {
+      inputPlaceholder,
+      isStartSelect: false,
+      isEndSelect: false,
+      isCellLower,
+    };
   }
 
-  renderCalendar = () => {
+  init = () => {
+    this._renderCalendar();
+    this._saveDom();
+    this._setListeners();
+  };
+
+  _renderCalendar = () => {
+    const {parentNode} = this.domElements;
     const calendar = this._getCalendar();
-    this.parentNode.appendChild(calendar);
-  };
-
-  _hasCurrentMonth = date => {
-    return date.getMonth() === this.currentDate.getMonth();
-  };
-
-  _compareDate = (firstDate, secondDate) => {
-    const firstDay = firstDate.getDate();
-    const firstMonth = firstDate.getMonth();
-    const firstYear = firstDate.getFullYear();
-
-    const secondDay = secondDate.getDate();
-    const secondMonth = secondDate.getMonth();
-    const secondYear = secondDate.getFullYear();
-
-    if (firstYear > secondYear) {
-      return 1;
-    }
-
-    if (firstYear < secondYear) {
-      return -1;
-    }
-
-    if (firstMonth > secondMonth) {
-      return 1;
-    }
-
-    if (firstMonth < secondMonth) {
-      return -1;
-    }
-
-    if (firstDay > secondDay) {
-      return 1;
-    }
-
-    if (firstDay < secondDay) {
-      return -1;
-    }
-
-    return 0;
-  };
-
-  _hasDataFull = textDate => {
-    const textDateSplit = textDate.split('.');
-    const isDataFullNumber = textDateSplit.every(item => isNumeric(item));
-    return isDataFullNumber;
-  };
-
-  _showCalendar = () => {
-    const calendar = this.parentNode.querySelector('.date-picker');
-    const isHaveShowClass = calendar.classList.contains('date-picker_opened');
-    if (!isHaveShowClass) {
-      calendar.classList.add('date-picker_opened');
-    }
-    document.body.addEventListener('mouseup', this._onClickShowCalendar);
-    document.addEventListener('keyup', this._onEscUnshowCalendar);
-  };
-
-  _unshowCalendar = () => {
-    const calendar = this.parentNode.querySelector('.date-picker');
-    const isHaveShowClass = calendar.classList.contains('date-picker_opened');
-    if (isHaveShowClass) {
-      calendar.classList.remove('date-picker_opened');
-    }
-    document.body.removeEventListener('mouseup', this._onClickShowCalendar);
-    document.removeEventListener('keyup', this._onEscUnshowCalendar);
-  };
-
-  _showArrivalMonthCalendar = () => {
-    const inputDate = this.arrivalInput.textContent;
-    const arrivalInputDate = this._getConvertedDateByUserInput(inputDate);
-    const dateMoreThisDate =
-      this._compareDate(arrivalInputDate, new Date()) >= 0;
-    this._showCalendar();
-    this._onInputDateArrival();
-    if (this.arrivalDate && dateMoreThisDate) {
-      this._updateCurrentDate(this.arrivalDate);
-    }
-  };
-
-  _showDepartureMonthCalendar = () => {
-    this._showCalendar();
-    this._onInputDateDeparture();
-    if (this.departureDate) {
-      this._updateCurrentDate(this.departureDate);
-    }
-  };
-
-  _showErrorAnimation = () => {
-    const datePicker = this.parentNode.querySelector('.date-picker');
-    datePicker.classList.add('date-picker_erroneous');
-    setTimeout(() => {
-      datePicker.classList.remove('date-picker_erroneous');
-    }, 700);
-  };
-
-  _paintingSelectCell = () => {
-    const cells = this.parentNode.querySelectorAll('td');
-    if (this.arrivalDate && this.departureDate) {
-      const arrivalAriaDate = this._getAriaDateByDate(this.arrivalDate);
-      const departureAriaDate = this._getAriaDateByDate(this.departureDate);
-      const isDoubleSelect = arrivalAriaDate === departureAriaDate;
-
-      cells.forEach(cell => {
-        const isCellStart = arrivalAriaDate === cell.getAttribute('aria-date');
-        const isCellEnd = departureAriaDate === cell.getAttribute('aria-date');
-        const cellDate = new Date(cell.getAttribute('aria-date'));
-
-        if (isCellEnd && !isDoubleSelect) {
-          cell.classList.add('date-picker__day_selected-end');
-          cell.classList.add('date-picker__day_selected');
-        }
-
-        const isCellDateMoreThanArrivalDate =
-          this._compareDate(cellDate, this.arrivalDate) > 0;
-        const isCellDateLessThanDepartureDate =
-          this._compareDate(cellDate, this.departureDate) < 0;
-        const isCellDateInRange =
-          isCellDateMoreThanArrivalDate && isCellDateLessThanDepartureDate;
-
-        if (isCellDateInRange) {
-          cell.classList.add('date-picker__day_selected-space');
-        }
-
-        if (isCellStart && departureAriaDate && !isDoubleSelect) {
-          cell.classList.add('date-picker__day_selected-start');
-          cell.classList.add('date-picker__day_selected');
-        } else if (isCellStart) {
-          cell.classList.add('date-picker__day_selected');
-        }
-      });
-    } else if (this.arrivalDate) {
-      const arrivalAriaDate = this._getAriaDateByDate(this.arrivalDate);
-
-      cells.forEach(cell => {
-        const isCellStart = arrivalAriaDate === cell.getAttribute('aria-date');
-        if (isCellStart) {
-          cell.classList.add('date-picker__day_selected');
-        }
-      });
-    }
-  };
-
-  _clearSelectCell = () => {
-    const cells = this.parentNode.querySelectorAll('td');
-    cells.forEach(cell => {
-      const isCellSelect = cell.classList.contains('date-picker__day_selected');
-      const isCellSelectSpace = cell.classList.contains(
-        'date-picker__day_selected-space'
-      );
-      const isCellStartSelect = cell.classList.contains(
-        'date-picker__day_selected-start'
-      );
-      const isCellEndSelect = cell.classList.contains(
-        'date-picker__day_selected-end'
-      );
-
-      if (isCellSelectSpace) {
-        cell.classList.remove('date-picker__day_selected-space');
-      }
-
-      if (isCellSelect) {
-        cell.classList.remove('date-picker__day_selected');
-      }
-
-      if (isCellStartSelect) {
-        cell.classList.remove('date-picker__day_selected-start');
-      }
-
-      if (isCellEndSelect) {
-        cell.classList.remove('date-picker__day_selected-end');
-      }
-    });
-  };
-
-  _printReductionDate = selectDate => {
-    const selectDay = getTwoDigitNumberString(selectDate.getDate());
-    const selectMonth = monthReduction[selectDate.getMonth()];
-    const printMessage = `${selectDay} ${selectMonth}`;
-    if (this.datePickerInput) {
-      if (this.isEndSelect) {
-        this.datePickerInput.textContent += ` - ${printMessage}`;
-      } else {
-        this.datePickerInput.textContent = printMessage;
-      }
-    }
-  };
-
-  _onClickShowCalendar = evt => {
-    const calendar = this.parentNode.querySelector('.date-picker');
-    const isInputClick =
-      evt.target === this.arrivalInput || evt.target === this.departureInput;
-    const isCalendarClick = calendar.contains(evt.target);
-    const isOutsideClick = !isInputClick && !isCalendarClick;
-    if (isOutsideClick) {
-      this._unshowCalendar();
-    }
-  };
-
-  _onEscUnshowCalendar = evt => {
-    const isEscPress = evt.keyCode === 27;
-    if (isEscPress) {
-      this._unshowCalendar();
-      if (this.arrivalInput) {
-        this.arrivalInput.blur();
-      }
-      if (this.departureInput) {
-        this.departureInput.blur();
-      }
-    }
-  };
-
-  _onFocusArrivalInput = () => {
-    const inputDate = this.arrivalInput.textContent;
-    const isInputDateFull = this._hasDataFull(inputDate);
-    if (isInputDateFull) {
-      const arrivalInputDate = this._getConvertedDateByUserInput(inputDate);
-      const dateMoreThisDate =
-        this._compareDate(arrivalInputDate, new Date()) >= 0;
-      if (dateMoreThisDate) {
-        this._showArrivalMonthCalendar();
-      }
-    } else {
-      this._showCalendar();
-    }
-  };
-
-  _onFocusDepartureInput = () => {
-    const inputDate = this.departureInput.textContent;
-    const isInputDateFull = this._hasDataFull(inputDate);
-    if (isInputDateFull) {
-      this._showDepartureMonthCalendar();
-    } else {
-      this._showCalendar();
-    }
-  };
-
-  _onInputDateArrival = () => {
-    const pickDate = this.arrivalInput.textContent;
-    const isDataFull = this._hasDataFull(pickDate);
-    if (isDataFull) {
-      const convertedPickDate = this._getConvertedDateByUserInput(pickDate);
-      const ariaDate = this._getAriaDateByDate(convertedPickDate);
-      const pickCell = this._getCellByAriaDate(ariaDate);
-      let isArrivalDateMore = false;
-      if (this.departureDate) {
-        isArrivalDateMore =
-          this._compareDate(convertedPickDate, this.departureDate) > 0;
-      }
-      const pickDateLessThisDate =
-        this._compareDate(convertedPickDate, new Date()) < 0;
-      if (pickDateLessThisDate) {
-        this._showErrorAnimation();
-        if (pickCell) {
-          pickCell.classList.add('date-picker__day_with-error');
-          setTimeout(() => {
-            pickCell.classList.remove('date-picker__day_with-error');
-          }, 700);
-        }
-        this.arrivalInput.textContent = '';
-        this._clearSelectCell();
-      } else {
-        if (pickCell) {
-          let isArrivalCell = false;
-
-          if (this.arrivalDate) {
-            isArrivalCell =
-              convertedPickDate.toDateString() ===
-              this.arrivalDate.toDateString();
-          }
-
-          if (!isArrivalCell) {
-            let isArrDateLessDepDate = false;
-
-            if (this.departureDate) {
-              isArrDateLessDepDate =
-                this._compareDate(convertedPickDate, this.departureDate) < 0;
-            }
-
-            if (isArrDateLessDepDate) {
-              this._clearSelectCell();
-              this._onStartSelectRangeDate(pickCell, convertedPickDate);
-              this._paintingSelectCell();
-            } else if (isArrivalDateMore) {
-              this._clearSelectCell();
-              this._onClearSelectRangeDate();
-              this.departureInput.textContent = '';
-            } else if (this.isEndSelect || this.isStartSelect) {
-              this._clearSelectCell();
-              this._onClearSelectRangeDate();
-            }
-          }
-        } else if (isArrivalDateMore) {
-          this._clearSelectCell();
-          this._onClearSelectRangeDate();
-          this.departureInput.textContent = '';
-        }
-
-        this._onStartSelectRangeDate(pickCell, convertedPickDate);
-      }
-    }
-  };
-
-  _onInputDateDeparture = () => {
-    const inputArrivalDate = this.arrivalInput.textContent;
-    const isArrivalDateFull = this._hasDataFull(inputArrivalDate);
-    const pickDate = this.departureInput.textContent;
-    const isPickDateFull = this._hasDataFull(pickDate);
-    if (!isArrivalDateFull && isPickDateFull) {
-      this._showErrorAnimation();
-      this.arrivalInput.focus();
-    } else {
-      if (isArrivalDateFull) {
-        this._onInputDateArrival();
-      }
-
-      if (isPickDateFull) {
-        const convertedPickDate = this._getConvertedDateByUserInput(pickDate);
-        const ariaDate = this._getAriaDateByDate(convertedPickDate);
-        const pickCell = this._getCellByAriaDate(ariaDate);
-        if (pickCell) {
-          const isDateSelectLess =
-            this._compareDate(convertedPickDate, this.arrivalDate) < 0;
-          if (isDateSelectLess) {
-            this._showErrorAnimation();
-            pickCell.classList.add('date-picker__day_with-error');
-            setTimeout(() => {
-              pickCell.classList.remove('date-picker__day_with-error');
-            }, 700);
-            this.departureInput.textContent = '';
-          } else {
-            const isDepartureCell = this.departureCell === pickCell;
-            if (!isDepartureCell) {
-              if (this.isEndSelect) {
-                this._clearSelectCell();
-              }
-
-              this._onEndSelectRangeDate(pickCell, convertedPickDate);
-              this._paintingSelectCell();
-            }
-          }
-        } else {
-          const isDateSelectLess =
-            this._compareDate(convertedPickDate, this.arrivalDate) < 0;
-          if (isDateSelectLess) {
-            this._showErrorAnimation();
-            this.departureInput.textContent = '';
-          } else {
-            this._clearSelectCell();
-            this._onEndSelectRangeDate(pickCell, convertedPickDate);
-            this._paintingSelectCell();
-          }
-        }
-      }
-    }
-  };
-
-  _onStartSelectRangeDate = (cell, startDate) => {
-    if (cell) {
-      this.arrivalCell = cell;
-      cell.classList.add('date-picker__day_selected');
-    }
-
-    this.isStartSelect = true;
-    this.isEndSelect = false;
-    this.arrivalDate = startDate;
-  };
-
-  _onEndSelectRangeDate = (cell, dateEnd) => {
-    if (cell) {
-      this.departureCell = cell;
-      cell.classList.add('date-picker__day_selected');
-    }
-
-    this.isStartSelect = false;
-    this.isEndSelect = true;
-    this.departureDate = dateEnd;
-  };
-
-  _onClearSelectRangeDate = () => {
-    this.arrivalDate = null;
-    this.departureDate = null;
-    this.arrivalCell = null;
-    this.departureCell = null;
-    this.isStartSelect = false;
-    this.isEndSelect = false;
-  };
-
-  _onFullClearCalendar = () => {
-    this._onClearSelectRangeDate();
-    this._clearSelectCell();
-    if (this.arrivalInput) this.arrivalInput.textContent = 'ДД.ММ.ГГГГ';
-    if (this.departureInput) this.departureInput.textContent = 'ДД.ММ.ГГГГ';
-    if (this.datePickerInput) {
-      this.datePickerInput.textContent = this.inputPlaceholder
-        ? this.inputPlaceholder
-        : 'ДД.ММ.ГГГГ';
-    }
-    this._updateCurrentDate(new Date());
-  };
-
-  _onSelectDate = evt => {
-    evt.preventDefault();
-    const isTdTag = evt.target.tagName.toLowerCase() === 'td';
-    if (isTdTag) {
-      if (this.isEndSelect) {
-        this._clearSelectCell();
-        this._onClearSelectRangeDate();
-      }
-
-      const td = evt.target;
-      const selectDate = new Date(td.getAttribute('aria-date'));
-      const selectDay = getTwoDigitNumberString(selectDate.getDate());
-      const selectMonth = getTwoDigitNumberString(selectDate.getMonth() + 1);
-      const selectYear = selectDate.getFullYear();
-      const selectDateText = `${selectDay}.${selectMonth}.${selectYear}`;
-      const isCellDoubleSelect =
-        td === this.arrivalCell || td === this.departureCell;
-      const isDateLessThisDate = this._compareDate(selectDate, new Date()) < 0;
-      if (isDateLessThisDate) {
-        this._showErrorAnimation();
-        td.classList.add('date-picker__day_with-error');
-        setTimeout(() => {
-          td.classList.remove('date-picker__day_with-error');
-        }, 700);
-      } else if (this.isStartSelect && !isCellDoubleSelect) {
-        const isDateSelectLess =
-          this._compareDate(selectDate, this.arrivalDate) < 0;
-        if (isDateSelectLess) {
-          this._showErrorAnimation();
-          td.classList.add('date-picker__day_with-error');
-          setTimeout(() => {
-            td.classList.remove('date-picker__day_with-error');
-          }, 700);
-        } else {
-          this._onEndSelectRangeDate(td, selectDate);
-          if (this.departureInput) {
-            this.departureInput.textContent = selectDateText;
-          } else {
-            this._printReductionDate(selectDate);
-          }
-          this._paintingSelectCell();
-          this._updateCurrentDate(selectDate);
-        }
-      } else if (isCellDoubleSelect && !this.isEndSelect) {
-        this._onEndSelectRangeDate(td, selectDate);
-        if (this.departureInput) {
-          this.departureInput.textContent = selectDateText;
-        } else {
-          this._printReductionDate(selectDate);
-        }
-        this._updateCurrentDate(selectDate);
-      } else {
-        this._onStartSelectRangeDate(td, selectDate);
-        if (this.arrivalInput) {
-          this.arrivalInput.textContent = selectDateText;
-        } else {
-          this._printReductionDate(selectDate);
-        }
-        this._updateCurrentDate(selectDate);
-      }
-    }
-  };
-
-  _getAriaDateByDate = date => {
-    let ariaDay = date.getDate();
-    if (ariaDay >= 1 && ariaDay <= 9) {
-      ariaDay = `0${ariaDay}`;
-    }
-    let ariaMonth = date.getMonth() + 1;
-    if (ariaMonth >= 1 && ariaMonth <= 9) {
-      ariaMonth = `0${ariaMonth}`;
-    }
-    const ariaYear = date.getFullYear();
-    const ariaDate = `${ariaYear}-${ariaMonth}-${ariaDay}`;
-    return ariaDate;
-  };
-
-  _getConvertedDateByUserInput = userDate => {
-    const splitUserDate = userDate.split('.');
-    const day = splitUserDate[0];
-    const month = splitUserDate[1];
-    const year = splitUserDate[2];
-    return new Date(year, month - 1, day);
-  };
-
-  _getNumberRow = () => {
-    const currentYear = this.currentDate.getFullYear();
-    const currentMonth = this.currentDate.getMonth();
-    const lastDayCurrentMonth = new Date(
-      currentYear + 1,
-      currentMonth + 1,
-      0
-    ).getDate();
-    const lastWeekDayPrevMonth = new Date(
-      currentYear,
-      currentMonth,
-      0
-    ).getDay();
-    const isLastWeekDaySaturday = lastWeekDayPrevMonth === 6;
-    const isLastWeekDayFriday = lastWeekDayPrevMonth === 5;
-    const isLastWeekDaySunday = lastWeekDayPrevMonth === 0;
-    let numberRow = 5;
-
-    if (isLastWeekDaySaturday && lastDayCurrentMonth >= 30) {
-      numberRow = 6;
-    }
-
-    if (isLastWeekDayFriday && lastDayCurrentMonth === 31) {
-      numberRow = 6;
-    }
-
-    if (isLastWeekDaySunday && lastDayCurrentMonth === 28) {
-      numberRow = 4;
-    }
-    return numberRow;
-  };
-
-  _getCalendarTableDate = () => {
-    const tableFragment = document.createDocumentFragment();
-    const nowDate = new Date();
-    const currentYear = this.currentDate.getFullYear();
-    const currentMonth = this.currentDate.getMonth();
-    const lastWeekDayPrevMonth = new Date(
-      currentYear,
-      currentMonth,
-      0
-    ).getDay();
-    const lastDayPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
-    const numberColumn = 7;
-    const numberRow = this._getNumberRow();
-
-    let viewMonth;
-    let numberDay;
-
-    const isLastWeekDaySunday = lastWeekDayPrevMonth === 0;
-
-    if (isLastWeekDaySunday) {
-      numberDay = 0;
-      viewMonth = currentMonth;
-    } else {
-      numberDay = lastDayPrevMonth - lastWeekDayPrevMonth;
-      viewMonth = currentMonth - 1;
-    }
-
-    for (let i = 0; i < numberRow; i++) {
-      const tableTr = getHtmlElement('tr');
-
-      for (let j = 0; j < numberColumn; j++) {
-        const viewDate = new Date(currentYear, viewMonth, ++numberDay);
-        const tableTd = getHtmlElement(
-          'td',
-          'date-picker__day',
-          viewDate.getDate()
-        );
-        const isNowDate = this._compareDate(viewDate, nowDate) === 0;
-
-        if (this.isCellLower) {
-          tableTd.classList.add('date-picker__day_lower');
-        }
-
-        if (!this._hasCurrentMonth(viewDate) && !isNowDate) {
-          tableTd.classList.add('date-picker__day_not-current');
-        }
-
-        if (isNowDate) {
-          tableTd.classList.add('date-picker__day_current');
-        }
-
-        const viewDateAtr = this._getAriaDateByDate(viewDate);
-        tableTd.setAttribute('aria-date', viewDateAtr);
-        tableTr.appendChild(tableTd);
-      }
-
-      tableFragment.appendChild(tableTr);
-    }
-
-    return tableFragment;
-  };
-
-  _getCellByAriaDate = ariaDate => {
-    const cells = this.parentNode.querySelectorAll('td');
-    let cell;
-    cells.forEach(item => {
-      const ariaDateItem = item.getAttribute('aria-date');
-      if (ariaDateItem === ariaDate) cell = item;
-    });
-    return cell;
+    parentNode.appendChild(calendar);
   };
 
   _getCalendar = () => {
-    const datePickerHtmlSection = getHtmlElement('section', 'date-picker');
-    const datePickerHtmlWrap = getHtmlElement('div', 'date-picker__wrap');
-    const datePickerHtmlControl = this._getCalendarTopControl();
-    const datePickerHtmlTable = this._getCalendarTable();
-    const datePickerHtmlBotControl = this._getCalendarBotControl();
+    const {datePicker, wrap} = calendarClassName;
+    const {currentDate} = this.dateInfo;
+    const {isCellLower} = this.settings;
+    const datePickerHtmlSection = getHtmlElement(
+      'section',
+      `${datePicker} js-${datePicker}`
+    );
+    const datePickerHtmlWrap = getHtmlElement('div', wrap);
+    const datePickerHtmlControl = TopControlView.getHtmlNode(currentDate);
+    const datePickerHtmlTable = CalendarTableView.getHtmlNode(
+      currentDate,
+      isCellLower
+    );
+    const datePickerHtmlBotControl = BotControlView.getHtmlNode();
     datePickerHtmlWrap.appendChild(datePickerHtmlControl);
     datePickerHtmlWrap.appendChild(datePickerHtmlTable);
     datePickerHtmlWrap.appendChild(datePickerHtmlBotControl);
@@ -746,117 +78,245 @@ class DatePicker {
     return datePickerHtmlSection;
   };
 
-  _getCalendarTopControl = () => {
-    const datePickerHtmlControl = getHtmlElement('div', 'date-picker__control');
-    const datePickerHtmlSliderBtnPrev = getHtmlElement(
-      'button',
-      'date-picker__slider-btn',
-      'Назад'
+  _saveDom = () => {
+    const {parentNode} = this.domElements;
+    const {
+      datePicker,
+      title,
+      sliderButtonPrev,
+      sliderButtonNext,
+      calendar,
+      calendarBody,
+      jsButtonClear,
+      jsButtonAccept,
+    } = calendarClassName;
+
+    this.domElements.datePicker = parentNode.querySelector(`.js-${datePicker}`);
+    this.domElements.sliderButtonPrev = parentNode.querySelector(
+      `.js-${sliderButtonPrev}`
     );
-    datePickerHtmlSliderBtnPrev.classList.add('date-picker__slider-btn_prev');
-    datePickerHtmlSliderBtnPrev.type = 'button';
-
-    datePickerHtmlSliderBtnPrev.addEventListener('click', evt => {
-      evt.preventDefault();
-      const year = this.currentDate.getFullYear();
-      const month = this.currentDate.getMonth();
-      const day = 1;
-      const prevMonthDate = new Date(year, month - 1, day);
-      this._updateCurrentDate(prevMonthDate);
-    });
-
-    const datePickerHtmlSliderBtnNext = getHtmlElement(
-      'button',
-      'date-picker__slider-btn',
-      'Вперед'
+    this.domElements.sliderTitle = parentNode.querySelector(`.js-${title}`);
+    this.domElements.sliderButtonNext = parentNode.querySelector(
+      `.js-${sliderButtonNext}`
     );
-    datePickerHtmlSliderBtnNext.classList.add('date-picker__slider-btn_next');
-    datePickerHtmlSliderBtnNext.type = 'button';
-
-    datePickerHtmlSliderBtnNext.addEventListener('click', evt => {
-      evt.preventDefault();
-      const year = this.currentDate.getFullYear();
-      const month = this.currentDate.getMonth();
-      const day = 1;
-      const prevMonthDate = new Date(year, month + 1, day);
-      this._updateCurrentDate(prevMonthDate);
-    });
-
-    const monthName = monthRusTranslate[this.currentDate.getMonth()];
-    const yearName = this.currentDate.getFullYear();
-
-    const datePickerHtmlTitle = getHtmlElement(
-      'h2',
-      'date-picker__title',
-      `${monthName} ${yearName}`
+    this.domElements.table = parentNode.querySelector(`.js-${calendar}`);
+    this.domElements.tableBody = parentNode.querySelector(
+      `.js-${calendarBody}`
     );
-
-    datePickerHtmlTitle.id = 'date-picker-main-title';
-
-    datePickerHtmlControl.appendChild(datePickerHtmlSliderBtnPrev);
-    datePickerHtmlControl.appendChild(datePickerHtmlTitle);
-    datePickerHtmlControl.appendChild(datePickerHtmlSliderBtnNext);
-
-    return datePickerHtmlControl;
+    this.domElements.buttonClear = parentNode.querySelector(
+      `.${jsButtonClear}`
+    );
+    this.domElements.buttonAccept = parentNode.querySelector(
+      `.${jsButtonAccept}`
+    );
   };
 
-  _getCalendarTable = () => {
-    const calendarTable = getHtmlElement('table', 'date-picker__calendar');
-    const tHead = getHtmlElement('thead');
-    const tBody = getHtmlElement('tbody');
-    const tableTrHead = getHtmlElement('tr');
-    const tableHead = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+  _setListeners = () => {
+    const {
+      datePickerInput,
+      datePickerSplitBtn,
+      sliderButtonPrev,
+      sliderButtonNext,
+      tableBody,
+      buttonClear,
+      buttonAccept,
+    } = this.domElements;
 
-    tableHead.forEach(item => {
-      const th = getHtmlElement('th', 'date-picker__th', item);
-      tableTrHead.appendChild(th);
-    });
+    if (datePickerInput) {
+      datePickerInput.addEventListener(
+        'click',
+        this._handleDatePickerInputClick
+      );
+      datePickerSplitBtn.addEventListener(
+        'click',
+        this._handleDatePickerInputClick
+      );
+    } else {
+      const {
+        arrivalInput,
+        arrivalSplitBtn,
+        departureInput,
+        departureSplitBtn,
+      } = this.domElements;
 
-    tHead.appendChild(tableTrHead);
-    const tableDate = this._getCalendarTableDate();
-
-    tBody.appendChild(tableDate);
-    tBody.addEventListener('click', this._onSelectDate);
-
-    calendarTable.appendChild(tHead);
-    calendarTable.appendChild(tBody);
-    return calendarTable;
+      arrivalInput.addEventListener('click', this._handleArrivalInputClick);
+      arrivalSplitBtn.addEventListener('click', this._handleArrivalInputClick);
+      departureInput.addEventListener('click', this._handleDepartureInputClick);
+      departureSplitBtn.addEventListener(
+        'click',
+        this._handleDepartureInputClick
+      );
+    }
+    sliderButtonPrev.addEventListener(
+      'click',
+      this._handleSliderButtonPrevClick
+    );
+    sliderButtonNext.addEventListener(
+      'click',
+      this._handleSliderButtonNextClick
+    );
+    tableBody.addEventListener('click', this._handleTableBodyClick);
+    buttonClear.addEventListener('click', this._handleButtonClearClick);
+    buttonAccept.addEventListener('click', this._handleButtonAcceptClick);
   };
 
-  _getCalendarBotControl = () => {
-    const datePickerHtmlControl = getHtmlElement('div', 'date-picker__control');
-    const datePickerButtons = [
-      {
-        text: 'Очистить',
-        isAccent: false,
-        clickHandler: this._onFullClearCalendar,
-      },
-      {text: 'Применить', isAccent: true, clickHandler: this._unshowCalendar},
-    ];
+  _handleBodyOutsideClick = (evt) => {
+    const {datePicker, arrivalInput, departureInput} = this.domElements;
+    const isInputClick =
+      evt.target === arrivalInput || evt.target === departureInput;
+    const isDatePickerClick = datePicker.contains(evt.target);
+    const isOutsideClick = !isInputClick && !isDatePickerClick;
+    if (isOutsideClick) {
+      this._closeCalendar();
+    }
+  };
 
-    datePickerButtons.forEach(item => {
-      const btn = getHtmlElement('button', 'date-picker__button', item.text);
-      btn.type = 'button';
+  _handleBodyOutsideKeyup = (evt) => {
+    if (evt.keyCode === keyCodes.esc) {
+      this._closeCalendar();
+    }
+  };
 
-      if (item.isAccent) {
-        btn.classList.add('date-picker__button_accentuating');
+  _handleDatePickerInputClick = (evt) => {
+    this._showCalendar();
+  };
+
+  _handleArrivalInputClick = (evt) => {
+    this._showCalendar();
+  };
+
+  _handleDepartureInputClick = (evt) => {
+    this._showCalendar();
+  };
+
+  _handleSliderButtonPrevClick = (evt) => {
+    evt.preventDefault();
+    const {currentDate} = this.dateInfo;
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const day = 1;
+    const prevMonthDate = new Date(year, month - 1, day);
+    this._updateCurrentDate(prevMonthDate);
+  };
+
+  _handleSliderButtonNextClick = (evt) => {
+    evt.preventDefault();
+    const {currentDate} = this.dateInfo;
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const day = 1;
+    const nextMonthDate = new Date(year, month + 1, day);
+    this._updateCurrentDate(nextMonthDate);
+  };
+
+  _handleTableBodyClick = (evt) => {
+    evt.preventDefault();
+    const isTdTag = evt.target.tagName.toLowerCase() === 'td';
+
+    if (isTdTag) {
+      if (this.isEndSelect) {
+        this._clearSelectCell();
+        this._onClearSelectRangeDate();
       }
 
-      if (item.clickHandler) {
-        btn.addEventListener('click', evt => {
-          evt.preventDefault();
-          item.clickHandler();
-        });
+      const {
+        arrivalCell,
+        departureCell,
+        arrivalInput,
+        departureInput,
+      } = this.domElements;
+      const {arrivalDate} = this.dateInfo;
+      const {isStartSelect, isEndSelect} = this.settings;
+
+      const td = evt.target;
+      const selectDate = new Date(td.getAttribute('aria-date'));
+      const selectDay = getTwoDigitNumberString(selectDate.getDate());
+      const selectMonth = getTwoDigitNumberString(selectDate.getMonth() + 1);
+      const selectYear = selectDate.getFullYear();
+      const selectDateInputText = `${selectDay}.${selectMonth}.${selectYear}`;
+
+      const hasClickOnSelectedCell = td === arrivalCell || td === departureCell;
+      const isDateLessThisDate = compareDate(selectDate, new Date()) < 0;
+
+      if (isDateLessThisDate) {
+        this._showErrorAnimation(td);
+      } else if (isStartSelect && !hasClickOnSelectedCell) {
+        const isDateSelectLess = compareDate(selectDate, arrivalDate) < 0;
+        if (isDateSelectLess) {
+          this._showErrorAnimation(td);
+        } else {
+          this._endSelectRangeDate(td, selectDate);
+          if (departureInput) {
+            departureInput.textContent = selectDateInputText;
+          } else {
+            this._printReductionDate(selectDate);
+          }
+          this._paintingSelectCell();
+          this._updateCurrentDate(selectDate);
+        }
+      } else if (hasClickOnSelectedCell && !isEndSelect) {
+        this._endSelectRangeDate(td, selectDate);
+        if (departureInput) {
+          departureInput.textContent = selectDateInputText;
+        } else {
+          this._printReductionDate(selectDate);
+        }
+        this._updateCurrentDate(selectDate);
+      } else {
+        this._startSelectRangeDate(td, selectDate);
+        if (arrivalInput) {
+          arrivalInput.textContent = selectDateInputText;
+        } else {
+          this._printReductionDate(selectDate);
+        }
+        this._updateCurrentDate(selectDate);
       }
-
-      datePickerHtmlControl.appendChild(btn);
-    });
-
-    return datePickerHtmlControl;
+    }
   };
 
-  _updateCurrentDate = date => {
-    this.currentDate = date;
+  _handleButtonClearClick = (evt) => {
+    const {inputPlaceholder} = this.settings;
+    const {arrivalInput, departureInput, datePickerInput} = this.domElements;
+    evt.preventDefault();
+    this._clearSelectRangeDate();
+    this._clearSelectCell();
+    if (arrivalInput) arrivalInput.textContent = inputPlaceholder;
+    if (departureInput) departureInput.textContent = inputPlaceholder;
+    if (datePickerInput) {
+      datePickerInput.textContent = inputPlaceholder;
+    }
+    this._updateCurrentDate(new Date());
+  };
+
+  _handleButtonAcceptClick = (evt) => {
+    evt.preventDefault();
+    this._closeCalendar();
+  }
+
+  _showCalendar = () => {
+    const {datePicker} = this.domElements;
+    const {datePickerOpened} = calendarClassName;
+    const isHaveShowClass = datePicker.classList.contains(datePickerOpened);
+    if (!isHaveShowClass) {
+      datePicker.classList.add(datePickerOpened);
+    }
+    document.body.addEventListener('mouseup', this._handleBodyOutsideClick);
+    document.addEventListener('keyup', this._handleBodyOutsideKeyup);
+  };
+
+  _closeCalendar = () => {
+    const {datePicker} = this.domElements;
+    const {datePickerOpened} = calendarClassName;
+    const isHaveShowClass = datePicker.classList.contains(datePickerOpened);
+    if (isHaveShowClass) {
+      datePicker.classList.remove(datePickerOpened);
+    }
+    document.body.removeEventListener('mouseup', this._handleBodyOutsideClick);
+    document.removeEventListener('keyup', this._handleBodyOutsideKeyup);
+  };
+
+  _updateCurrentDate = (date) => {
+    this.dateInfo.currentDate = date;
     this._updateCalendar();
     this._paintingSelectCell();
   };
@@ -867,21 +327,185 @@ class DatePicker {
   };
 
   _updateCalendarTitle = () => {
-    const title = document.querySelector('#date-picker-main-title');
-    const monthName = monthRusTranslate[this.currentDate.getMonth()];
-    const yearName = this.currentDate.getFullYear();
-    title.textContent = `${monthName} ${yearName}`;
+    const {sliderTitle} = this.domElements;
+    const {currentDate} = this.dateInfo;
+    const monthName = monthRusTranslate[currentDate.getMonth()];
+    const yearName = currentDate.getFullYear();
+    sliderTitle.textContent = `${monthName} ${yearName}`;
   };
 
   _updateCalendarTable = () => {
-    const calendarTable = this.parentNode.querySelector('table');
-    const calendarTableBody = calendarTable.querySelector('tbody');
-    calendarTable.removeChild(calendarTableBody);
-    const tBody = getHtmlElement('tbody');
-    const tableDate = this._getCalendarTableDate();
-    tBody.addEventListener('click', this._onSelectDate);
+    const {table, tableBody} = this.domElements;
+    const {calendarBody} = calendarClassName;
+    const {currentDate} = this.dateInfo;
+    const {isCellLower} = this.settings;
+    table.removeChild(tableBody);
+    const tBody = getHtmlElement('tbody', `${calendarBody} js-${calendarBody}`);
+    const tableDate = CalendarTableView.getCalendarTableDate(
+      currentDate,
+      isCellLower
+    );
+    tBody.addEventListener('click', this._handleTableBodyClick);
     tBody.appendChild(tableDate);
-    calendarTable.appendChild(tBody);
+    table.appendChild(tBody);
+    this.domElements.tableBody = tBody;
+  };
+
+  _showErrorAnimation = (cell) => {
+    const {datePicker} = this.domElements;
+    const {datePickerWithError, calendarDayWithError} = calendarClassName;
+    datePicker.classList.add(datePickerWithError);
+    setTimeout(() => {
+      datePicker.classList.remove(datePickerWithError);
+    }, 700);
+    cell.classList.add(calendarDayWithError);
+    setTimeout(() => {
+      cell.classList.remove(calendarDayWithError);
+    }, 700);
+  };
+
+  _startSelectRangeDate = (cell, startDate) => {
+    if (cell) {
+      const {calendarDaySelected} = calendarClassName;
+      this.domElements.arrivalCell = cell;
+      cell.classList.add(calendarDaySelected);
+    }
+
+    this.settings.isStartSelect = true;
+    this.settings.isEndSelect = false;
+    this.dateInfo.arrivalDate = startDate;
+  };
+
+  _endSelectRangeDate = (cell, dateEnd) => {
+    if (cell) {
+      const {calendarDaySelected} = calendarClassName;
+      this.domElements.departureCell = cell;
+      cell.classList.add(calendarDaySelected);
+    }
+
+    this.settings.isStartSelect = false;
+    this.settings.isEndSelect = true;
+    this.dateInfo.departureDate = dateEnd;
+  };
+
+  _paintingSelectCell = () => {
+    const {parentNode} = this.domElements;
+    const {arrivalDate, departureDate} = this.dateInfo;
+    const {
+      calendarDaySelected,
+      calendarDaySelectedStart,
+      calendarDaySelectedEnd,
+      calendarDaySelectedSpace,
+    } = calendarClassName;
+    const cells = parentNode.querySelectorAll('td');
+    if (arrivalDate && departureDate) {
+      const arrivalAriaDate = CalendarTableView.getAriaDateByDate(arrivalDate);
+      const departureAriaDate = CalendarTableView.getAriaDateByDate(
+        departureDate
+      );
+      const isDoubleSelect = arrivalAriaDate === departureAriaDate;
+
+      cells.forEach((cell) => {
+        const isCellStart = arrivalAriaDate === cell.getAttribute('aria-date');
+        const isCellEnd = departureAriaDate === cell.getAttribute('aria-date');
+        const cellDate = new Date(cell.getAttribute('aria-date'));
+
+        if (isCellEnd && !isDoubleSelect) {
+          cell.classList.add(calendarDaySelectedEnd);
+          cell.classList.add(calendarDaySelected);
+        }
+
+        const isCellDateMoreThanArrivalDate =
+          compareDate(cellDate, arrivalDate) > 0;
+        const isCellDateLessThanDepartureDate =
+          compareDate(cellDate, departureDate) < 0;
+        const isCellDateInRange =
+          isCellDateMoreThanArrivalDate && isCellDateLessThanDepartureDate;
+
+        if (isCellDateInRange) {
+          cell.classList.add(calendarDaySelectedSpace);
+        }
+
+        if (isCellStart && departureAriaDate && !isDoubleSelect) {
+          cell.classList.add(calendarDaySelectedStart);
+          cell.classList.add(calendarDaySelected);
+        } else if (isCellStart) {
+          cell.classList.add(calendarDaySelected);
+        }
+      });
+    } else if (arrivalDate) {
+      const arrivalAriaDate = CalendarTableView.getAriaDateByDate(arrivalDate);
+
+      cells.forEach((cell) => {
+        const isCellStart = arrivalAriaDate === cell.getAttribute('aria-date');
+        if (isCellStart) {
+          cell.classList.add(calendarDaySelected);
+        }
+      });
+    }
+  };
+
+  _printReductionDate = (selectDate) => {
+    const {datePickerInput} = this.domElements;
+    const {isEndSelect} = this.settings;
+    const selectDay = getTwoDigitNumberString(selectDate.getDate());
+    const selectMonth = monthReduction[selectDate.getMonth()];
+    const printMessage = `${selectDay} ${selectMonth}`;
+    if (datePickerInput) {
+      if (isEndSelect) {
+        datePickerInput.textContent += ` - ${printMessage}`;
+      } else {
+        datePickerInput.textContent = printMessage;
+      }
+    }
+  };
+
+  _clearSelectRangeDate = () => {
+    this.dateInfo.arrivalDate = null;
+    this.dateInfo.departureDate = null;
+    this.domElements.arrivalCell = null;
+    this.domElements.departureCell = null;
+    this.settings.isStartSelect = false;
+    this.settings.isEndSelect = false;
+  };
+
+  _clearSelectCell = () => {
+    const {parentNode} = this.domElements;
+    const {
+      calendarDaySelected,
+      calendarDaySelectedStart,
+      calendarDaySelectedEnd,
+      calendarDaySelectedSpace,
+    } = calendarClassName;
+
+    const cells = parentNode.querySelectorAll('td');
+
+    cells.forEach((cell) => {
+      const isCellSelect = cell.classList.contains(calendarDaySelected);
+      const isCellSelectSpace = cell.classList.contains(
+        calendarDaySelectedSpace
+      );
+      const isCellStartSelect = cell.classList.contains(
+        calendarDaySelectedStart
+      );
+      const isCellEndSelect = cell.classList.contains(calendarDaySelectedEnd);
+
+      if (isCellSelectSpace) {
+        cell.classList.remove(calendarDaySelectedSpace);
+      }
+
+      if (isCellSelect) {
+        cell.classList.remove(calendarDaySelected);
+      }
+
+      if (isCellStartSelect) {
+        cell.classList.remove(calendarDaySelectedStart);
+      }
+
+      if (isCellEndSelect) {
+        cell.classList.remove(calendarDaySelectedEnd);
+      }
+    });
   };
 }
 
