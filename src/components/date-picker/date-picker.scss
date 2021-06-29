@@ -43,7 +43,7 @@
     transform: translateY(0);
   }
 
-  &_erroneous {
+  &_with-error {
     transform: translate3d(0, 0, 0);
     animation: shake .7s cubic-bezier(.36, .07, .19, .97) both;
     backface-visibility: hidden;

@@ -16,7 +16,7 @@ mixin datePicker({ month, year, calendar })
         thead
           tr
             each dayName in daysWeekNames
-              th.date-picker__th= dayName
+              th.date-picker__calendar-head= dayName
         tbody
           each week in calendar
             tr
@@ -36,6 +36,4 @@ mixin datePicker({ month, year, calendar })
                 td(class=cellClass)= name
       .date-picker__control
         button.date-picker__button(type='button') Очистить
-        button.date-picker__button.date-picker__button_accentuating(
-          type='button'
-        ) Применить
+        button.date-picker__button.date-picker__button_accent(type='button') Применить
