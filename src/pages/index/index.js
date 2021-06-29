@@ -14,7 +14,7 @@ const datePickerDomInfo = {
 };
 
 const datePicker = new DatePicker(datePickerDomInfo);
-datePicker.renderCalendar();
+datePicker.init();
 
 const dropDownContainer = document.querySelector(
   '.js-drop-down-counter-container'
