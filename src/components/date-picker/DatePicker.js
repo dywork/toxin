@@ -214,17 +214,10 @@ class DatePicker {
 
   _handleTableBodyClick = (evt) => {
     evt.preventDefault();
-    const isTdTag = evt.target.tagName.toLowerCase() === 'td';
+    const isClickFromTd = evt.target.tagName.toLowerCase() === 'td';
 
-    if (isTdTag) {
-      const {
-        arrivalCell,
-        departureCell,
-        arrivalInput,
-        departureInput,
-      } = this.domElements;
-      const {arrivalDate} = this.dateInfo;
-      const {isStartSelect, isEndSelect} = this.settings;
+    if (isClickFromTd) {
+      const {isEndSelect} = this.settings;
 
       if (isEndSelect) {
         this._clearSelectCell();
@@ -233,46 +226,12 @@ class DatePicker {
 
       const td = evt.target;
       const selectDate = new Date(td.getAttribute('aria-date'));
-      const selectDay = getTwoDigitNumberString(selectDate.getDate());
-      const selectMonth = getTwoDigitNumberString(selectDate.getMonth() + 1);
-      const selectYear = selectDate.getFullYear();
-      const selectDateInputText = `${selectDay}.${selectMonth}.${selectYear}`;
-
-      const hasClickOnSelectedCell = td === arrivalCell || td === departureCell;
       const isDateLessThisDate = compareDate(selectDate, new Date()) < 0;
 
       if (isDateLessThisDate) {
         this._showErrorAnimation(td);
-      } else if (isStartSelect && !hasClickOnSelectedCell) {
-        const isDateSelectLess = compareDate(selectDate, arrivalDate) < 0;
-        if (isDateSelectLess) {
-          this._showErrorAnimation(td);
-        } else {
-          this._endSelectRangeDate(td, selectDate);
-          if (departureInput) {
-            departureInput.textContent = selectDateInputText;
-          } else {
-            this._printReductionDate(selectDate);
-          }
-          this._paintingSelectCell();
-          this._updateCurrentDate(selectDate);
-        }
-      } else if (hasClickOnSelectedCell && !isEndSelect) {
-        this._endSelectRangeDate(td, selectDate);
-        if (departureInput) {
-          departureInput.textContent = selectDateInputText;
-        } else {
-          this._printReductionDate(selectDate);
-        }
-        this._updateCurrentDate(selectDate);
       } else {
-        this._startSelectRangeDate(td, selectDate);
-        if (arrivalInput) {
-          arrivalInput.textContent = selectDateInputText;
-        } else {
-          this._printReductionDate(selectDate);
-        }
-        this._updateCurrentDate(selectDate);
+        this._selectedRangeDateByCell(td, selectDate);
       }
     }
   };
@@ -294,7 +253,7 @@ class DatePicker {
   _handleButtonAcceptClick = (evt) => {
     evt.preventDefault();
     this._closeCalendar();
-  }
+  };
 
   _showCalendar = () => {
     const {datePicker} = this.domElements;
@@ -367,6 +326,28 @@ class DatePicker {
     }, 700);
   };
 
+  _selectedRangeDateByCell = (cell, selectDate) => {
+    const {isStartSelect, isEndSelect} = this.settings;
+    const {arrivalCell, departureCell} = this.domElements;
+    const {arrivalDate} = this.dateInfo;
+    const hasClickOnSelectedCell =
+      cell === arrivalCell || cell === departureCell;
+
+    if (isStartSelect && !hasClickOnSelectedCell) {
+      const isDateSelectLess = compareDate(selectDate, arrivalDate) < 0;
+      if (isDateSelectLess) {
+        this._showErrorAnimation(cell);
+      } else {
+        this._endSelectRangeDate(cell, selectDate);
+        this._paintingSelectCell();
+      }
+    } else if (!isEndSelect && hasClickOnSelectedCell) {
+      this._endSelectRangeDate(cell, selectDate);
+    } else {
+      this._startSelectRangeDate(cell, selectDate);
+    }
+  };
+
   _startSelectRangeDate = (cell, startDate) => {
     if (cell) {
       const {calendarDaySelected} = calendarClassName;
@@ -377,6 +358,8 @@ class DatePicker {
     this.settings.isStartSelect = true;
     this.settings.isEndSelect = false;
     this.dateInfo.arrivalDate = startDate;
+    this._updateCurrentDate(startDate);
+    this._printDate(startDate);
   };
 
   _endSelectRangeDate = (cell, dateEnd) => {
@@ -389,6 +372,8 @@ class DatePicker {
     this.settings.isStartSelect = false;
     this.settings.isEndSelect = true;
     this.dateInfo.departureDate = dateEnd;
+    this._updateCurrentDate(dateEnd);
+    this._printDate(dateEnd);
   };
 
   _paintingSelectCell = () => {
@@ -445,6 +430,21 @@ class DatePicker {
           cell.classList.add(calendarDaySelected);
         }
       });
+    }
+  };
+
+  _printDate = (selectDate) => {
+    const {arrivalInput, departureInput, datePickerInput} = this.domElements;
+    if (datePickerInput) {
+      this._printReductionDate(selectDate);
+    } else {
+      const {isStartSelect} = this.settings;
+      const selectDay = getTwoDigitNumberString(selectDate.getDate());
+      const selectMonth = getTwoDigitNumberString(selectDate.getMonth() + 1);
+      const selectYear = selectDate.getFullYear();
+      const selectDateInputText = `${selectDay}.${selectMonth}.${selectYear}`;
+      const printInput = isStartSelect ? arrivalInput : departureInput;
+      printInput.textContent = selectDateInputText;
     }
   };
 
