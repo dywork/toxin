@@ -217,11 +217,6 @@ class DatePicker {
     const isTdTag = evt.target.tagName.toLowerCase() === 'td';
 
     if (isTdTag) {
-      if (this.isEndSelect) {
-        this._clearSelectCell();
-        this._onClearSelectRangeDate();
-      }
-
       const {
         arrivalCell,
         departureCell,
@@ -230,6 +225,11 @@ class DatePicker {
       } = this.domElements;
       const {arrivalDate} = this.dateInfo;
       const {isStartSelect, isEndSelect} = this.settings;
+
+      if (isEndSelect) {
+        this._clearSelectCell();
+        this._clearSelectRangeDate();
+      }
 
       const td = evt.target;
       const selectDate = new Date(td.getAttribute('aria-date'));
