@@ -379,48 +379,10 @@ class DatePicker {
   _paintingSelectCell = () => {
     const {parentNode} = this.domElements;
     const {arrivalDate, departureDate} = this.dateInfo;
-    const {
-      calendarDaySelected,
-      calendarDaySelectedStart,
-      calendarDaySelectedEnd,
-      calendarDaySelectedSpace,
-    } = calendarClassName;
+    const {calendarDaySelected} = calendarClassName;
     const cells = parentNode.querySelectorAll('td');
     if (arrivalDate && departureDate) {
-      const arrivalAriaDate = CalendarTableView.getAriaDateByDate(arrivalDate);
-      const departureAriaDate = CalendarTableView.getAriaDateByDate(
-        departureDate
-      );
-      const isDoubleSelect = arrivalAriaDate === departureAriaDate;
-
-      cells.forEach((cell) => {
-        const isCellStart = arrivalAriaDate === cell.getAttribute('aria-date');
-        const isCellEnd = departureAriaDate === cell.getAttribute('aria-date');
-        const cellDate = new Date(cell.getAttribute('aria-date'));
-
-        if (isCellEnd && !isDoubleSelect) {
-          cell.classList.add(calendarDaySelectedEnd);
-          cell.classList.add(calendarDaySelected);
-        }
-
-        const isCellDateMoreThanArrivalDate =
-          compareDate(cellDate, arrivalDate) > 0;
-        const isCellDateLessThanDepartureDate =
-          compareDate(cellDate, departureDate) < 0;
-        const isCellDateInRange =
-          isCellDateMoreThanArrivalDate && isCellDateLessThanDepartureDate;
-
-        if (isCellDateInRange) {
-          cell.classList.add(calendarDaySelectedSpace);
-        }
-
-        if (isCellStart && departureAriaDate && !isDoubleSelect) {
-          cell.classList.add(calendarDaySelectedStart);
-          cell.classList.add(calendarDaySelected);
-        } else if (isCellStart) {
-          cell.classList.add(calendarDaySelected);
-        }
-      });
+      cells.forEach(this._stainingCell);
     } else if (arrivalDate) {
       const arrivalAriaDate = CalendarTableView.getAriaDateByDate(arrivalDate);
 
@@ -430,6 +392,50 @@ class DatePicker {
           cell.classList.add(calendarDaySelected);
         }
       });
+    }
+  };
+
+  _stainingCell = (cell) => {
+    const {
+      calendarDaySelected,
+      calendarDaySelectedStart,
+      calendarDaySelectedEnd,
+      calendarDaySelectedSpace,
+    } = calendarClassName;
+    const {arrivalDate, departureDate} = this.dateInfo;
+    const arrivalAriaDate = CalendarTableView.getAriaDateByDate(arrivalDate);
+    const departureAriaDate = CalendarTableView.getAriaDateByDate(
+      departureDate
+    );
+    const hasClickOnSelectedCell = arrivalAriaDate === departureAriaDate;
+    const isCellStart = arrivalAriaDate === cell.getAttribute('aria-date');
+    const isCellEnd = departureAriaDate === cell.getAttribute('aria-date');
+    const cellDate = new Date(cell.getAttribute('aria-date'));
+
+    if (isCellEnd && !hasClickOnSelectedCell) {
+      cell.classList.add(calendarDaySelectedEnd);
+      cell.classList.add(calendarDaySelected);
+    }
+
+    const isCellDateMoreThanArrivalDate =
+      compareDate(cellDate, arrivalDate) > 0;
+    const isCellDateLessThanDepartureDate =
+      compareDate(cellDate, departureDate) < 0;
+    const isCellDateInRange =
+      isCellDateMoreThanArrivalDate && isCellDateLessThanDepartureDate;
+
+    if (isCellDateInRange) {
+      cell.classList.add(calendarDaySelectedSpace);
+    }
+
+    const isStartingCellInRange =
+      isCellStart && departureAriaDate && !hasClickOnSelectedCell;
+
+    if (isStartingCellInRange) {
+      cell.classList.add(calendarDaySelectedStart);
+      cell.classList.add(calendarDaySelected);
+    } else if (isCellStart) {
+      cell.classList.add(calendarDaySelected);
     }
   };
 
