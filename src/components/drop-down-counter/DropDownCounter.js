@@ -1,30 +1,4 @@
-function getHtmlElement(tagName, className, text) {
-  const element = document.createElement(tagName);
-
-  if (className) {
-    element.classList.add(className);
-  }
-
-  if (text) {
-    element.textContent = text;
-  }
-
-  return element;
-}
-
-function getRandomNumber(min, max) {
-  const randomNumber = Math.floor(Math.random() * (+max - +min)) + +min;
-  return randomNumber;
-}
-
-function declOfNum(number, titles) {
-  const cases = [2, 0, 1, 1, 1, 2];
-  return titles[
-    number % 100 > 4 && number % 100 < 20
-      ? 2
-      : cases[number % 10 < 5 ? number % 10 : 5]
-  ];
-}
+import {getHtmlElement, getRandomNumber, declOfNum} from './utils';
 
 class DropDownCounter {
   constructor(options) {
@@ -121,7 +95,7 @@ class DropDownCounter {
     acceptBtn.addEventListener('click', this._hide);
     const countListFragment = document.createDocumentFragment();
 
-    this.countElements.forEach(element => {
+    this.countElements.forEach((element) => {
       const countItem = this._getCountItem(element);
       countListFragment.appendChild(countItem);
     });
@@ -141,14 +115,14 @@ class DropDownCounter {
     this.container.appendChild(this.dropDownParent);
 
     const isAllCounterZero = this.countElements.every(
-      item => item.counter === 0
+      (item) => item.counter === 0
     );
 
     if (isAllCounterZero) this._hideClearBtn();
   };
 
-  _hasHaveStartValue = countElements => {
-    return countElements.some(item => {
+  _hasHaveStartValue = (countElements) => {
+    return countElements.some((item) => {
       if (item.startValue) {
         return item.startValue > 0;
       }
@@ -200,7 +174,7 @@ class DropDownCounter {
     this.clearBtn.classList.add('drop-down-counter__button_hidden');
   };
 
-  _onClickHide = evt => {
+  _onClickHide = (evt) => {
     const isInputClick = evt.target === this.input;
     const isCalendarClick = this.dropDownParent.contains(evt.target);
     const isOutsideClick = !isInputClick && !isCalendarClick;
@@ -209,14 +183,14 @@ class DropDownCounter {
     }
   };
 
-  _onPressHide = evt => {
+  _onPressHide = (evt) => {
     const isEscPress = evt.keyCode === 27;
     if (isEscPress) {
       this._hide();
     }
   };
 
-  _onClickClear = evt => {
+  _onClickClear = (evt) => {
     evt.preventDefault();
     this._discardCounter();
     this._discardViewCounter();
@@ -225,7 +199,7 @@ class DropDownCounter {
   };
 
   _discardCounter = () => {
-    this.countElements.forEach(item => {
+    this.countElements.forEach((item) => {
       const viewCounter = this.dropDownParent.querySelector(`#view-${item.id}`);
       viewCounter.textContent = item.minValue;
       item.counter = item.minValue;
@@ -234,14 +208,14 @@ class DropDownCounter {
     const minusButtons = this.dropDownParent.querySelectorAll(
       '.drop-down-counter__counter-btn_minus'
     );
-    minusButtons.forEach(item => {
+    minusButtons.forEach((item) => {
       item.classList.add('drop-down-counter__counter-btn_disabled');
       item.setAttribute('disabled', 'true');
     });
   };
 
   _discardViewCounter = () => {
-    Object.keys(this.countGroupView).forEach(item => {
+    Object.keys(this.countGroupView).forEach((item) => {
       this.countGroupView[item].counter = 0;
     });
   };
@@ -270,7 +244,7 @@ class DropDownCounter {
     this.input.textContent = wordOfNum;
   };
 
-  _renderStartCount = options => {
+  _renderStartCount = (options) => {
     const countElements = options.countElements;
     let wordOfNum = '';
     countElements.forEach((item, index) => {
@@ -302,7 +276,7 @@ class DropDownCounter {
     this.input.textContent = wordOfNum;
   };
 
-  _getCountItem = element => {
+  _getCountItem = (element) => {
     const countItem = getHtmlElement('li', 'drop-down-counter__count-item');
     const countItemName = getHtmlElement(
       'p',
@@ -375,7 +349,7 @@ class DropDownCounter {
       this._renderViewCount();
       if (groupView.counter === 0) {
         const isCounterGroupClear = Object.keys(this.countGroupView).every(
-          item => {
+          (item) => {
             return this.countGroupView[item].counter === 0;
           }
         );
