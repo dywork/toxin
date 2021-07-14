@@ -11,11 +11,13 @@ Inputmask({mask: '99.99.9999', placeholder: 'ДД.ММ.ГГГГ'}).mask(
 const dropDownContainer = document.querySelector(
   '.js-drop-down-counter-container'
 );
-const inputDropDown = document.querySelector('.js-input-drop-down');
+const inputDropDown = document.querySelector('.js-default-input-drop-down');
+const inputSplitBtn = document.querySelector('.js-default-input-drop-down-split-btn');
 
 const dropDownOptions = {
   container: dropDownContainer,
   input: inputDropDown,
+  inputSplitBtn,
   countElements: [
     {name: 'Спальни', countGroupName: 'bedrooms', startValue: 2},
     {name: 'Кровати', countGroupName: 'bed', startValue: 2},
@@ -41,10 +43,12 @@ const dropDownGuestContainer = document.querySelector(
   '.js-drop-down-counter-container-clear'
 );
 const inputDropDownGuest = document.querySelector('.js-input-drop-down-clear');
+const inputSplitBtnGuest = document.querySelector('.js-input-drop-down-clear-split-btn');
 
 const dropDownGuestOptions = {
   container: dropDownGuestContainer,
   input: inputDropDownGuest,
+  inputSplitBtn: inputSplitBtnGuest,
   countElements: [
     {name: 'Взрослые', countGroupName: 'guest'},
     {name: 'Дети', countGroupName: 'guest'},
@@ -65,10 +69,12 @@ const dropDownQuestContainer = document.querySelector(
   '.js-drop-down-counter-container-filled'
 );
 const inputDropDownQuest = document.querySelector('.js-input-drop-down-filled');
+const splitBtnQuest = document.querySelector('.js-input-drop-down-filled');
 
 const dropDownQuestOptions = {
   container: dropDownQuestContainer,
   input: inputDropDownQuest,
+  inputSplitBtn: splitBtnQuest,
   countElements: [
     {name: 'Взрослые', countGroupName: 'guest', startValue: 2},
     {name: 'Дети', countGroupName: 'guest', startValue: 1},

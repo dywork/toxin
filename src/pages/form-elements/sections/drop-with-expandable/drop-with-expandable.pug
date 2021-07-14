@@ -8,12 +8,12 @@ mixin dropWithExpandable
       .drop-with-expandable__title-wrap
         +typography({ text: 'Dropdown', variant: 'h3', hasUpper: true })
         p.drop-with-expandable__title-alt Default
-      +dropDownInput({ text: '2 спальни, 2 кровати...' })
+      +dropDownInput({ text: '2 спальни, 2 кровати...', classForJs: 'js-default-input-drop-down' })
     .drop-with-expandable__input.drop-with-expandable__input_bottom-gap
       .drop-with-expandable__title-wrap
         +typography({ text: 'Dropdown', variant: 'h3', hasUpper: true })
         p.drop-with-expandable__title-alt Expanded
-      +dropDownInput({ text: '2 спальни, 2 кровати...', classForJs: 'js-input-drop-down' })
+      +dropDownInput({ text: '2 спальни, 2 кровати...', classForJs: 'js-expanded-input-drop-down' })
       .drop-down-counter-container.js-drop-down-counter-container
     .drop-with-expandable__checkbox-list
       +expandableCheckbox({
