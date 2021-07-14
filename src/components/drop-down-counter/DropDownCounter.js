@@ -1,79 +1,53 @@
 import {getHtmlElement, getRandomNumber, declOfNum} from './utils';
+import classNameMap from './utils/classNameMap';
 
 class DropDownCounter {
-  constructor(options) {
-    if (options.container) {
-      this.container = options.container;
-      const dropDownParent = getHtmlElement('section', 'drop-down-counter');
-      this.dropDownParent = dropDownParent;
-    } else {
-      console.error(
-        'Expected container(node) inside constructor object but not received'
-      );
-    }
+  constructor({
+    container,
+    input,
+    inputSplitBtn,
+    countElements,
+    countGroupView,
+    placeholder = 'Выберите элемент',
+    isPinShow = false,
+    isHideControl = false,
+  }) {
+    const {dropDownCounter} = classNameMap;
+    this.domElements = {
+      dropDownParent: getHtmlElement('section', dropDownCounter),
+      container,
+      input,
+      inputSplitBtn,
+    };
 
-    if (options.input) {
-      const placeholder = options.placeholder
-        ? options.placeholder
-        : 'Выберите элемент';
-      this.placeholder = placeholder;
-      this.input = options.input;
-      const isHaveStartValue = this._hasHaveStartValue(options.countElements);
-      if (isHaveStartValue) {
-        this._renderStartCount(options);
-      } else {
-        this.input.textContent = placeholder;
-      }
+    this.countElementsGroup = {
+      countElements,
+      countGroupView,
+    };
 
-      if (!options.isPinShow) {
-        this.input.addEventListener('click', this._show);
-      } else {
-        this._show();
-      }
-    } else {
-      console.error(
-        'Expected input(node) inside constructor object but not received'
-      );
-    }
-
-    if (options.inputSplitBtn) {
-      this.inputSplitBtn = options.inputSplitBtn;
-      this.inputSplitBtn.addEventListener('click', this._show);
-    } else {
-      console.error(
-        'Expected inputSplitBtn(node) inside constructor object but not received'
-      );
-    }
-
-    if (options.countElements) {
-      this.countElements = options.countElements;
-      this.inputViews = [];
-    } else {
-      console.error(
-        'Expected countElements(Array) inside constructor object but not received'
-      );
-    }
-
-    if (options.countGroupView) {
-      this.countGroupView = options.countGroupView;
-    } else {
-      console.error(
-        'Expected countGroupView(Array) inside constructor object but not received'
-      );
-    }
-
-    if (options.isHideControl) {
-      this.isHideControl = options.isHideControl;
-    }
-
-    if (options.isPinShow) {
-      this.isPinShow = options.isPinShow;
-    }
+    this.settings = {
+      placeholder,
+      isPinShow,
+      isHideControl,
+    };
   }
 
   init = () => {
+    if (this.settings.isPinShow) {
+      this._show();
+    } else {
+      this.domElements.input.addEventListener('click', this._show);
+    }
+
+    if (this._hasHaveStartValue()) {
+      this._renderStartCount();
+    } else {
+      this.domElements.input.textContent = this.settings.placeholder;
+    }
+
+    this.domElements.inputSplitBtn.addEventListener('click', this._show);
     const modifiedCountElements = this._getModifiedCountElements();
-    this.countElements = modifiedCountElements;
+    this.countElementsGroup.countElements = modifiedCountElements;
     const dropDownParentWrap = getHtmlElement('div', 'drop-down-counter__wrap');
     const countList = getHtmlElement('ul', 'drop-down-counter__count-list');
     const dropDownControl = getHtmlElement('div', 'drop-down-counter__control');
@@ -95,33 +69,34 @@ class DropDownCounter {
     acceptBtn.addEventListener('click', this._hide);
     const countListFragment = document.createDocumentFragment();
 
-    this.countElements.forEach((element) => {
+    this.countElementsGroup.countElements.forEach((element) => {
       const countItem = this._getCountItem(element);
       countListFragment.appendChild(countItem);
     });
 
     countList.appendChild(countListFragment);
-    if (!this.isHideControl) {
+    if (!this.settings.isHideControl) {
       dropDownControl.appendChild(clearBtn);
       dropDownControl.appendChild(acceptBtn);
     }
 
     dropDownParentWrap.appendChild(countList);
 
-    if (!this.isHideControl) {
+    if (!this.settings.isHideControl) {
       dropDownParentWrap.appendChild(dropDownControl);
     }
-    this.dropDownParent.appendChild(dropDownParentWrap);
-    this.container.appendChild(this.dropDownParent);
+    this.domElements.dropDownParent.appendChild(dropDownParentWrap);
+    this.domElements.container.appendChild(this.domElements.dropDownParent);
 
-    const isAllCounterZero = this.countElements.every(
+    const isAllCounterZero = this.countElementsGroup.countElements.every(
       (item) => item.counter === 0
     );
 
     if (isAllCounterZero) this._hideClearBtn();
   };
 
-  _hasHaveStartValue = (countElements) => {
+  _hasHaveStartValue = () => {
+    const {countElements} = this.countElementsGroup;
     return countElements.some((item) => {
       if (item.startValue) {
         return item.startValue > 0;
@@ -130,41 +105,45 @@ class DropDownCounter {
   };
 
   _getModifiedCountElements = () => {
-    const modifiedCountElements = this.countElements.map((item, index) => {
-      const minValue = item.minValue ? item.minValue : 0;
-      const counter = item.startValue ? item.startValue : minValue;
-      item.id = `${index}${getRandomNumber(1, 10000)}`;
-      item.counter = counter;
-      item.minValue = minValue;
-      return item;
-    });
+    const modifiedCountElements = this.countElementsGroup.countElements.map(
+      (item, index) => {
+        const minValue = item.minValue ? item.minValue : 0;
+        const counter = item.startValue ? item.startValue : minValue;
+        item.id = `${index}${getRandomNumber(1, 10000)}`;
+        item.counter = counter;
+        item.minValue = minValue;
+        return item;
+      }
+    );
 
     return modifiedCountElements;
   };
 
   _show = () => {
-    const isHaveClass = this.dropDownParent.classList.contains(
+    const isHaveClass = this.domElements.dropDownParent.classList.contains(
       'drop-down-counter_opened'
     );
     if (!isHaveClass) {
-      this.dropDownParent.classList.add('drop-down-counter_opened');
-      this.input.classList.add('drop-down-input__body_active');
+      this.domElements.dropDownParent.classList.add('drop-down-counter_opened');
+      this.domElements.input.classList.add('drop-down-input__body_active');
       window.addEventListener('mouseup', this._onClickHide);
       window.addEventListener('keyup', this._onPressHide);
     }
   };
 
   _hide = () => {
-    if (this.isPinShow) {
+    if (this.settings.isPinShow) {
       return;
     }
 
-    const isHaveClass = this.dropDownParent.classList.contains(
+    const isHaveClass = this.domElements.dropDownParent.classList.contains(
       'drop-down-counter_opened'
     );
     if (isHaveClass) {
-      this.dropDownParent.classList.remove('drop-down-counter_opened');
-      this.input.classList.remove('drop-down-input__body_active');
+      this.domElements.dropDownParent.classList.remove(
+        'drop-down-counter_opened'
+      );
+      this.domElements.input.classList.remove('drop-down-input__body_active');
       window.removeEventListener('mouseup', this._onClickHide);
       window.removeEventListener('keyup', this._onPressHide);
     }
@@ -175,8 +154,10 @@ class DropDownCounter {
   };
 
   _onClickHide = (evt) => {
-    const isInputClick = evt.target === this.input;
-    const isCalendarClick = this.dropDownParent.contains(evt.target);
+    const isInputClick = evt.target === this.domElements.input;
+    const isCalendarClick = this.domElements.dropDownParent.contains(
+      evt.target
+    );
     const isOutsideClick = !isInputClick && !isCalendarClick;
     if (isOutsideClick) {
       this._hide();
@@ -195,17 +176,19 @@ class DropDownCounter {
     this._discardCounter();
     this._discardViewCounter();
     this._hideClearBtn();
-    this.input.textContent = this.placeholder;
+    this.domElements.input.textContent = this.settings.placeholder;
   };
 
   _discardCounter = () => {
-    this.countElements.forEach((item) => {
-      const viewCounter = this.dropDownParent.querySelector(`#view-${item.id}`);
+    this.countElementsGroup.countElements.forEach((item) => {
+      const viewCounter = this.domElements.dropDownParent.querySelector(
+        `#view-${item.id}`
+      );
       viewCounter.textContent = item.minValue;
       item.counter = item.minValue;
     });
 
-    const minusButtons = this.dropDownParent.querySelectorAll(
+    const minusButtons = this.domElements.dropDownParent.querySelectorAll(
       '.drop-down-counter__counter-btn_minus'
     );
     minusButtons.forEach((item) => {
@@ -215,41 +198,48 @@ class DropDownCounter {
   };
 
   _discardViewCounter = () => {
-    Object.keys(this.countGroupView).forEach((item) => {
-      this.countGroupView[item].counter = 0;
+    Object.keys(this.countElementsGroup.countGroupView).forEach((item) => {
+      this.countElementsGroup.countGroupView[item].counter = 0;
     });
   };
 
   _renderViewCount = () => {
     let wordOfNum = '';
-    Object.keys(this.countGroupView).forEach((item, index) => {
-      if (this.countGroupView[item].counter > 0) {
-        const currentCounterGroup = this.countGroupView[item];
-        const currentCounter = currentCounterGroup.counter;
-        const currentWord = declOfNum(
-          currentCounter,
-          currentCounterGroup.views
-        );
-        if (index > 0 && wordOfNum.length > 1) {
-          wordOfNum += ', ';
+    Object.keys(this.countElementsGroup.countGroupView).forEach(
+      (item, index) => {
+        if (this.countElementsGroup.countGroupView[item].counter > 0) {
+          const currentCounterGroup = this.countElementsGroup.countGroupView[
+            item
+          ];
+          const currentCounter = currentCounterGroup.counter;
+          const currentWord = declOfNum(
+            currentCounter,
+            currentCounterGroup.views
+          );
+          if (index > 0 && wordOfNum.length > 1) {
+            wordOfNum += ', ';
+          }
+          wordOfNum += `${currentCounter} ${currentWord}`;
         }
-        wordOfNum += `${currentCounter} ${currentWord}`;
       }
-    });
+    );
 
-    if (wordOfNum.length >= 20 && Object.keys(this.countGroupView).length > 2) {
+    if (
+      wordOfNum.length >= 20 &&
+      Object.keys(this.countElementsGroup.countGroupView).length > 2
+    ) {
       wordOfNum = wordOfNum.slice(0, 20) + '...';
     }
 
-    this.input.textContent = wordOfNum;
+    this.domElements.input.textContent = wordOfNum;
   };
 
-  _renderStartCount = (options) => {
-    const countElements = options.countElements;
+  _renderStartCount = () => {
+    const {countElements, countGroupView} = this.countElementsGroup;
     let wordOfNum = '';
     countElements.forEach((item, index) => {
       if (item.startValue > 0) {
-        const currentCounterGroup = options.countGroupView[item.countGroupName];
+        const currentCounterGroup = countGroupView[item.countGroupName];
         const currentCounter = currentCounterGroup.counter;
         const currentWord = declOfNum(
           currentCounter,
@@ -273,7 +263,7 @@ class DropDownCounter {
       }
     }
 
-    this.input.textContent = wordOfNum;
+    this.domElements.input.textContent = wordOfNum;
   };
 
   _getCountItem = (element) => {
@@ -313,7 +303,9 @@ class DropDownCounter {
     countItemPlus.type = 'button';
 
     countItemPlus.addEventListener('click', () => {
-      const groupView = this.countGroupView[element.countGroupName];
+      const groupView = this.countElementsGroup.countGroupView[
+        element.countGroupName
+      ];
       element.counter++;
       groupView.counter++;
       countItemView.textContent = element.counter;
@@ -337,7 +329,7 @@ class DropDownCounter {
     });
 
     countItemMinus.addEventListener('click', () => {
-      const groupView = this.countGroupView[element.countGroupName];
+      const groupView = this.countElementsGroup.countGroupView[element.countGroupName];
       element.counter--;
       groupView.counter--;
       countItemView.textContent = element.counter;
@@ -348,13 +340,13 @@ class DropDownCounter {
       }
       this._renderViewCount();
       if (groupView.counter === 0) {
-        const isCounterGroupClear = Object.keys(this.countGroupView).every(
-          (item) => {
-            return this.countGroupView[item].counter === 0;
-          }
-        );
+        const isCounterGroupClear = Object.keys(
+          this.countElementsGroup.countGroupView
+        ).every((item) => {
+          return this.countElementsGroup.countGroupView[item].counter === 0;
+        });
         if (isCounterGroupClear) {
-          this.input.textContent = this.placeholder;
+          this.domElements.input.textContent = this.settings.placeholder;
           this._hideClearBtn();
         }
       }
