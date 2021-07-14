@@ -2,7 +2,9 @@ function getHtmlElement(tagName, className, text) {
   const element = document.createElement(tagName);
 
   if (className) {
-    element.classList.add(className);
+    className.split(' ').forEach((classItem) => {
+      element.classList.add(classItem);
+    });
   }
 
   if (text) {
