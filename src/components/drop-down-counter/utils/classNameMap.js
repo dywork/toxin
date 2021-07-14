@@ -1,4 +1,5 @@
 const classNameMap = {
+  dropDownCounter: 'drop-down-counter',
   wrap: 'drop-down-counter__wrap',
   countList: 'drop-down-counter__count-list',
   countItem: 'drop-down-counter__count-item',
