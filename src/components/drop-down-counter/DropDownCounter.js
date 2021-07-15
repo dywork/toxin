@@ -56,7 +56,7 @@ class DropDownCounter {
       'drop-down-counter__button',
       'Очистить'
     );
-    this.clearBtn = clearBtn;
+    this.domElements.clearBtn = clearBtn;
     clearBtn.type = 'button';
     clearBtn.addEventListener('click', this._onClickClear);
     const acceptBtn = getHtmlElement(
@@ -150,7 +150,7 @@ class DropDownCounter {
   };
 
   _hideClearBtn = () => {
-    this.clearBtn.classList.add('drop-down-counter__button_hidden');
+    this.domElements.clearBtn.classList.add('drop-down-counter__button_hidden');
   };
 
   _onClickHide = (evt) => {
@@ -320,11 +320,11 @@ class DropDownCounter {
         countItemMinus.removeAttribute('disabled');
       }
 
-      const isClearBtnDisabled = this.clearBtn.classList.contains(
+      const isClearBtnDisabled = this.domElements.clearBtn.classList.contains(
         'drop-down-counter__button_hidden'
       );
       if (isClearBtnDisabled) {
-        this.clearBtn.classList.remove('drop-down-counter__button_hidden');
+        this.domElements.clearBtn.classList.remove('drop-down-counter__button_hidden');
       }
     });
 
