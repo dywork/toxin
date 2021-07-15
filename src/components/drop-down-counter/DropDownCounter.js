@@ -10,6 +10,7 @@ class DropDownCounter {
     countElements,
     countGroupView,
     placeholder = 'Выберите элемент',
+    maxLengthInput = 20,
     isPinShow = false,
     isHideControl = false,
   }) {
@@ -30,6 +31,7 @@ class DropDownCounter {
       placeholder,
       isPinShow,
       isHideControl,
+      maxLengthInput,
     };
   }
 
@@ -228,6 +230,7 @@ class DropDownCounter {
   _renderViewCount = () => {
     const {input} = this.domElements;
     const {countGroupView} = this.countElementsGroup;
+    const {maxLengthInput} = this.settings;
 
     let wordOfNum = '';
     Object.keys(countGroupView).forEach((item, index) => {
@@ -245,8 +248,12 @@ class DropDownCounter {
       }
     });
 
-    if (wordOfNum.length >= 20 && Object.keys(countGroupView).length > 2) {
-      wordOfNum = wordOfNum.slice(0, 20) + '...';
+    const isLengthOutRange =
+      wordOfNum.length >= maxLengthInput &&
+      Object.keys(countGroupView).length > 2;
+
+    if (isLengthOutRange) {
+      wordOfNum = wordOfNum.slice(0, maxLengthInput) + '...';
     }
 
     input.textContent = wordOfNum;
@@ -255,6 +262,7 @@ class DropDownCounter {
   _renderStartCount = () => {
     const {input} = this.domElements;
     const {countElements, countGroupView} = this.countElementsGroup;
+    const {maxLengthInput} = this.settings;
 
     let wordOfNum = '';
     countElements.forEach((item, index) => {
@@ -271,9 +279,11 @@ class DropDownCounter {
         wordOfNum += `${currentCounter} ${currentWord}`;
       }
     });
+    const isLengthOutRange =
+      wordOfNum.length >= maxLengthInput && countElements.length > 2;
 
-    if (wordOfNum.length >= 20 && countElements.length > 2) {
-      wordOfNum = wordOfNum.slice(0, 20) + '...';
+    if (isLengthOutRange) {
+      wordOfNum = wordOfNum.slice(0, maxLengthInput) + '...';
     }
 
     const splitWordOfNum = wordOfNum.split(',');
