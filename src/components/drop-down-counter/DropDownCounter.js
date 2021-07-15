@@ -1,5 +1,6 @@
 import {getHtmlElement, getRandomNumber, declOfNum} from './utils';
 import classNameMap from './utils/classNameMap';
+import keyCodes from './utils/constants';
 
 class DropDownCounter {
   constructor({
@@ -178,7 +179,8 @@ class DropDownCounter {
   };
 
   _onPressHide = (evt) => {
-    const isEscPress = evt.keyCode === 27;
+    const {esc} = keyCodes;
+    const isEscPress = evt.keyCode === esc;
     if (isEscPress) {
       this._hide();
     }
