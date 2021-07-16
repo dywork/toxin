@@ -241,7 +241,8 @@ class DropDownCounter {
           currentCounter,
           currentCounterGroup.views
         );
-        if (index > 0 && wordOfNum.length > 1) {
+        const isWordsMoreThenTwo = index > 0 && wordOfNum.length > 1;
+        if (isWordsMoreThenTwo) {
           wordOfNum += ', ';
         }
         wordOfNum += `${currentCounter} ${currentWord}`;
@@ -273,7 +274,8 @@ class DropDownCounter {
           currentCounter,
           currentCounterGroup.views
         );
-        if (index > 0 && wordOfNum.length > 1) {
+        const isWordsMoreThenTwo = index > 0 && wordOfNum.length > 1;
+        if (isWordsMoreThenTwo) {
           wordOfNum += ', ';
         }
         wordOfNum += `${currentCounter} ${currentWord}`;
