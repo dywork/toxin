@@ -332,8 +332,10 @@ class DatePicker {
     const {arrivalDate} = this.dateInfo;
     const hasClickOnSelectedCell =
       cell === arrivalCell || cell === departureCell;
+    const isClickWhenStartSelect = isStartSelect && !hasClickOnSelectedCell;
+    const isClickWhenEndSelect = !isEndSelect && hasClickOnSelectedCell;
 
-    if (isStartSelect && !hasClickOnSelectedCell) {
+    if (isClickWhenStartSelect) {
       const isDateSelectLess = compareDate(selectDate, arrivalDate) < 0;
       if (isDateSelectLess) {
         this._showErrorAnimation(cell);
@@ -341,7 +343,7 @@ class DatePicker {
         this._endSelectRangeDate(cell, selectDate);
         this._paintingSelectCell();
       }
-    } else if (!isEndSelect && hasClickOnSelectedCell) {
+    } else if (isClickWhenEndSelect) {
       this._endSelectRangeDate(cell, selectDate);
     } else {
       this._startSelectRangeDate(cell, selectDate);
@@ -381,7 +383,8 @@ class DatePicker {
     const {arrivalDate, departureDate} = this.dateInfo;
     const {calendarDaySelected} = calendarClassName;
     const cells = parentNode.querySelectorAll('td');
-    if (arrivalDate && departureDate) {
+    const isDatesExist = arrivalDate && departureDate;
+    if (isDatesExist) {
       cells.forEach(this._stainingCell);
     } else if (arrivalDate) {
       const arrivalAriaDate = CalendarTableView.getAriaDateByDate(arrivalDate);
@@ -411,8 +414,9 @@ class DatePicker {
     const isCellStart = arrivalAriaDate === cell.getAttribute('aria-date');
     const isCellEnd = departureAriaDate === cell.getAttribute('aria-date');
     const cellDate = new Date(cell.getAttribute('aria-date'));
+    const isClickOnCellEnd = isCellEnd && !hasClickOnSelectedCell;
 
-    if (isCellEnd && !hasClickOnSelectedCell) {
+    if (isClickOnCellEnd) {
       cell.classList.add(calendarDaySelectedEnd);
       cell.classList.add(calendarDaySelected);
     }
