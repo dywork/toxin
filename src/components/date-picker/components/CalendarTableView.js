@@ -127,6 +127,7 @@ class CalendarTableView {
     const isLastWeekDaySaturday = lastWeekDayPrevMonth === 6;
     const isLastWeekDayFriday = lastWeekDayPrevMonth === 5;
     const isLastWeekDaySunday = lastWeekDayPrevMonth === 0;
+    const isLeapYear = lastDayCurrentMonth === 28;
     let numberRow = 5;
 
     if (isLastWeekDaySaturday && lastDayCurrentMonth >= 30) {
@@ -137,7 +138,7 @@ class CalendarTableView {
       numberRow = 6;
     }
 
-    if (isLastWeekDaySunday && lastDayCurrentMonth === 28) {
+    if (isLastWeekDaySunday && isLeapYear) {
       numberRow = 4;
     }
     return numberRow;
