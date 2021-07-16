@@ -38,14 +38,15 @@
 
   &__input[type='checkbox'] {
     display: none;
+    $toggle: 'toggle';
 
     &:checked {
-      & + .toggle__label-text::after {
+      & + .#{$toggle}__label-text::after {
         background: $accentGradient;
         transform: translateX(20px);
       }
 
-      & + .toggle__label-text::before {
+      & + .#{$toggle}__label-text::before {
         border-color: $accentColor;
       }
     }
