@@ -16,6 +16,10 @@
     @media (max-width: 595px) {
       justify-content: center;
     }
+
+    @media (max-width: 768px) {
+      justify-content: space-around;
+    }
   }
 
   &__item {
