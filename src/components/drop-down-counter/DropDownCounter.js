@@ -1,4 +1,4 @@
-import {getHtmlElement, getRandomNumber, declOfNum} from './utils';
+import {getHtmlElement, getRandomNumber, declensionWordEnding} from './utils';
 import classNameMap from './utils/classNameMap';
 import keyCodes from './utils/constants';
 
@@ -237,7 +237,7 @@ class DropDownCounter {
       if (countGroupView[item].counter > 0) {
         const currentCounterGroup = countGroupView[item];
         const currentCounter = currentCounterGroup.counter;
-        const currentWord = declOfNum(
+        const currentWord = declensionWordEnding(
           currentCounter,
           currentCounterGroup.views
         );
@@ -269,7 +269,7 @@ class DropDownCounter {
       if (item.startValue > 0) {
         const currentCounterGroup = countGroupView[item.countGroupName];
         const currentCounter = currentCounterGroup.counter;
-        const currentWord = declOfNum(
+        const currentWord = declensionWordEnding(
           currentCounter,
           currentCounterGroup.views
         );

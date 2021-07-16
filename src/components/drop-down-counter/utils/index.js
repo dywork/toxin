@@ -19,7 +19,8 @@ function getRandomNumber(min, max) {
   return randomNumber;
 }
 
-function declOfNum(number, titles) {
+// from https://v3c.ru/javascript/sklonenie-okonchanij
+function declensionWordEnding(number, titles) {
   const cases = [2, 0, 1, 1, 1, 2];
   return titles[
     number % 100 > 4 && number % 100 < 20
@@ -28,4 +29,4 @@ function declOfNum(number, titles) {
   ];
 }
 
-export {getHtmlElement, getRandomNumber, declOfNum};
+export {getHtmlElement, getRandomNumber, declensionWordEnding};
