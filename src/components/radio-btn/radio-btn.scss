@@ -19,14 +19,15 @@
 
   &__input[type='radio'] {
     display: none;
+    $radioBtn: 'radio-btn';
 
     &:checked {
-      & + .radio-btn__label-text::after {
+      & + .#{$radioBtn}__label-text::after {
         visibility: visible;
         opacity: 1;
       }
 
-      & + .radio-btn__label-text::before {
+      & + .#{$radioBtn}__label-text::before {
         border-color: $accentColor;
       }
     }
