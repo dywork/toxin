@@ -38,24 +38,24 @@ html(lang='ru')
     link(
       rel='apple-touch-icon',
       sizes='180x180',
-      href='favicons/apple-touch-icon.png'
+      href=faviconRoutes.apple
     )
     link(
       rel='icon',
       type='image/png',
       sizes='32x32',
-      href='favicons/favicon-32x32.png'
+      href=faviconRoutes.big
     )
     link(
       rel='icon',
       type='image/png',
       sizes='16x16',
-      href='favicons/favicon-16x16.png'
+      href=faviconRoutes.small
     )
-    link(rel='manifest', href='favicons/site.webmanifest')
+    link(rel='manifest', href=faviconRoutes.manifest)
     link(
       rel='mask-icon',
-      href='favicons/safari-pinned-tab.svg',
+      href=faviconRoutes.pinned,
       color='#5bbad5'
     )
     title #{title}
