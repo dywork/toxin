@@ -1,21 +1,8 @@
-import Glide from '@glidejs/glide';
+import Carousel from '../../libs/Carousel';
 
-class HotelsCard {
-  static init() {
-    const elements = this._getElements();
-    elements.forEach(this._createSlider);
-  }
+const domInfo = {
+  hotelCard: 'js-hotel-card-glide',
+  activeBullet: 'hotel-card__bullet-active',
+};
 
-  static _createSlider(item) {
-    new Glide(item, {
-      type: 'carousel',
-      classes: {activeNav: 'hotel-card__bullet-active'},
-    }).mount();
-  }
-
-  static _getElements() {
-    return document.querySelectorAll('.js-hotel-card-glide');
-  }
-}
-
-HotelsCard.init();
+Carousel.init(domInfo);
