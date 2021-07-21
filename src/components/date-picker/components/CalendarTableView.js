@@ -128,17 +128,17 @@ class CalendarTableView {
     const isLastWeekDayFriday = lastWeekDayPrevMonth === 5;
     const isLastWeekDaySunday = lastWeekDayPrevMonth === 0;
     const isLeapYear = lastDayCurrentMonth === 28;
+    const isExtraRow = isLastWeekDaySunday && isLeapYear;
+    const isInsufficientRow =
+      (isLastWeekDaySaturday && lastDayCurrentMonth >= 30) ||
+      (isLastWeekDayFriday && lastDayCurrentMonth === 31);
     let numberRow = 5;
 
-    if (isLastWeekDaySaturday && lastDayCurrentMonth >= 30) {
+    if (isInsufficientRow) {
       numberRow = 6;
     }
 
-    if (isLastWeekDayFriday && lastDayCurrentMonth === 31) {
-      numberRow = 6;
-    }
-
-    if (isLastWeekDaySunday && isLeapYear) {
+    if (isExtraRow) {
       numberRow = 4;
     }
     return numberRow;
