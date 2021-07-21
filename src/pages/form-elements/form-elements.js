@@ -1,8 +1,19 @@
 import '../../style/main.scss';
 import './form-elements.scss';
-import '../../components/range-slider/range-slider';
 import DropDownCounter from '../../components/drop-down-counter/DropDownCounter';
 import Inputmask from 'inputmask';
+import initialRangeSlider from '../../components/range-slider/range-slider';
+
+const domInfo = {
+  root: 'js-range-slider',
+  options: 'js-range-slider-options',
+  lowValue: 'js-range-slider-lower-value',
+  upperValue: 'js-range-slider-upper-value',
+  handle: 'range-slider__handle',
+  connect: 'range-slider__connect',
+};
+
+initialRangeSlider(domInfo);
 
 Inputmask({mask: '99.99.9999', placeholder: 'ДД.ММ.ГГГГ'}).mask(
   '.js-masked-input'
@@ -12,7 +23,9 @@ const dropDownContainer = document.querySelector(
   '.js-drop-down-counter-container'
 );
 const inputDropDown = document.querySelector('.js-default-input-drop-down');
-const inputSplitBtn = document.querySelector('.js-default-input-drop-down-split-btn');
+const inputSplitBtn = document.querySelector(
+  '.js-default-input-drop-down-split-btn'
+);
 
 const dropDownOptions = {
   container: dropDownContainer,
@@ -43,7 +56,9 @@ const dropDownGuestContainer = document.querySelector(
   '.js-drop-down-counter-container-clear'
 );
 const inputDropDownGuest = document.querySelector('.js-input-drop-down-clear');
-const inputSplitBtnGuest = document.querySelector('.js-input-drop-down-clear-split-btn');
+const inputSplitBtnGuest = document.querySelector(
+  '.js-input-drop-down-clear-split-btn'
+);
 
 const dropDownGuestOptions = {
   container: dropDownGuestContainer,

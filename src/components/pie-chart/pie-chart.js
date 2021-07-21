@@ -1,8 +1,5 @@
 import PieChart from '../../libs/PieChart';
 
-const domInfo = {
-  root: 'js-doughnut-chart',
-  diagram: 'js-pie-diagram',
-};
+const initialPieChart = (domInfo) => PieChart.init(domInfo);
 
-PieChart.init(domInfo);
+export default initialPieChart;

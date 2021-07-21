@@ -1,12 +1,5 @@
-import RangeSlider from '../../libs/RangeSlider/index';
+import RangeSlider from '../../libs/RangeSlider';
 
-const domInfo = {
-  root: 'js-range-slider',
-  options: 'js-range-slider-options',
-  lowValue: 'js-range-slider-lower-value',
-  upperValue: 'js-range-slider-upper-value',
-  handle: 'range-slider__handle',
-  connect: 'range-slider__connect',
-};
+const initialRangeSlider = (domInfo) => RangeSlider.init(domInfo);
 
-RangeSlider.init(domInfo);
+export default initialRangeSlider;
