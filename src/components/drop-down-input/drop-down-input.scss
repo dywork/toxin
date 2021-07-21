@@ -2,6 +2,7 @@
   &__wrap {
     display: flex;
     width: 100%;
+    min-width: 150px;
 
     &:hover {
       .drop-down-input__body {
