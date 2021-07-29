@@ -288,13 +288,6 @@ class DropDownCounter {
       wordOfNum = wordOfNum.slice(0, maxLengthInput) + '...';
     }
 
-    const splitWordOfNum = wordOfNum.split(',');
-    if (splitWordOfNum.length > 1) {
-      if (splitWordOfNum[0].trim() === splitWordOfNum[1].trim()) {
-        wordOfNum = splitWordOfNum[0];
-      }
-    }
-
     input.textContent = wordOfNum;
   };
 
@@ -322,12 +315,13 @@ class DropDownCounter {
       `${counterButtonClass} ${counterButtonMinus}`
     );
 
-    if (element.startValue) {
-      if (element.startValue === element.minValue) {
-        countItemMinus.classList.add(counterButtonDisabled);
-        countItemMinus.setAttribute('disabled', 'true');
-      }
-    } else {
+    const isHaveDisabledStartValue =
+      element.startValue && element.startValue === element.minValue;
+
+    if (isHaveDisabledStartValue) {
+      countItemMinus.classList.add(counterButtonDisabled);
+      countItemMinus.setAttribute('disabled', 'true');
+    } else if (!element.startValue) {
       countItemMinus.classList.add(counterButtonDisabled);
       countItemMinus.setAttribute('disabled', 'true');
     }
