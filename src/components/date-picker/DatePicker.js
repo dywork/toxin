@@ -327,23 +327,20 @@ class DatePicker {
   };
 
   _selectedRangeDateByCell = (cell, selectDate) => {
-    const {isStartSelect, isEndSelect} = this.settings;
+    const {isStartSelect} = this.settings;
     const {arrivalCell, departureCell} = this.domElements;
     const {arrivalDate} = this.dateInfo;
     const hasClickOnSelectedCell =
       cell === arrivalCell || cell === departureCell;
     const isClickWhenStartSelect = isStartSelect && !hasClickOnSelectedCell;
-    const isClickWhenEndSelect = !isEndSelect && hasClickOnSelectedCell;
+    const isDateSelectLess = isClickWhenStartSelect
+      ? compareDate(selectDate, arrivalDate) < 0
+      : false;
+    const isMustShowError = isClickWhenStartSelect && isDateSelectLess;
 
-    if (isClickWhenStartSelect) {
-      const isDateSelectLess = compareDate(selectDate, arrivalDate) < 0;
-      if (isDateSelectLess) {
-        this._showErrorAnimation(cell);
-      } else {
-        this._endSelectRangeDate(cell, selectDate);
-        this._paintingSelectCell();
-      }
-    } else if (isClickWhenEndSelect) {
+    if (isMustShowError) {
+      this._showErrorAnimation(cell);
+    } else if (isClickWhenStartSelect) {
       this._endSelectRangeDate(cell, selectDate);
     } else {
       this._startSelectRangeDate(cell, selectDate);
@@ -464,12 +461,10 @@ class DatePicker {
     const selectDay = getTwoDigitNumberString(selectDate.getDate());
     const selectMonth = monthReduction[selectDate.getMonth()];
     const printMessage = `${selectDay} ${selectMonth}`;
-    if (datePickerInput) {
-      if (isEndSelect) {
-        datePickerInput.textContent += ` - ${printMessage}`;
-      } else {
-        datePickerInput.textContent = printMessage;
-      }
+    if (isEndSelect) {
+      datePickerInput.textContent += ` - ${printMessage}`;
+    } else {
+      datePickerInput.textContent = printMessage;
     }
   };
 
