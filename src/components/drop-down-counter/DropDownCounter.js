@@ -49,7 +49,7 @@ class DropDownCounter {
     if (isPinShow) {
       this._show();
     } else {
-      input.addEventListener('click', this._show);
+      input.addEventListener('click', this._handleInputClick);
     }
 
     if (this._hasHaveStartValue()) {
@@ -58,7 +58,7 @@ class DropDownCounter {
       input.textContent = placeholder;
     }
 
-    inputSplitBtn.addEventListener('click', this._show);
+    inputSplitBtn.addEventListener('click', this._handleInputClick);
     this.countElementsGroup.countElements = this._getModifiedCountElements();
     const dropDownParentWrap = getHtmlElement('div', wrap);
     const countList = getHtmlElement('ul', countListClass);
@@ -66,14 +66,14 @@ class DropDownCounter {
     const clearBtn = getHtmlElement('button', button, 'Очистить');
     this.domElements.clearBtn = clearBtn;
     clearBtn.type = 'button';
-    clearBtn.addEventListener('click', this._onClickClear);
+    clearBtn.addEventListener('click', this._handleClearBtnClick);
     const acceptBtn = getHtmlElement(
       'button',
       `${button} ${buttonAccent}`,
       'Применить'
     );
     acceptBtn.type = 'button';
-    acceptBtn.addEventListener('click', this._hide);
+    acceptBtn.addEventListener('click', this._handleAcceptBtnClick);
     const countListFragment = document.createDocumentFragment();
     const {countElements} = this.countElementsGroup;
 
@@ -138,8 +138,8 @@ class DropDownCounter {
     if (!isHaveClass) {
       dropDownParent.classList.add(dropDownCounterOpened);
       input.classList.add(inputActive);
-      window.addEventListener('mouseup', this._onClickHide);
-      window.addEventListener('keyup', this._onPressHide);
+      window.addEventListener('mouseup', this._handleWindowClick);
+      window.addEventListener('keyup', this._handleWindowKeyup);
     }
   };
 
@@ -159,8 +159,8 @@ class DropDownCounter {
     if (isHaveClass) {
       dropDownParent.classList.remove(dropDownCounterOpened);
       input.classList.remove(inputActive);
-      window.removeEventListener('mouseup', this._onClickHide);
-      window.removeEventListener('keyup', this._onPressHide);
+      window.removeEventListener('mouseup', this._handleWindowClick);
+      window.removeEventListener('keyup', this._handleWindowKeyup);
     }
   };
 
@@ -170,7 +170,11 @@ class DropDownCounter {
     clearBtn.classList.add(counterButtonHidden);
   };
 
-  _onClickHide = (evt) => {
+  _handleInputClick = () => {
+    this._show();
+  }
+
+  _handleWindowClick = (evt) => {
     const {dropDownParent, input} = this.domElements;
     const isInputClick = evt.target === input;
     const isCalendarClick = dropDownParent.contains(evt.target);
@@ -180,7 +184,7 @@ class DropDownCounter {
     }
   };
 
-  _onPressHide = (evt) => {
+  _handleWindowKeyup = (evt) => {
     const {esc} = keyCodes;
     const isEscPress = evt.keyCode === esc;
     if (isEscPress) {
@@ -188,7 +192,7 @@ class DropDownCounter {
     }
   };
 
-  _onClickClear = (evt) => {
+  _handleClearBtnClick = (evt) => {
     evt.preventDefault();
     this._discardCounter();
     this._discardViewCounter();
@@ -196,6 +200,11 @@ class DropDownCounter {
     const {input} = this.domElements;
     const {placeholder} = this.settings;
     input.textContent = placeholder;
+  };
+
+  _handleAcceptBtnClick = (evt) => {
+    evt.preventDefault();
+    this._hide();
   };
 
   _discardCounter = () => {
