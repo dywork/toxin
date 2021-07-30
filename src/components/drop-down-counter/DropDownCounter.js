@@ -172,7 +172,7 @@ class DropDownCounter {
 
   _handleInputClick = () => {
     this._show();
-  }
+  };
 
   _handleWindowClick = (evt) => {
     const {dropDownParent, input} = this.domElements;
@@ -205,6 +205,61 @@ class DropDownCounter {
   _handleAcceptBtnClick = (evt) => {
     evt.preventDefault();
     this._hide();
+  };
+
+  _handleCountItemPlusClick = (elements) => {
+    const {element, countItemView, countItemMinus} = elements;
+    const {counterButtonHidden, counterButtonDisabled} = classNameMap;
+    const {countGroupView} = this.countElementsGroup;
+    const {clearBtn} = this.domElements;
+
+    const groupView = countGroupView[element.countGroupName];
+    element.counter++;
+    groupView.counter++;
+    countItemView.textContent = element.counter;
+    this._renderViewCount();
+    const isMinusDisabled = countItemMinus.classList.contains(
+      counterButtonDisabled
+    );
+
+    if (isMinusDisabled) {
+      countItemMinus.classList.remove(counterButtonDisabled);
+      countItemMinus.removeAttribute('disabled');
+    }
+
+    const isClearBtnDisabled = clearBtn.classList.contains(counterButtonHidden);
+
+    if (isClearBtnDisabled) {
+      clearBtn.classList.remove(counterButtonHidden);
+    }
+  };
+
+  _handleCountItemMinusClick = (elements) => {
+    const {element, countItemView, countItemMinus} = elements;
+    const {counterButtonDisabled} = classNameMap;
+    const {countGroupView} = this.countElementsGroup;
+    const {placeholder} = this.settings;
+    const {input} = this.domElements;
+
+    const groupView = countGroupView[element.countGroupName];
+    element.counter--;
+    groupView.counter--;
+    countItemView.textContent = element.counter;
+    const nextDecrementCounter = element.counter - 1;
+    if (nextDecrementCounter < element.minValue) {
+      countItemMinus.classList.add(counterButtonDisabled);
+      countItemMinus.setAttribute('disabled', 'true');
+    }
+    this._renderViewCount();
+    if (groupView.counter === 0) {
+      const isCounterGroupClear = Object.keys(countGroupView).every((item) => {
+        return countGroupView[item].counter === 0;
+      });
+      if (isCounterGroupClear) {
+        input.textContent = placeholder;
+        this._hideClearBtn();
+      }
+    }
   };
 
   _discardCounter = () => {
@@ -301,9 +356,6 @@ class DropDownCounter {
   };
 
   _getCountItem = (element) => {
-    const {input, clearBtn} = this.domElements;
-    const {placeholder} = this.settings;
-    const {countGroupView} = this.countElementsGroup;
     const {
       countItem: countItemClass,
       countItemName: countItemNameClass,
@@ -312,7 +364,6 @@ class DropDownCounter {
       counterButtonMinus,
       counterButtonPlus,
       counterButtonDisabled,
-      counterButtonHidden,
       selectView,
     } = classNameMap;
 
@@ -345,51 +396,19 @@ class DropDownCounter {
     countItemPlus.type = 'button';
 
     countItemPlus.addEventListener('click', () => {
-      const groupView = countGroupView[element.countGroupName];
-      element.counter++;
-      groupView.counter++;
-      countItemView.textContent = element.counter;
-      this._renderViewCount();
-      const isMinusDisabled = countItemMinus.classList.contains(
-        counterButtonDisabled
-      );
-
-      if (isMinusDisabled) {
-        countItemMinus.classList.remove(counterButtonDisabled);
-        countItemMinus.removeAttribute('disabled');
-      }
-
-      const isClearBtnDisabled = clearBtn.classList.contains(
-        counterButtonHidden
-      );
-
-      if (isClearBtnDisabled) {
-        clearBtn.classList.remove(counterButtonHidden);
-      }
+      this._handleCountItemPlusClick({
+        element,
+        countItemView,
+        countItemMinus,
+      });
     });
 
     countItemMinus.addEventListener('click', () => {
-      const groupView = countGroupView[element.countGroupName];
-      element.counter--;
-      groupView.counter--;
-      countItemView.textContent = element.counter;
-      const nextDecrementCounter = element.counter - 1;
-      if (nextDecrementCounter < element.minValue) {
-        countItemMinus.classList.add(counterButtonDisabled);
-        countItemMinus.setAttribute('disabled', 'true');
-      }
-      this._renderViewCount();
-      if (groupView.counter === 0) {
-        const isCounterGroupClear = Object.keys(countGroupView).every(
-          (item) => {
-            return countGroupView[item].counter === 0;
-          }
-        );
-        if (isCounterGroupClear) {
-          input.textContent = placeholder;
-          this._hideClearBtn();
-        }
-      }
+      this._handleCountItemMinusClick({
+        element,
+        countItemView,
+        countItemMinus,
+      });
     });
 
     counterMenu.appendChild(countItemMinus);
