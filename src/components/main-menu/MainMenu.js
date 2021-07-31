@@ -29,20 +29,19 @@ class MainMenu {
   _handleBurgerBtnClick = () => {
     this._toggleBurgerBtnClass();
 
-    if (!this.isAuthorized) {
-      this._toggleAuthBtnClass();
-      const authList = this.parentDom.parentNode.querySelector('.js-auth-list');
-      const isAuthListActive = authList.classList.contains(
-        'page-header__auth-list_active'
-      );
+    if (this.isAuthorized) {
+      this._toggleMainMenuClass();
+      return;
+    }
 
-      if (!isAuthListActive) {
-        this._toggleMainMenuClass();
-      }
+    this._toggleAuthBtnClass();
+    const authList = this.parentDom.parentNode.querySelector('.js-auth-list');
+    const isAuthListActive = authList.classList.contains(
+      'page-header__auth-list_active'
+    );
 
-      if (isAuthListActive) {
-        this._toggleAuthListClass();
-      }
+    if (isAuthListActive) {
+      this._toggleAuthListClass();
     } else {
       this._toggleMainMenuClass();
     }
@@ -59,7 +58,7 @@ class MainMenu {
     this._toggleAuthListClass();
   };
 
-  _addSubMenuItemListener = subMenuItem => {
+  _addSubMenuItemListener = (subMenuItem) => {
     const subMenuLink = subMenuItem.firstChild;
     const subMenu = subMenuLink.nextSibling;
     subMenuItem.addEventListener('mouseover', () =>

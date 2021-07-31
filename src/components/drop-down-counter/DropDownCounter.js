@@ -246,19 +246,22 @@ class DropDownCounter {
     groupView.counter--;
     countItemView.textContent = element.counter;
     const nextDecrementCounter = element.counter - 1;
+
     if (nextDecrementCounter < element.minValue) {
       countItemMinus.classList.add(counterButtonDisabled);
       countItemMinus.setAttribute('disabled', 'true');
     }
+
     this._renderViewCount();
-    if (groupView.counter === 0) {
-      const isCounterGroupClear = Object.keys(countGroupView).every((item) => {
-        return countGroupView[item].counter === 0;
-      });
-      if (isCounterGroupClear) {
-        input.textContent = placeholder;
-        this._hideClearBtn();
-      }
+    if (groupView.counter !== 0) return;
+
+    const isCounterGroupClear = Object.keys(countGroupView).every((item) => {
+      return countGroupView[item].counter === 0;
+    });
+
+    if (isCounterGroupClear) {
+      input.textContent = placeholder;
+      this._hideClearBtn();
     }
   };
 
@@ -298,19 +301,19 @@ class DropDownCounter {
 
     let wordOfNum = '';
     Object.keys(countGroupView).forEach((item, index) => {
-      if (countGroupView[item].counter > 0) {
-        const currentCounterGroup = countGroupView[item];
-        const currentCounter = currentCounterGroup.counter;
-        const currentWord = declensionWordEnding(
-          currentCounter,
-          currentCounterGroup.views
-        );
-        const isWordsMoreThenTwo = index > 0 && wordOfNum.length > 1;
-        if (isWordsMoreThenTwo) {
-          wordOfNum += ', ';
-        }
-        wordOfNum += `${currentCounter} ${currentWord}`;
+      if (countGroupView[item].counter < 1) return;
+
+      const currentCounterGroup = countGroupView[item];
+      const currentCounter = currentCounterGroup.counter;
+      const currentWord = declensionWordEnding(
+        currentCounter,
+        currentCounterGroup.views
+      );
+      const isWordsMoreThenTwo = index > 0 && wordOfNum.length > 1;
+      if (isWordsMoreThenTwo) {
+        wordOfNum += ', ';
       }
+      wordOfNum += `${currentCounter} ${currentWord}`;
     });
 
     const isLengthOutRange =
@@ -331,19 +334,19 @@ class DropDownCounter {
 
     let wordOfNum = '';
     countElements.forEach((item, index) => {
-      if (item.startValue > 0) {
-        const currentCounterGroup = countGroupView[item.countGroupName];
-        const currentCounter = currentCounterGroup.counter;
-        const currentWord = declensionWordEnding(
-          currentCounter,
-          currentCounterGroup.views
-        );
-        const isWordsMoreThenTwo = index > 0 && wordOfNum.length > 1;
-        if (isWordsMoreThenTwo) {
-          wordOfNum += ', ';
-        }
-        wordOfNum += `${currentCounter} ${currentWord}`;
+      if (item.startValue < 1) return;
+
+      const currentCounterGroup = countGroupView[item.countGroupName];
+      const currentCounter = currentCounterGroup.counter;
+      const currentWord = declensionWordEnding(
+        currentCounter,
+        currentCounterGroup.views
+      );
+      const isWordsMoreThenTwo = index > 0 && wordOfNum.length > 1;
+      if (isWordsMoreThenTwo) {
+        wordOfNum += ', ';
       }
+      wordOfNum += `${currentCounter} ${currentWord}`;
     });
     const isLengthOutRange =
       wordOfNum.length >= maxLengthInput && countElements.length > 2;

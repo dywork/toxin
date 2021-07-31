@@ -48,16 +48,16 @@ class TotalCard {
     };
 
     const DepartureMutationObserver = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'childList') {
-          this.arrivalDate = this.arrivalInput.textContent;
-          this.departureDate = mutation.target.textContent;
+      mutations.forEach(({type, target}) => {
+        if (type !== 'childList') return;
 
-          if (this._hasDatesEmpty()) {
-            this._clearView();
-          } else {
-            this._renderResult();
-          }
+        this.arrivalDate = this.arrivalInput.textContent;
+        this.departureDate = target.textContent;
+
+        if (this._hasDatesEmpty()) {
+          this._clearView();
+        } else {
+          this._renderResult();
         }
       });
     });
