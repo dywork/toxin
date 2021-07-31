@@ -479,41 +479,37 @@ class DatePicker {
 
   _clearSelectCell = () => {
     const {parentNode} = this.domElements;
+    const cells = parentNode.querySelectorAll('td');
+    cells.forEach(this._clearSelectedCells);
+  };
+
+  _clearSelectedCells = (cell) => {
     const {
       calendarDaySelected,
       calendarDaySelectedStart,
       calendarDaySelectedEnd,
       calendarDaySelectedSpace,
     } = calendarClassName;
+    const isCellSelect = cell.classList.contains(calendarDaySelected);
+    const isCellSelectSpace = cell.classList.contains(calendarDaySelectedSpace);
+    const isCellStartSelect = cell.classList.contains(calendarDaySelectedStart);
+    const isCellEndSelect = cell.classList.contains(calendarDaySelectedEnd);
 
-    const cells = parentNode.querySelectorAll('td');
+    if (isCellSelectSpace) {
+      cell.classList.remove(calendarDaySelectedSpace);
+    }
 
-    cells.forEach((cell) => {
-      const isCellSelect = cell.classList.contains(calendarDaySelected);
-      const isCellSelectSpace = cell.classList.contains(
-        calendarDaySelectedSpace
-      );
-      const isCellStartSelect = cell.classList.contains(
-        calendarDaySelectedStart
-      );
-      const isCellEndSelect = cell.classList.contains(calendarDaySelectedEnd);
+    if (isCellSelect) {
+      cell.classList.remove(calendarDaySelected);
+    }
 
-      if (isCellSelectSpace) {
-        cell.classList.remove(calendarDaySelectedSpace);
-      }
+    if (isCellStartSelect) {
+      cell.classList.remove(calendarDaySelectedStart);
+    }
 
-      if (isCellSelect) {
-        cell.classList.remove(calendarDaySelected);
-      }
-
-      if (isCellStartSelect) {
-        cell.classList.remove(calendarDaySelectedStart);
-      }
-
-      if (isCellEndSelect) {
-        cell.classList.remove(calendarDaySelectedEnd);
-      }
-    });
+    if (isCellEndSelect) {
+      cell.classList.remove(calendarDaySelectedEnd);
+    }
   };
 }
 
