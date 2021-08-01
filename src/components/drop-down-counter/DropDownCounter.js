@@ -268,6 +268,7 @@ class DropDownCounter {
   _discardCounter = () => {
     const {dropDownParent} = this.domElements;
     const {countElements} = this.countElementsGroup;
+    const {counterButtonMinus} = classNameMap;
 
     countElements.forEach((item) => {
       const viewCounter = dropDownParent.querySelector(`#view-${item.id}`);
@@ -276,7 +277,7 @@ class DropDownCounter {
     });
 
     const minusButtons = dropDownParent.querySelectorAll(
-      '.drop-down-counter__counter-btn_minus'
+      `.${counterButtonMinus}`
     );
     const {counterButtonDisabled} = classNameMap;
 
