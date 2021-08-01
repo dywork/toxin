@@ -25,15 +25,15 @@
     justify-content: center;
     align-items: center;
 
-    &_emoticon {
+    &_with-emoticon {
       background: url('./img/emoticon.svg') center center no-repeat;
     }
 
-    &_city {
+    &_with-city {
       background: url('./img/city.svg') center center no-repeat;
     }
 
-    &_whats {
+    &_with-whats {
       background: url('./img/whatshot.svg') center center no-repeat;
     }
   }

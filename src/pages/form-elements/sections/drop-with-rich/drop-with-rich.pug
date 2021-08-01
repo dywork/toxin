@@ -4,13 +4,13 @@ include ../../../../components/checkbox-list/checkbox-list
 
 mixin dropWithRich
   .drop-with-rich__row-wrap
-    .drop-with-rich__input.drop-with-rich__input_bottom-gap
+    .drop-with-rich__input.drop-with-rich__input_with-bottom-gap
       .drop-with-rich__title-wrap
         +typography({ text: 'Dropdown', variant: 'h3', hasUpper: true })
       +dropDownInput({ text: 'Сколько гостей', classForJs: 'js-input-drop-down-clear' })
       .drop-down-counter-container.js-drop-down-counter-container-clear
     .drop-with-rich__list
-      .drop-with-rich__title-wrap.drop-with-rich__title-wrap_bottom-gap
+      .drop-with-rich__title-wrap.drop-with-rich__title-wrap_with-bottom-gap
         +typography({ text: 'Rich Checkbox Buttons', variant: 'h3', hasUpper: true })
       +checkboxList({
         items: [

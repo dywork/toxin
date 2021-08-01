@@ -6,7 +6,7 @@
     display: flex;
     justify-content: space-between;
 
-    &_bottom-gap {
+    &_with-bottom-gap {
       margin-bottom: 16px;
     }
   }
@@ -14,7 +14,7 @@
   &__input {
     margin-bottom: 20px;
 
-    &_bottom-gap {
+    &_with-bottom-gap {
       margin-bottom: 220px;
     }
   }

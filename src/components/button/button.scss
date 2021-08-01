@@ -53,7 +53,7 @@
     }
   }
 
-  &_variant_outlined {
+  &_with-variant-outlined {
     padding: 8px 18px;
     color: $accentColor;
     background: $mainColor;
@@ -70,7 +70,7 @@
     }
   }
 
-  &_variant_text {
+  &_with-variant-text {
     padding: 0;
     color: $accentColor;
     background: none;
@@ -107,15 +107,15 @@
     }
   }
 
-  &_size_large {
+  &_large {
     padding: 13px 24px;
   }
 
-  &_size_medium {
+  &_medium {
     padding: 12px 18px;
   }
 
-  &_size_higher {
+  &_higher {
     padding: 14px 20px;
   }
 }

@@ -5,14 +5,14 @@ mixin button(options)
      const variantModifiers = ['outlined', 'text'];
 
      if (variantModifiers.includes(variant)) {
-       buttonClass += ` button_variant_${variant}`;
+       buttonClass += ` button_with-variant-${variant}`;
      }
 
      const { size } = options;
      const sizeModifiers = ['large', 'medium', 'higher'];
 
      if (sizeModifiers.includes(size)) {
-       buttonClass += ` button_size_${size}`;
+       buttonClass += ` button_${size}`;
      }
 
     const {

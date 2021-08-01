@@ -20,11 +20,11 @@ mixin filter
         +rangeSlider({ title: 'Диапазон цены', start: [5000, 10000], step: 100, range: { min: 300, max: 15700 }, })
         p.filter__explain Стоимость за сутки пребывания в номере
       .filter__item
-        .filter__title-wrap.filter__title-wrap_bottom-gap
+        .filter__title-wrap.filter__title-wrap_with-bottom-gap
           +typography({ text: 'Правила дома', variant: 'h3', hasUpper: true })
         +checkboxList({ items: [ { label: 'Можно курить' }, { label: 'Можно с питомцами', isChecked: true }, { label: 'Можно пригласить гостей (до 10 человек)', isChecked: true }, ], })
       .filter__item
-        .filter__title-wrap.filter__title-wrap_bottom-gap
+        .filter__title-wrap.filter__title-wrap_with-bottom-gap
           +typography({ text: 'Доступность', variant: 'h3', hasUpper: true })
         +checkboxList({ items: [ { title: 'Широкий коридор', label: 'Ширина коридоров в номере не менее 91 см.', }, { title: 'Помощник для инвалидов', label: 'На 1 этаже вас встретит специалист и проводит до номера.', }, ], })
       .filter__item
