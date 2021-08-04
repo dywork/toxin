@@ -148,7 +148,7 @@
       transition: color .4s ease;
 
       &[href]:hover {
-        color: darken($accentColor, 10%);
+        opacity: .5;
       }
     }
   }
@@ -202,14 +202,7 @@
 
     &:hover {
       > .main-menu__item-link[href] {
-        opacity: 1;
-        color: darken($accentColor, 10%);
-
-        &::after {
-          opacity: 1;
-          border-right-color: darken($accentColor, 5%);
-          border-bottom-color: darken($accentColor, 5%);
-        }
+        opacity: .5;
       }
     }
 

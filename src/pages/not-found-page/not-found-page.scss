@@ -59,7 +59,7 @@
     transition: color .4s ease;
 
     &:hover {
-      color: darken($accentColor, 10%);
+      opacity: .5;
     }
   }
 }

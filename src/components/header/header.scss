@@ -124,7 +124,7 @@
 
     .page-header__auth-item-link:hover {
       @media (max-width: 1024px) {
-        color: darken($accentColor, 10%);
+        opacity: .5;
       }
     }
   }

@@ -31,7 +31,7 @@
       }
 
       &:hover {
-        color: darken($accentColor, 10%);
+        opacity: .5;
       }
     }
   }
