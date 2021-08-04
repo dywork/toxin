@@ -1,5 +1,5 @@
 const keyCodes = {
-  esc: 27,
+  ESC: 27,
 };
 
 export default keyCodes;

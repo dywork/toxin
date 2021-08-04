@@ -29,8 +29,8 @@ const monthReduction = {
 };
 
 const keyCodes = {
-  esc: 27,
-  enter: 13,
+  ESC: 27,
+  ENTER: 13,
 };
 
 export {monthRusTranslate, monthReduction, keyCodes};

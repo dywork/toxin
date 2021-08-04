@@ -185,8 +185,8 @@ class DropDownCounter {
   };
 
   _handleWindowKeyup = (evt) => {
-    const {esc} = keyCodes;
-    const isEscPress = evt.keyCode === esc;
+    const {ESC} = keyCodes;
+    const isEscPress = evt.keyCode === ESC;
     if (isEscPress) {
       this._hide();
     }

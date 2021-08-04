@@ -172,7 +172,7 @@ class DatePicker {
   };
 
   _handleBodyOutsideKeyup = (evt) => {
-    if (evt.keyCode === keyCodes.esc) {
+    if (evt.keyCode === keyCodes.ESC) {
       this._closeCalendar();
     }
   };
