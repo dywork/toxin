@@ -1,9 +1,9 @@
 import '../../style/main.scss';
 import './room-details.scss';
 import '../../components/main-menu/MainMenuInit';
+import '../../components/total-card';
 import DatePicker from '../../components/date-picker/DatePicker';
 import DropDownCounter from '../../components/drop-down-counter/DropDownCounter';
-import TotalCard from '../../components/total-card/TotalCard';
 import initialPieChart from '../../components/pie-chart/pie-chart';
 
 const pieChartDomInfo = {
@@ -48,17 +48,3 @@ const dropDownOptions = {
 
 const dropDown = new DropDownCounter(dropDownOptions);
 dropDown.init();
-
-const totalCard = new TotalCard({
-  arrivalInput: document.querySelector('.js-arrival-input'),
-  departureInput: document.querySelector('.js-departure-input'),
-  priceView: document.querySelector('.js-total-price'),
-  amountDayView: document.querySelector('.js-amount-day'),
-  costPerDaysView: document.querySelector('.js-cost-per-days'),
-  placeholder: 'ДД.ММ.ГГГГ',
-  priceForDay: 9990,
-  discount: 2179,
-  priceForAddServices: 300,
-});
-
-totalCard.init();
