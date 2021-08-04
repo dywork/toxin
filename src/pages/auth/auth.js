@@ -1,3 +1,3 @@
 import '../../style/main.scss';
 import './auth.scss';
-import '../../components/main-menu/MainMenuInit';
+import '../../components/main-menu';

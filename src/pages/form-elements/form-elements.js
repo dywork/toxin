@@ -1,19 +1,8 @@
 import '../../style/main.scss';
 import './form-elements.scss';
+import '../../components/range-slider';
 import DropDownCounter from '../../components/drop-down-counter/DropDownCounter';
 import Inputmask from 'inputmask';
-import initialRangeSlider from '../../components/range-slider/range-slider';
-
-const domInfo = {
-  root: 'js-range-slider',
-  options: 'js-range-slider-options',
-  lowValue: 'js-range-slider-lower-value',
-  upperValue: 'js-range-slider-upper-value',
-  handle: 'range-slider__handle',
-  connect: 'range-slider__connect',
-};
-
-initialRangeSlider(domInfo);
 
 Inputmask({mask: '99.99.9999', placeholder: 'ДД.ММ.ГГГГ'}).mask(
   '.js-masked-input'

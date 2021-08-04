@@ -1,17 +1,10 @@
 import '../../style/main.scss';
 import './room-details.scss';
-import '../../components/main-menu/MainMenuInit';
+import '../../components/main-menu';
 import '../../components/total-card';
+import '../../components/pie-chart';
 import DatePicker from '../../components/date-picker/DatePicker';
 import DropDownCounter from '../../components/drop-down-counter/DropDownCounter';
-import initialPieChart from '../../components/pie-chart/pie-chart';
-
-const pieChartDomInfo = {
-  root: 'js-doughnut-chart',
-  diagram: 'js-pie-diagram',
-};
-
-initialPieChart(pieChartDomInfo);
 
 const datePickerDomInfo = {
   parentNode: document.querySelector('.js-date-picker-container'),
