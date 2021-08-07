@@ -37,4 +37,8 @@
     line-height: 14px;
     color: transparentize($contentColor, .5);
   }
+
+  &__counter-container {
+    position: relative;
+  }
 }

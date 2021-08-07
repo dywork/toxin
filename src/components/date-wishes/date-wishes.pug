@@ -13,9 +13,9 @@ mixin dateWishes
               { title: 'Прибытие', value: 'ДД.ММ.ГГГГ', classForJs: 'js-arrival-input' },
               { title: 'Выезд', value: 'ДД.ММ.ГГГГ', classForJs: 'js-departure-input' },
             ])
-            .date-picker-container.js-date-picker-container.date-wishes__date-picker-container
+            .date-wishes__date-picker-container.js-date-picker-container
           .date-wishes__title-wrap
             +typography({ text: 'Гости', variant: 'h3', hasUpper: true }) 
           +dropDownInput({ text: 'Сколько гостей', classForJs: 'js-input-drop-down' })
-          .drop-down-counter-container.js-drop-down-counter-container
+          .date-wishes__counter-container.js-drop-down-counter-container
         +button({ title: 'Подобрать номер', withIcon: true, buttonType: 'submit' })

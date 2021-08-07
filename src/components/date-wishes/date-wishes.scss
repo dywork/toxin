@@ -24,6 +24,13 @@
     color: $contentColor;
   }
 
+  &__date-picker-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
   &__group {
     position: relative;
     margin-bottom: 20px;
@@ -59,6 +66,10 @@
 
   &__title-wrap {
     margin-bottom: 5px;
+  }
+
+  &__counter-container {
+    position: relative;
   }
 
   @media (max-width: 380px) {

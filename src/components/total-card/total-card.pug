@@ -41,11 +41,11 @@ mixin totalCard(options)
             { title: 'Прибытие', value: 'ДД.ММ.ГГГГ', classForJs: 'js-arrival-input' },
             { title: 'Выезд', value: 'ДД.ММ.ГГГГ', classForJs: 'js-departure-input' },
           ])
-          .date-picker-container.js-date-picker-container.total-card__date-picker-container
+          .total-card__date-picker-container.js-date-picker-container
         .total-card__title-wrap
           +typography({ text: 'Гости', variant: 'h3', hasUpper: true }) 
         +dropDownInput({ text: 'Сколько гостей', classForJs: 'js-input-drop-down' })
-        .drop-down-counter-container.js-drop-down-counter-container
+        .total-card__counter-container.js-drop-down-counter-container
         .total-card__calc
           .total-card__calc-row
             p.total-card__calc-text #[span.total-card__day-cost= getNumStringWithSpaces(dayCost)] ₽ х #[span.total-card__amount-day.js-amount-day=amountDay] суток
