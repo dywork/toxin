@@ -44,8 +44,9 @@
     }
 
     &:hover {
-      opacity: .5;
+      opacity: 1;
       background: $mainColor;
+      border: 2px solid lighten($accentColor, 10%);
     }
   }
 
