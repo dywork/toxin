@@ -1,6 +1,6 @@
 import RangeSlider from '../../libs/RangeSlider';
 
-const domInfo = {
+const domElements = {
   root: 'js-range-slider',
   options: 'js-range-slider-options',
   lowValue: 'js-range-slider-lower-value',
@@ -9,4 +9,4 @@ const domInfo = {
   connect: 'range-slider__connect',
 };
 
-RangeSlider.init(domInfo);
+RangeSlider.init(domElements);

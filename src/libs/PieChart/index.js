@@ -1,10 +1,9 @@
 import Chart from 'chart.js';
 
 class PieChart {
-  static init(domInfo) {
-    const {root, diagram} = domInfo;
+  static init({root, diagram}) {
     const elements = this._getElements(root);
-    elements.forEach(canvas =>
+    elements.forEach((canvas) =>
       this._createPie(canvas, this._getPieData(diagram), root)
     );
   }
@@ -39,7 +38,7 @@ class PieChart {
   static _getPieData(diagram) {
     const pieDiagram = document.querySelector(`.${diagram}`);
     const dataPie = pieDiagram.getAttribute('data-pie');
-    return dataPie.split(',').map(item => parseInt(item));
+    return dataPie.split(',').map((item) => parseInt(item));
   }
 
   static _getPieBackground(root) {

@@ -2,14 +2,14 @@ import noUiSlider from 'nouislider';
 import wNumb from 'wnumb';
 
 class RangeSlider {
-  static init(domInfo) {
-    const {root} = domInfo;
+  static init(domElements) {
+    const {root} = domElements;
     const element = this._getElement(root);
-    this._createSlider(element, domInfo);
+    this._createSlider(element, domElements);
   }
 
-  static _createSlider(item, domInfo) {
-    const {options, handle, connect, upperValue, lowValue} = domInfo;
+  static _createSlider(item, domElements) {
+    const {options, handle, connect, upperValue, lowValue} = domElements;
     const viewNodes = this._getViewNodes(upperValue, lowValue);
     noUiSlider.create(item, {
       start: this._getStartData(options),
