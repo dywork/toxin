@@ -3,10 +3,10 @@ import './room-details.scss';
 import '../../components/main-menu';
 import '../../components/total-card';
 import '../../components/pie-chart';
-import DatePicker from '../../components/date-picker/DatePicker';
-import DropDownCounter from '../../components/drop-down-counter/DropDownCounter';
+import datePickerInitial from '../../components/date-picker';
+import dropDownCounterInitial from '../../components/drop-down-counter';
 
-const datePickerDomInfo = {
+const datePickerDomElements = {
   parentNode: document.querySelector('.js-date-picker-container'),
   arrivalInput: document.querySelector('.js-arrival-input'),
   arrivalSplitBtn: document.querySelector('.js-arrival-input-split-btn'),
@@ -14,8 +14,7 @@ const datePickerDomInfo = {
   departureSplitBtn: document.querySelector('.js-departure-input-split-btn'),
 };
 
-const datePicker = new DatePicker(datePickerDomInfo);
-datePicker.init();
+datePickerInitial(datePickerDomElements);
 
 const dropDownContainer = document.querySelector(
   '.js-drop-down-counter-container'
@@ -39,5 +38,4 @@ const dropDownOptions = {
   placeholder: 'Cколько гостей',
 };
 
-const dropDown = new DropDownCounter(dropDownOptions);
-dropDown.init();
+dropDownCounterInitial(dropDownOptions);

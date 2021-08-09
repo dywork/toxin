@@ -1,7 +1,7 @@
 import '../../style/main.scss';
 import './form-elements.scss';
 import '../../components/range-slider';
-import DropDownCounter from '../../components/drop-down-counter/DropDownCounter';
+import dropDownCounterInitial from '../../components/drop-down-counter';
 import Inputmask from 'inputmask';
 
 Inputmask({mask: '99.99.9999', placeholder: 'ДД.ММ.ГГГГ'}).mask(
@@ -38,8 +38,7 @@ const dropDownOptions = {
   isPinShow: true,
 };
 
-const dropDown = new DropDownCounter(dropDownOptions);
-dropDown.init();
+dropDownCounterInitial(dropDownOptions);
 
 const dropDownGuestContainer = document.querySelector(
   '.js-drop-down-counter-container-clear'
@@ -66,8 +65,7 @@ const dropDownGuestOptions = {
   isPinShow: true,
 };
 
-const dropDownGuest = new DropDownCounter(dropDownGuestOptions);
-dropDownGuest.init();
+dropDownCounterInitial(dropDownGuestOptions);
 
 const dropDownQuestContainer = document.querySelector(
   '.js-drop-down-counter-container-filled'
@@ -92,5 +90,4 @@ const dropDownQuestOptions = {
   isPinShow: true,
 };
 
-const dropDownQuest = new DropDownCounter(dropDownQuestOptions);
-dropDownQuest.init();
+dropDownCounterInitial(dropDownQuestOptions);

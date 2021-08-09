@@ -2,10 +2,10 @@ import '../../style/main.scss';
 import './index.scss';
 import '../../favicons/favicons.js';
 import '../../components/main-menu';
-import DropDownCounter from '../../components/drop-down-counter/DropDownCounter';
-import DatePicker from '../../components/date-picker/DatePicker';
+import datePickerInitial from '../../components/date-picker';
+import dropDownCounterInitial from '../../components/drop-down-counter';
 
-const datePickerDomInfo = {
+const datePickerDomElements = {
   parentNode: document.querySelector('.js-date-picker-container'),
   arrivalInput: document.querySelector('.js-arrival-input'),
   arrivalSplitBtn: document.querySelector('.js-arrival-input-split-btn'),
@@ -13,8 +13,7 @@ const datePickerDomInfo = {
   departureSplitBtn: document.querySelector('.js-departure-input-split-btn'),
 };
 
-const datePicker = new DatePicker(datePickerDomInfo);
-datePicker.init();
+datePickerInitial(datePickerDomElements);
 
 const dropDownContainer = document.querySelector(
   '.js-drop-down-counter-container'
@@ -37,8 +36,7 @@ const dropDownOptions = {
     guest: {counter: 0, views: ['гость', 'гостя', 'гостей']},
     child: {counter: 0, views: ['младенец', 'младенца', 'младенцев']},
   },
-  placeholder: 'Cколько гостей',
+  placeholder: 'Сколько гостей',
 };
 
-const dropDown = new DropDownCounter(dropDownOptions);
-dropDown.init();
+dropDownCounterInitial(dropDownOptions);

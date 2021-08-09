@@ -1,15 +1,14 @@
-import DatePicker from '../../../../components/date-picker/DatePicker';
-import DropDownCounter from '../../../../components/drop-down-counter/DropDownCounter';
+import datePickerInitial from '../../../../components/date-picker';
+import dropDownCounterInitial from '../../../../components/drop-down-counter';
 
-const datePickerDomInfo = {
+const datePickerDomElements = {
   parentNode: document.querySelector('.js-date-picker-container'),
   datePickerInput: document.querySelector('.js-drop-down-input'),
   datePickerSplitBtn: document.querySelector('.js-drop-down-input-split-btn'),
   isCellLower: true,
 };
 
-const datePicker = new DatePicker(datePickerDomInfo);
-datePicker.init();
+datePickerInitial(datePickerDomElements);
 
 const dropDownGuestContainer = document.querySelector(
   '.js-drop-down-counter-container-guest'
@@ -35,8 +34,7 @@ const dropDownGuestOptions = {
   placeholder: 'Cколько гостей',
 };
 
-const dropDownGuest = new DropDownCounter(dropDownGuestOptions);
-dropDownGuest.init();
+dropDownCounterInitial(dropDownGuestOptions);
 
 const dropDownContainer = document.querySelector(
   '.js-drop-down-counter-container'
@@ -64,5 +62,4 @@ const dropDownOptions = {
   placeholder: 'Удобства номера',
 };
 
-const dropDown = new DropDownCounter(dropDownOptions);
-dropDown.init();
+dropDownCounterInitial(dropDownOptions);
